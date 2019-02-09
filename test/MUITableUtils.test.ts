@@ -3,10 +3,9 @@ import {
     DEFAULT_COL,
     DEFAULT_OPTS,
     GeneratedColumn,
-    PropColumn,
     StateColumn,
     SummaryRowCell
-} from "../src/types/index";
+} from "../src/types";
 import sinon from "sinon";
 const sandbox = sinon.createSandbox();
 
