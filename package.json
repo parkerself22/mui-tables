@@ -1,0 +1,30 @@
+{
+  "name": "mui-table",
+  "version": "1.0.0",
+  "author": "Parker Self",
+  "license": "ISC",
+  "description": "Pluggable table library built on top of material-ui components",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "peerDependencies": {
+    "react": ">= 0.11.2 < 16.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/survivejs/react-component-boilerplate.git"
+  },
+  "homepage": "https://survivejs.github.io/react-component-boilerplate/",
+  "bugs": {
+    "url": "https://github.com/survivejs/react-component-boilerplate/issues"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "boilerplate"
+  ],
+  "pre-push": [
+    "test"
+  ]
+}
