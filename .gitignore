@@ -25,6 +25,5 @@ jspm_packages/
 .idea/
 .env
 dist/
-docs/
 examples/
 

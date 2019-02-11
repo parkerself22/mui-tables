@@ -28,4 +28,4 @@ comment:
 path:
   - "^src/.*"
 ignore:
-  - "src/stories"
+  - "src/stories/*"
