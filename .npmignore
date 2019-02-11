@@ -68,3 +68,4 @@ examples
 scripts
 test
 src
+/.env
