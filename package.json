@@ -9,7 +9,7 @@
     "clean": "rm -rf ./dist && mkdir ./dist",
     "build:ts": "npm run lint && npm run prettier:write && npm run clean && tsc -p .",
     "build": "npm run test:coverage && npm run build:ts",
-    "release": "npx node-env-run --exec \"semantic-release\"",
+    "release": "semantic-release",
     "test": "node scripts/test.js",
     "test:coverage": "node scripts/test.js --coverage",
     "test:push": "CI=true node scripts/test.js",
