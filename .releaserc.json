@@ -8,5 +8,5 @@
         "@semantic-release/npm",
         "@semantic-release/github"
     ],
-    "repositoryUrl": "https://github.com/parkerself22/mui-table"
+    "repositoryUrl": "https://github.com/parkerself22/mui-table.git"
 }
