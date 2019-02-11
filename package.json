@@ -1,5 +1,5 @@
 {
-  "name": "mui-table",
+  "name": "mui-tables",
   "version": "1.0.0",
   "author": "Parker Self",
   "license": "ISC",
@@ -68,6 +68,7 @@
     "case-sensitive-paths-webpack-plugin": "2.1.2",
     "chalk": "2.4.1",
     "classnames": "^2.2.6",
+    "codecov": "^3.1.0",
     "compression-webpack-plugin": "^1.1.12",
     "css-loader": "1.0.0",
     "dotenv": "6.0.0",
