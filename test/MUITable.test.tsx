@@ -1,6 +1,6 @@
 import React from "react";
 import { cleanup, render } from "react-testing-library";
-import { MUITable } from "../src/MUITable";
+import { MUITable } from "../src/components/MUITable";
 import { EXAMPLE_COLUMNS, EXAMPLE_INPUT_DATA, MUITableTestContext } from "./utils";
 
 afterEach(cleanup);

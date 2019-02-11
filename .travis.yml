@@ -1,0 +1,9 @@
+language: node_js
+cache:
+  directories:
+  - node_modules
+scripts:
+- npm run build
+- npm install codecov -g
+after_success:
+- codecov

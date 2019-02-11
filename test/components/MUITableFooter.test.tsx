@@ -1,8 +1,8 @@
 import React from "react";
 import { cleanup, render } from "react-testing-library";
 import sinon from "sinon";
-import MUITableFooter from "../../src/components/MUITableFooter";
-import { DEFAULT_OPTS } from "../../src/types";
+import MUITableFooter from "../../src/components/Footer/MUITableFooter";
+import { DEFAULT_OPTS } from "../../src/constants";
 import { MUITableTestContext } from "../utils";
 
 const sandbox = sinon.createSandbox();

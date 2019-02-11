@@ -1,6 +1,6 @@
 import React from "react";
 import { cleanup, render } from "react-testing-library";
-import MUITableBodyRow from "../../src/components/MUITableBodyRow";
+import MUITableBodyRow from "../../src/components/Body/MUITableBodyRow";
 import { MUITableTestContext } from "../utils";
 
 afterEach(cleanup);

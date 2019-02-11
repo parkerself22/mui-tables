@@ -1,11 +1,6 @@
-import MUITableUtils from "../src/MUITableUtils";
-import {
-    DEFAULT_COL,
-    DEFAULT_OPTS,
-    GeneratedColumn,
-    StateColumn,
-    SummaryRowCell
-} from "../src/types";
+import MUITableUtils from "../src/constants/MUITableUtils";
+import { GeneratedColumn, StateColumn, SummaryRowCell } from "../src/types";
+import { DEFAULT_COL, DEFAULT_OPTS } from "../src/constants";
 import sinon from "sinon";
 const sandbox = sinon.createSandbox();
 
@@ -343,8 +338,8 @@ describe("MUITableUtils", () => {
         });
         test("It handles columns with no active filters", () => {
             const testRows = [
-                [{ value: 1, display: "1", column: col },
-                { value: 2, display: "2", column: col }]];
+                [{ value: 1, display: "1", column: col }, { value: 2, display: "2", column: col }]
+            ];
             const opts = {
                 ...DEFAULT_OPTS,
                 display: { ...DEFAULT_OPTS.display, filter: true }

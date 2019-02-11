@@ -1,7 +1,7 @@
 import React from "react";
 import { cleanup, render } from "react-testing-library";
-import MUITableFilter from "../../src/components/MUITableFilter";
-import MUITableUtils from "../../src/MUITableUtils";
+import MUITableFilter from "../../src/components/Toolbars/Filters/MUITableFilter";
+import MUITableUtils from "../../src/constants/MUITableUtils";
 import { EXAMPLE_COLUMNS, EXAMPLE_INPUT_DATA, MUITableTestContext } from "../utils";
 
 afterEach(cleanup);

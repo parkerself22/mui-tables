@@ -1,11 +1,8 @@
 import React from "react";
 import { cleanup, render } from "react-testing-library";
-import sinon from "sinon";
-import MUITableHead from "../../src/components/MUITableHead";
-import { DEFAULT_OPTS } from "../../src/types";
+import MUITableHead from "../../src/components/Head/MUITableHead";
+import { DEFAULT_OPTS } from "../../src/constants";
 import { EXAMPLE_COLUMNS, MUITableTestContext } from "../utils";
-
-const sandbox = sinon.createSandbox();
 
 afterEach(cleanup);
 

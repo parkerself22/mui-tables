@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 /////////////////////////// UTILS ///////////////////////////
 
@@ -27,11 +27,11 @@ export type Row<R extends MUIDataObj = MUIDataObj> = Cell<R>[];
 
 /////////////////////////// COLUMNS ///////////////////////////
 
-type CalculateCell<R extends MUIDataObj> = (entry: R) => Omit<Cell<R>, "column">;
+type CalculateCell<R extends MUIDataObj> = (entry: R) => Omit<Cell<R>, 'column'>;
 
-export type SummaryFormats = "float" | "integer" | "seconds" | "hours" | "minutes";
+export type SummaryFormats = 'float' | 'integer' | 'seconds' | 'hours' | 'minutes';
 
-type SummaryTypes = "AVG" | "SUM";
+type SummaryTypes = 'AVG' | 'SUM';
 
 interface SummaryOpts {
     type: SummaryTypes;
@@ -40,7 +40,7 @@ interface SummaryOpts {
     postfix?: string;
     customCalculate?: (displayRows: Row<any>[], allRows: Row<any>[]) => SummaryRowCell;
     customRender?: (s: SummaryRowCell) => ReactNode;
-    showComparison?: "true" | "whenDifferent" | "false"
+    showComparison?: 'true' | 'whenDifferent' | 'false';
 }
 
 export interface SummaryRowCell {
@@ -48,7 +48,7 @@ export interface SummaryRowCell {
     total: Cell<any>;
 }
 
-export type FilterTypes = "checkbox" | "dropdown" | "multiselect";
+export type FilterTypes = 'checkbox' | 'dropdown' | 'multiselect';
 
 interface FilterOpts {
     exact: boolean;
@@ -58,18 +58,18 @@ interface FilterOpts {
     sortFilterList?: boolean;
 }
 
-type RequiredColProps = "name" | "calculateCellDefinition";
+type RequiredColProps = 'name' | 'calculateCellDefinition';
 
 export interface PropColumn<R extends MUIDataObj>
     extends OptionalExceptFor<StateColumn<R>, RequiredColProps> {}
 
-type ColTypes = "dimension" | "metric";
+type ColTypes = 'dimension' | 'metric';
 
 export interface StateColumn<R extends MUIDataObj> {
     title?: string;
     name: string;
     type: ColTypes;
-    display: "true" | "false" | "excluded";
+    display: 'true' | 'false' | 'excluded';
 
     calculateCellDefinition: CalculateCell<R>;
 
@@ -105,25 +105,6 @@ export interface GeneratedColumn<R extends MUIDataObj> {
     modifyProps?: (col: StateColumn<R>, entry: R) => StateColumn<R>;
     generateRelatedColumns?: GenerateRelated<R>;
 }
-
-export const DEFAULT_COL: StateColumn<any> = {
-    name: "column",
-    title: "Column",
-    type: "dimension",
-    display: "true",
-    isRowId: true,
-    calculateCellDefinition: entry => ({ display: "", value: "" }),
-    summary: false,
-    filter: true,
-    filterOptions: {
-        type: "multiselect",
-        exact: false,
-        currentList: []
-    },
-    sort: true,
-    download: true,
-    viewColumns: true
-};
 
 /////////////////////////// OPTIONS ///////////////////////////
 interface RowOptions<R extends MUIDataObj> {
@@ -172,13 +153,7 @@ interface PaginationOptions {
     count?: number;
     rowsPerPage?: number;
     rowsPerPageOptions?: number[];
-    customFooter?: (
-        count: number,
-        page: number,
-        rowsPerPage: number,
-        changeRowsPerPage: (number: any) => void,
-        changePage: (number: any) => void
-    ) => ReactNode;
+    customFooter?: (context: Context) => ReactNode;
     onChangePage?: (currentPage: number) => void;
     onChangeRowsPerPage?: (numberOfRows: number) => void;
 }
@@ -228,7 +203,7 @@ interface DisplayOptions {
     fixedHeader: boolean;
     viewColumns: boolean;
     elevation: number;
-    responsive: "stacked" | "scroll";
+    responsive: 'stacked' | 'scroll';
     filterValues: boolean;
 }
 
@@ -266,75 +241,6 @@ export interface Options<R extends MUIDataObj> extends UserOptions<R> {
 
     display: DisplayOptions;
 }
-
-export const DEFAULT_OPTS: Options<any> = {
-    title: "Table",
-    loading: false,
-    toolbar: {
-        showDates: false
-    },
-    columns: {
-        static: [],
-        generated: []
-    },
-    rows: {
-        rowHover: false,
-        showSummaryRow: false,
-        summaryTop: true,
-        selectable: false
-    },
-    pagination: {
-        rowsPerPage: 5,
-        rowsPerPageOptions: [10, 25, 50]
-    },
-    translations: {
-        body: {
-            noMatch: "Sorry, no matching records found",
-            toolTip: "Sort",
-            summary: "SUMMARY"
-        },
-        pagination: {
-            next: "Next Page",
-            previous: "Previous Page",
-            rowsPerPage: "Rows per page:",
-            displayRows: "of"
-        },
-        toolbar: {
-            search: "Search",
-            downloadCsv: "Download CSV",
-            print: "Print",
-            viewColumns: "View Columns",
-            filterTable: "Filter Table"
-        },
-        filter: {
-            all: "All",
-            title: "FILTERS",
-            reset: "RESET"
-        },
-        viewColumns: {
-            title: "Show Columns",
-            titleAria: "Show/Hide Table Columns"
-        },
-        selectedRows: {
-            text: "row(s) selected",
-            delete: "Delete",
-            deleteAria: "Delete Selected Rows"
-        }
-    },
-    display: {
-        sort: true,
-        paginate: true,
-        filter: true,
-        search: true,
-        print: false,
-        download: false,
-        viewColumns: true,
-        fixedHeader: true,
-        elevation: 4,
-        responsive: "scroll",
-        filterValues: true
-    }
-};
 
 /////////////////////////// PROPS ///////////////////////////
 export interface ParentProps<R extends MUIDataObj = MUIDataObj> extends UserOptions<R> {
@@ -389,39 +295,3 @@ export interface Context<R extends MUIDataObj = MUIDataObj> extends State<R>, Co
     displayRows: Row<R>[];
     columns: StateColumn<R>[];
 }
-
-export const DEFAULT_CONTEXT: Context = {
-    options: DEFAULT_OPTS,
-    columns: [],
-    rows: [],
-    displayRows: [],
-    columnFilters: [],
-    selectedRows: [],
-    search: {
-        open: false,
-        text: null
-    },
-    viewColumns: [],
-    sortColumn: {
-        index: null,
-        asc: false
-    },
-    pagination: {
-        page: 0,
-        rowsPerPage: 5,
-        rowsPerPageOptions: [5, 10, 15]
-    },
-    toggleViewColumn: (index: number) => {},
-    searchTextUpdate: (text: string | null) => {},
-    toggleSearchVisible: () => {},
-    onFilterUpdate: (colIndex: number, value: string) => {},
-    onFilterReset: () => {},
-    onRowsDelete: () => {},
-    toggleRowSelected: row => {},
-    handleAllSelect: () => {},
-    toggleSort: (colIndex: number) => {},
-    changePage: (p: number) => {},
-    changeRowsPerPage: (p: number) => {},
-    getFilterData: (column: StateColumn<any>) => [],
-    getVisibleColumns: () => []
-};

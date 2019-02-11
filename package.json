@@ -3,24 +3,22 @@
   "version": "1.0.0",
   "author": "Parker Self",
   "license": "ISC",
-  "description": "Pluggable table library built on top of material-ui components",
+  "description": "Pluggable table library built on top of Material-UI components",
   "main": "index.js",
   "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
+    "clean": "rm -rf ./dist && mkdir ./dist",
+    "build:ts": "npm run lint && npm run prettier:write && npm run clean && tsc -p .",
+    "build": "npm run test:coverage && npm run build:ts",
     "test": "node scripts/test.js",
+    "test:coverage": "node scripts/test.js --coverage",
     "lint": "tslint -c tslint.json src/**/*.{ts,tsx}",
     "prettier:base": "prettier --parser typescript --single-quote",
     "prettier:check": "npm run prettier:base -- --list-different \"src/**/*.{ts,tsx}\"",
     "prettier:write": "npm run prettier:base -- --write \"src/**/*.{ts,tsx}\"",
-    "analyze": "npm run analyze:main",
-    "analyze:main": "source-map-explorer build/static/js/main.*",
-    "analyze:vendor": "source-map-explorer build/static/js/*.*.chunk.*",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public -o .storybook/public",
-    "release": "npx node-env-run --exec \"semantic-release\"",
-    "catalog-start": "catalog start",
-    "catalog-build": "catalog build"
+    "deploy-storybook": "storybook-to-aws-s3 --bucket-path=mui-table --aws-profile=default --out=.storybook/public",
+    "release": "npx node-env-run --exec \"semantic-release\""
   },
   "devDependencies": {
     "@babel/core": "7.1.6",
@@ -90,7 +88,6 @@
     "jest": "^23.6.0",
     "jest-pnp-resolver": "1.0.1",
     "jest-resolve": "23.6.0",
-    "lodash": "^4.17.11",
     "material-ui-pickers": "^2.2.1",
     "mini-css-extract-plugin": "0.4.3",
     "moment": "^2.22.2",
@@ -101,6 +98,7 @@
     "postcss-loader": "3.0.0",
     "postcss-preset-env": "6.3.1",
     "postcss-safe-parser": "4.0.1",
+    "pre-push": "^0.1.1",
     "prettier": "^1.16.1",
     "react": "^16.8.1",
     "react-app-polyfill": "^0.2.0",
@@ -132,6 +130,9 @@
     "webpack-manifest-plugin": "2.0.4",
     "workbox-webpack-plugin": "3.6.3"
   },
+  "dependencies": {
+    "lodash": "^4.17.11"
+  },
   "peerDependencies": {
     "@material-ui/core": ">= 3.9.0",
     "@material-ui/icons": ">= 3.0.0",
@@ -153,14 +154,15 @@
     "mui"
   ],
   "pre-push": [
+    "release",
     "test"
   ],
-  "dependencies": {},
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
       "!src/**/*.d.ts"
     ],
+    "coverageDirectory": "coverage",
     "resolver": "jest-pnp-resolver",
     "setupFiles": [
       "react-app-polyfill/jsdom"

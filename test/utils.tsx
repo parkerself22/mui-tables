@@ -1,6 +1,7 @@
 import React from "react";
-import MUITableUtils from "../src/MUITableUtils";
-import { Context, DEFAULT_COL, DEFAULT_CONTEXT, Optional, StateColumn } from "../src/types";
+import { DEFAULT_COL, DEFAULT_CONTEXT, MUI_TABLE_CONTEXT } from "../src/constants";
+import MUITableUtils from "../src/constants/MUITableUtils";
+import { Context, Optional, StateColumn } from "../src/types";
 
 export const EXAMPLE_INPUT_DATA = [
     {
@@ -207,8 +208,6 @@ interface Props {
     override?: Optional<Context>;
     children: any;
 }
-
-export const MUI_TABLE_CONTEXT = React.createContext<Context>(DEFAULT_CONTEXT);
 
 export const MUITableTestContext = (props: Props) => {
     const { children, override } = props;
