@@ -24,6 +24,6 @@ const TableHeadRow = (props: Props & WithStyles<typeof defaultHeadRowStyles>) =>
     );
 };
 
-export default withStyles(defaultHeadRowStyles, { name: "MUIDataTableHeadRow" })(
+export default withStyles(defaultHeadRowStyles, { name: "MUITableHeadRow" })(
     TableHeadRow
 ) as React.FunctionComponent<Props>;

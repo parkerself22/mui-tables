@@ -1,0 +1,25 @@
+{
+  "debug": true,
+  "noCi": true,
+  "dryRun": true,
+  "verifyConditions": [
+    "@semantic-release/changelog",
+    "@semantic-release/github"
+  ],
+  "prepare": [
+    {
+      "path": "@semantic-release/changelog",
+      "changelogFile": "CHANGELOG.md"
+    }
+  ],
+  "publish": [
+    "@semantic-release/github"
+  ],
+  "success": [
+    "@semantic-release/github"
+  ],
+  "fail": [
+    "@semantic-release/github"
+  ],
+  "repositoryUrl": "https://github.com/parkerself22/mui-table.git"
+}

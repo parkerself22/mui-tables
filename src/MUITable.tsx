@@ -97,7 +97,7 @@ class MUIChildTable extends React.Component<Props<any>, State<any>> {
         this.setState({ search: { text: open ? null : text, open: !this.state.search.open } });
     };
 
-    onFilterUpdate = (col: StateColumn<any>, colIndex: number, value: string | string[]) => {
+    onFilterUpdate = (colIndex: number, value: string | string[]) => {
         const { columnFilters } = this.state;
         const newFilters = [...columnFilters];
         if (newFilters[colIndex]) {

@@ -54,11 +54,11 @@ const styles = (theme: Theme) => ({
 
 interface MUISummaryCellProps extends WithStyles<typeof styles> {
     summaryCell: SummaryRowCell;
-    key: string;
+    cellKey: string;
 }
 
 export const MUISummaryCell = (props: MUISummaryCellProps) => {
-    const { classes, summaryCell, key } = props;
+    const { classes, summaryCell, cellKey } = props;
     const { total, visible } = summaryCell;
     const { options } = useMUITableContext();
     const { column } = total;
@@ -84,7 +84,7 @@ export const MUISummaryCell = (props: MUISummaryCellProps) => {
             (column.summaryOptions.showComparison === "whenDifferent" && isDiff));
 
     return (
-        <TableCell colSpan={1} className={className} key={key}>
+        <TableCell colSpan={1} className={className} key={cellKey}>
             {column.summary && (
                 <React.Fragment>
                     <Typography
@@ -140,7 +140,7 @@ const MUISummaryRow = (props: WithStyles<typeof styles>) => {
                     }
                     return (
                         <MUISummaryCell
-                            key={index.toString()}
+                            cellKey={index.toString()}
                             summaryCell={cell}
                             classes={classes}
                         />

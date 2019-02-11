@@ -1,6 +1,6 @@
 import React from "react";
 import MUITableUtils from "../src/MUITableUtils";
-import { Context, DEFAULT_COL, DEFAULT_CONTEXT, Optional, StateColumn } from "../src/types/index";
+import { Context, DEFAULT_COL, DEFAULT_CONTEXT, Optional, StateColumn } from "../src/types";
 
 export const EXAMPLE_INPUT_DATA = [
     {

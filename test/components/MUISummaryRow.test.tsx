@@ -17,7 +17,7 @@ describe("MUISummaryCell", () => {
         };
         const { getByRole } = render(
             <MUITableTestContext>
-                <MUISummaryCell key={"1"} summaryCell={summaryCell} classes={{} as any} />
+                <MUISummaryCell cellKey={"1"} summaryCell={summaryCell} classes={{} as any} />
             </MUITableTestContext>
         );
         expect(() => getByRole("summaryTitle")).toThrow();
@@ -33,7 +33,7 @@ describe("MUISummaryCell", () => {
         };
         const { getByRole } = render(
             <MUITableTestContext>
-                <MUISummaryCell key={"1"} summaryCell={summaryCell} classes={{} as any} />
+                <MUISummaryCell cellKey={"1"} summaryCell={summaryCell} classes={{} as any} />
             </MUITableTestContext>
         );
         expect(() => getByRole("summaryTitle")).not.toThrow();
@@ -53,7 +53,7 @@ describe("MUISummaryCell", () => {
         };
         const { getByText } = render(
             <MUITableTestContext>
-                <MUISummaryCell key={"1"} summaryCell={summaryCell} classes={{} as any} />
+                <MUISummaryCell cellKey={"1"} summaryCell={summaryCell} classes={{} as any} />
             </MUITableTestContext>
         );
         expect(() => getByText("Avg for All: 1 (0.00%)")).not.toThrow();
@@ -74,7 +74,7 @@ describe("MUISummaryCell", () => {
         };
         const { getByRole } = render(
             <MUITableTestContext>
-                <MUISummaryCell key={"1"} summaryCell={summaryCell} classes={{} as any} />
+                <MUISummaryCell cellKey={"1"} summaryCell={summaryCell} classes={{} as any} />
             </MUITableTestContext>
         );
         expect(() => getByRole("summaryCaption")).not.toThrow();
@@ -95,7 +95,7 @@ describe("MUISummaryCell", () => {
         };
         const { getByRole } = render(
             <MUITableTestContext>
-                <MUISummaryCell key={"1"} summaryCell={summaryCell} classes={{} as any} />
+                <MUISummaryCell cellKey={"1"} summaryCell={summaryCell} classes={{} as any} />
             </MUITableTestContext>
         );
         expect(() => getByRole("summaryCaption")).toThrow();

@@ -123,6 +123,6 @@ const MUITableHeadCell = (props: Props) => {
         </TableCell>
     );
 };
-export default withStyles(defaultHeadCellStyles, { name: "MUIDataTableHeadCell" })(
+export default withStyles(defaultHeadCellStyles, { name: "MUITableHeadCell" })(
     MUITableHeadCell
 ) as React.FunctionComponent<MUITableHeadCellProps>;

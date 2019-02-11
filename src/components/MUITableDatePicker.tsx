@@ -3,6 +3,7 @@ import { createStyles, Theme, WithStyles, withStyles } from "@material-ui/core/s
 import { InlineDatePicker, MuiPickersUtilsProvider } from "material-ui-pickers";
 import * as React from "react";
 import { useMUITableContext } from "../MUITable";
+import classnames from "classnames";
 
 const styles = (theme: Theme) =>
     createStyles({
@@ -19,33 +20,55 @@ const MUITableDatePicker = (props: WithStyles<typeof styles>) => {
     const { classes } = props;
     const { options } = useMUITableContext();
     const {
-        toolbar: { startDate, endDate, showDates, handleDateChange, customToolbar }
+        toolbar: {
+            startDate,
+            endDate,
+            showDates,
+            handleDateChange,
+            customToolbar,
+            startLabel,
+            endLabel
+        }
     } = options;
     const start = startDate ? startDate : new Date();
     const end = endDate ? endDate : new Date();
     if (showDates && !handleDateChange) {
         throw new Error("showDates=true provided to MUITableDatePicker but no handler provided");
     }
+    if (!showDates && !customToolbar) {
+        return null;
+    }
+
+    const defaultHandler = (value: any) => {};
+    const startLabelText = startLabel ? startLabel : "Start Date";
+    const endLabelText = endLabel ? endLabel : "End Date";
+
     return (
         <MuiPickersUtilsProvider utils={MomentUtils}>
             <div className={classes.datePickerWrapper}>
                 {customToolbar ? customToolbar() : null}
-                {showDates ? (
+                {showDates && startDate ? (
                     <InlineDatePicker
-                        className={classes.datePicker}
-                        label="Start Date"
+                        className={classnames(
+                            classes.datePicker,
+                            "muiTableToolbar-datePicker-start"
+                        )}
+                        label={startLabelText}
                         value={start}
-                        onChange={handleDateChange ? handleDateChange(true) : (value: any) => {}}
+                        onChange={handleDateChange ? handleDateChange(true) : defaultHandler}
                         disableFuture={true}
                         maxDate={end}
                     />
                 ) : null}
-                {showDates ? (
+                {showDates && endDate ? (
                     <InlineDatePicker
-                        className={classes.datePicker}
-                        label="End Date"
+                        className={classnames(
+                            classes.datePicker,
+                            "muiTableToolbar-datePicker-end"
+                        )}
+                        label={endLabelText}
                         value={end}
-                        onChange={handleDateChange ? handleDateChange(false) : (value: any) => {}}
+                        onChange={handleDateChange ? handleDateChange(false) : defaultHandler}
                         minDate={start}
                         disableFuture={true}
                     />

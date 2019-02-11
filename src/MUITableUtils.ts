@@ -324,7 +324,7 @@ export default class MUITableUtils {
     ) => {
         return generatedColumns.reduce((columns, dynamicCol) => {
             const columnSourceObjs = data.reduce(
-                (prev: string[], entry) => {
+                (prev: MUIDataObj[], entry) => {
                     const rootObj = get(entry, dynamicCol.path, null);
                     if (
                         rootObj &&
@@ -339,8 +339,8 @@ export default class MUITableUtils {
                 [] as MUIDataObj[]
             );
             for (const entry of columnSourceObjs) {
-                const title = entry[dynamicCol.nameProp]
-                    ? String(entry[dynamicCol.nameProp])
+                const title = entry[dynamicCol.nameProp as string]
+                    ? String(entry[dynamicCol.nameProp as string])
                     : Math.random().toString();
                 const name = title.toLowerCase().trim().replace(" ", "") + Math.random();
 

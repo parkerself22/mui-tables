@@ -6,7 +6,7 @@ import MUITablePagination from "./MUITablePagination";
 const MUITableFooter = () => {
     const { options, rows, changeRowsPerPage, changePage, pagination } = useMUITableContext();
     if (!options.display.paginate) {
-        return <Table />;
+        return null;
     }
     return (
         <Table>

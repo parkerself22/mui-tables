@@ -148,6 +148,8 @@ interface ToolbarOptions<R extends MUIDataObj> {
     showDates: boolean;
     startDate?: Date;
     endDate?: Date;
+    startLabel?: string;
+    endLabel?: string;
     handleDateChange?: (isStart: boolean) => (value: any) => void;
     customToolbar?: () => ReactNode;
 }
@@ -227,6 +229,7 @@ interface DisplayOptions {
     viewColumns: boolean;
     elevation: number;
     responsive: "stacked" | "scroll";
+    filterValues: boolean;
 }
 
 export interface UserOptions<R extends MUIDataObj> {
@@ -328,7 +331,8 @@ export const DEFAULT_OPTS: Options<any> = {
         viewColumns: true,
         fixedHeader: true,
         elevation: 4,
-        responsive: "scroll"
+        responsive: "scroll",
+        filterValues: true
     }
 };
 
@@ -367,7 +371,7 @@ export interface ContextActions<R extends MUIDataObj = MUIDataObj> {
     toggleViewColumn: (index: number) => void;
     searchTextUpdate: (text: string | null) => void;
     toggleSearchVisible: () => void;
-    onFilterUpdate: (col: StateColumn<R>, colIndex: number, value: string) => void;
+    onFilterUpdate: (colIndex: number, value: string) => void;
     onFilterReset: () => void;
     onRowsDelete: () => void;
     toggleRowSelected: (row: Row<R>) => void;
@@ -410,7 +414,7 @@ export const DEFAULT_CONTEXT: Context = {
     toggleViewColumn: (index: number) => {},
     searchTextUpdate: (text: string | null) => {},
     toggleSearchVisible: () => {},
-    onFilterUpdate: (col: StateColumn<any>, colIndex: number, value: string) => {},
+    onFilterUpdate: (colIndex: number, value: string) => {},
     onFilterReset: () => {},
     onRowsDelete: () => {},
     toggleRowSelected: row => {},

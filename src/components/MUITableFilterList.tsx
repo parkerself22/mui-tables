@@ -21,29 +21,28 @@ export interface MUITableFilterListProps {}
 interface Props extends MUITableFilterListProps, WithStyles<typeof defaultFilterListStyles> {}
 
 const MUITableFilterList = (props: Props) => {
-    const { onFilterUpdate, columns } = useMUITableContext();
+    const { onFilterUpdate, columns, columnFilters, options } = useMUITableContext();
     const { classes } = props;
+    if (!options.display.filterValues) {
+        return null;
+    }
 
     const filterUpdate = (col: StateColumn<any>, valueIndex: number, value: string) => () => {
-        onFilterUpdate(col, valueIndex, value);
+        onFilterUpdate(valueIndex, value);
     };
 
     return (
-        <div className={classes.root}>
-            {columns
-                .filter(c => !!c.filterOptions)
-                .map((col, index) =>
-                    !!col.filterOptions
-                        ? col.filterOptions.currentList.map((data, valIndex) => (
-                              <Chip
-                                  label={data}
-                                  key={`${index}-${valIndex}`}
-                                  onDelete={filterUpdate(col, index, data)}
-                                  className={classes.chip}
-                              />
-                          ))
-                        : null
-                )}
+        <div className={classes.root} id={"MUITable-FilterList"}>
+            {columnFilters.map((col, index) =>
+                col.map((data, valIndex) => (
+                    <Chip
+                        label={data}
+                        key={`${index}-${valIndex}`}
+                        onDelete={filterUpdate(columns[index], index, data)}
+                        className={classes.chip}
+                    />
+                ))
+            )}
         </div>
     );
 };

@@ -2,7 +2,10 @@ const path = require("path");
 module.exports = (baseConfig, env, config) => {
     config.module.rules.push({
         test: /\.tsx?$/,
-        include: path.resolve(__dirname, "../src"),
+        include: [
+            path.resolve(__dirname, "../src"),
+            path.resolve(__dirname, "../test")
+        ],
         use: [
             {
                 loader: require.resolve('babel-loader'),

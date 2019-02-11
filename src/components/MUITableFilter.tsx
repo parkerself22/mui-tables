@@ -121,17 +121,17 @@ interface Props extends WithStyles<typeof defaultFilterStyles> {}
 interface RenderFilterProp extends WithStyles<typeof defaultFilterStyles> {
     column: StateColumn<any>;
     index: number;
-    currentValues: string[];
+    currentValues?: string[];
 }
 
-const MUITableMultiSelectFilter = (props: RenderFilterProp) => {
+export const MUITableMultiSelectFilter = (props: RenderFilterProp) => {
     const { classes, column, index, currentValues } = props;
     const { onFilterUpdate, getFilterData } = useMUITableContext();
     const handleMultiselectChange = (e: any) => {
-        onFilterUpdate(column, index, e.target.value);
+        onFilterUpdate(index, e.target.value);
     };
     const filterData = getFilterData(column);
-    const filterList = currentValues;
+    const filterList = currentValues ? currentValues : [];
 
     return (
         <div className={classes.selectRoot}>
@@ -167,7 +167,7 @@ const MUITableMultiSelectFilter = (props: RenderFilterProp) => {
     );
 };
 
-const MUITableSelectFilter = (props: RenderFilterProp) => {
+export const MUITableSelectFilter = (props: RenderFilterProp) => {
     const { classes, column, index, currentValues } = props;
     const {
         options: { translations },
@@ -177,11 +177,11 @@ const MUITableSelectFilter = (props: RenderFilterProp) => {
 
     const handleDropdownChange = (event: any) => {
         const value = event.target.value === "All" ? "" : event.target.value;
-        onFilterUpdate(column, index, value);
+        onFilterUpdate(index, value);
     };
 
     const filterData = getFilterData(column);
-    const filterList = currentValues;
+    const filterList = currentValues ? currentValues : [];
     const textLabels = translations.filter;
 
     return (
@@ -210,15 +210,15 @@ const MUITableSelectFilter = (props: RenderFilterProp) => {
     );
 };
 
-const MUITableCheckBoxFilter = (props: RenderFilterProp) => {
+export const MUITableCheckBoxFilter = (props: RenderFilterProp) => {
     const { getFilterData, onFilterUpdate } = useMUITableContext();
     const { classes, column, index, currentValues } = props;
     const handleCheckboxChange = (value: any) => () => {
-        onFilterUpdate(column, index, value);
+        onFilterUpdate(index, value);
     };
 
     const filterData = getFilterData(column);
-    const filterList = currentValues;
+    const filterList = currentValues ? currentValues : [];
 
     return (
         <div className={classes.checkboxList} key={index}>

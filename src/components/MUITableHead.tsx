@@ -1,6 +1,5 @@
 import { Theme, WithStyles, withStyles } from "@material-ui/core/styles";
 import MuiTableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow/TableRow";
 import classNames from "classnames";
 import React from "react";
 import { useMUITableContext } from "../MUITable";
