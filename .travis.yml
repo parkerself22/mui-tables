@@ -4,9 +4,10 @@ node_js:
 cache:
   directories:
   - node_modules
-scripts:
+before_script:
+- npm install codecov -g
+script:
 - npm run build
 - npm run release
-- npm install codecov -g
 after_success:
 - codecov
