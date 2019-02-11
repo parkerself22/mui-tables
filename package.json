@@ -9,16 +9,18 @@
     "clean": "rm -rf ./dist && mkdir ./dist",
     "build:ts": "npm run lint && npm run prettier:write && npm run clean && tsc -p .",
     "build": "npm run test:coverage && npm run build:ts",
+    "release": "npx node-env-run --exec \"semantic-release\"",
+
     "test": "node scripts/test.js",
     "test:coverage": "node scripts/test.js --coverage",
     "lint": "tslint -c tslint.json src/**/*.{ts,tsx}",
     "prettier:base": "prettier --parser typescript --single-quote",
     "prettier:check": "npm run prettier:base -- --list-different \"src/**/*.{ts,tsx}\"",
     "prettier:write": "npm run prettier:base -- --write \"src/**/*.{ts,tsx}\"",
+
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public -o .storybook/public",
-    "deploy-storybook": "storybook-to-aws-s3 --bucket-path=mui-table --aws-profile=default --out=.storybook/public",
-    "release": "npx node-env-run --exec \"semantic-release\""
+    "deploy-storybook": "storybook-to-aws-s3 --bucket-path=mui-table --aws-profile=default --out=.storybook/public"
   },
   "devDependencies": {
     "@babel/core": "7.1.6",
@@ -154,7 +156,6 @@
     "mui"
   ],
   "pre-push": [
-    "release",
     "test"
   ],
   "jest": {
