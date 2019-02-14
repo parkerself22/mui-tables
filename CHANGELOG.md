@@ -1,3 +1,11 @@
+## [1.0.7](https://github.com/parkerself22/mui-table/compare/v1.0.6...v1.0.7) (2019-02-14)
+
+
+### Bug Fixes
+
+* **changelog:** update changelog ([0a4d749](https://github.com/parkerself22/mui-table/commit/0a4d749))
+* **exports & config:** did not have typings generated for dist ([5587ede](https://github.com/parkerself22/mui-table/commit/5587ede))
+
 ## [1.0.6](https://github.com/parkerself22/mui-table/compare/v1.0.5...v1.0.6) (2019-02-14)
 
 
@@ -46,4 +54,3 @@
 
 * **.gitignore:** hopefully everything should run right now ([7b205cd](https://github.com/parkerself22/mui-table/commit/7b205cd))
 * **codecov:** fix the coverage config ([da18c20](https://github.com/parkerself22/mui-table/commit/da18c20))
-
