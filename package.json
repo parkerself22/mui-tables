@@ -7,7 +7,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "clean": "rm -rf ./dist && mkdir ./dist",
-    "build:ts": "npm run lint && npm run prettier:write && npm run clean && tsc -p .",
+    "build:ts": "npm run prettier:write && npm run lint && npm run clean && tsc -p .",
     "build": "npm run test:coverage && npm run build:ts",
     "release": "semantic-release",
     "test": "node scripts/test.js",
