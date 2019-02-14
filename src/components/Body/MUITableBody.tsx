@@ -1,9 +1,9 @@
 import MuiTableBody from '@material-ui/core/TableBody';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
-import { useMUITableContext } from '../MUITable';
-import { Row } from '../../types/index';
 import MUITableUtils from '../../constants/MUITableUtils';
+import { Row } from '../../types';
+import { useMUITableContext } from '../MUITable';
 import MUISummaryRow from '../Summary/SummaryRow';
 import MUITableBodyCell from './MUITableBodyCell';
 import MUITableBodyRow from './MUITableBodyRow';
