@@ -1,19 +1,19 @@
-import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormGroup from "@material-ui/core/FormGroup";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import ListItemText from "@material-ui/core/ListItemText";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
-import { Theme, WithStyles, withStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import classNames from "classnames";
-import React from "react";
-import { StateColumn } from "../../../types";
-import { useMUITableContext } from "../../MUITable";
+import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import ListItemText from '@material-ui/core/ListItemText';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import { Theme, WithStyles, withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import classNames from 'classnames';
+import React from 'react';
+import { StateColumn } from '../../../types';
+import { useMUITableContext } from '../../MUITable';
 
 export const defaultFilterStyles = (theme: Theme) => ({
     __docgenInfo: {},

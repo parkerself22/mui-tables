@@ -1,10 +1,10 @@
-import { WithStyles, withStyles } from "@material-ui/core/styles";
-import MuiTableFooter from "@material-ui/core/TableFooter";
-import MuiTablePagination from "@material-ui/core/TablePagination";
-import MuiTableRow from "@material-ui/core/TableRow";
-import React, { ChangeEvent } from "react";
-import { useMUITableContext } from "../MUITable";
-import MUITablePaginationActions from "./MUITablePaginationActions";
+import { WithStyles, withStyles } from '@material-ui/core/styles';
+import MuiTableFooter from '@material-ui/core/TableFooter';
+import MuiTablePagination from '@material-ui/core/TablePagination';
+import MuiTableRow from '@material-ui/core/TableRow';
+import React, { ChangeEvent } from 'react';
+import { useMUITableContext } from '../MUITable';
+import MUITablePaginationActions from './MUITablePaginationActions';
 
 const defaultPaginationStyles = {
     root: {

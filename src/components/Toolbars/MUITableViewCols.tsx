@@ -1,11 +1,11 @@
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormGroup from "@material-ui/core/FormGroup";
-import { Theme, WithStyles, withStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import React from "react";
-import { useMUITableContext } from "../MUITable";
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
+import { Theme, WithStyles, withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import React from 'react';
+import { useMUITableContext } from '../MUITable';
 
 export const styles = (theme: Theme) => ({
     __docgenInfo: {},

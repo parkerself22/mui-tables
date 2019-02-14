@@ -4,6 +4,6 @@ node_js:
 cache: npm
 script:
 - npm run build
-- npm run release
 after_success:
+- npm run release
 - codecov

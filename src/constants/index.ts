@@ -1,5 +1,5 @@
-import React from "react";
-import { FilterOpts, MUITableContext, Options, StateColumn } from "../types";
+import React from 'react';
+import { FilterOpts, MUITableContext, Options, StateColumn } from '../types';
 
 export const DEFAULT_COL: StateColumn<any> = {
     name: 'column',

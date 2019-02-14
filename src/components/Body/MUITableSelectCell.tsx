@@ -1,10 +1,10 @@
-import Checkbox from "@material-ui/core/Checkbox";
-import { Theme, WithStyles, withStyles } from "@material-ui/core/styles";
-import TableCell from "@material-ui/core/TableCell";
-import classNames from "classnames";
-import React from "react";
-import { Row } from "../../types";
-import { useMUITableContext } from "../MUITable";
+import Checkbox from '@material-ui/core/Checkbox';
+import { Theme, WithStyles, withStyles } from '@material-ui/core/styles';
+import TableCell from '@material-ui/core/TableCell';
+import classNames from 'classnames';
+import React from 'react';
+import { Row } from '../../types';
+import { useMUITableContext } from '../MUITable';
 
 const defaultSelectCellStyles = (theme: Theme) => ({
     root: {
