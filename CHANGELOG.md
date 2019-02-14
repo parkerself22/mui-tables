@@ -1,3 +1,10 @@
+## [1.0.8](https://github.com/parkerself22/mui-table/compare/v1.0.7...v1.0.8) (2019-02-14)
+
+
+### Bug Fixes
+
+* **exports & ts-config:** mistakenly had jsx: "preserve" when it should be compiled for the package ([9d0fda5](https://github.com/parkerself22/mui-table/commit/9d0fda5))
+
 ## [1.0.7](https://github.com/parkerself22/mui-table/compare/v1.0.6...v1.0.7) (2019-02-14)
 
 
