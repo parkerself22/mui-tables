@@ -1,0 +1,113 @@
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
+import React from "react";
+import ShallowRenderer from "react-test-renderer/shallow";
+import { cleanup, fireEvent, render } from "react-testing-library";
+import sinon from "sinon";
+import MUITablePopover, {
+    MUITablePopoverProps
+} from "../../../src/components/Toolbars/MUITablePopover";
+import MUISearchDefault, {
+    MUITableSearchProps,
+    MUITableSearch
+} from "../../../src/components/Toolbars/MUITableSearch";
+import MUITableToolbar from "../../../src/components/Toolbars/MUITableToolbar";
+import MUITableViewCols from "../../../src/components/Toolbars/MUITableViewCols";
+import { DEFAULT_CONTEXT } from "../../../src/constants";
+import { MUITableContext, Optional } from "../../../src/types";
+import { EXAMPLE_COLUMNS, MUITableTestContext } from "../../utils";
+
+const sandbox = sinon.createSandbox();
+
+afterEach(cleanup);
+
+function searchInstance(props?: Optional<MUITableSearchProps>): MUITableSearch {
+    const defaultProps = {
+        context: {
+            ...DEFAULT_CONTEXT,
+            ...(props ? props.context : {})
+        },
+        toggleSearchVisible:
+            props && props.toggleSearchVisible ? props.toggleSearchVisible : () => {},
+        classes: {
+            main: "",
+            searchIcon: "",
+            searchText: "",
+            clearIcon: ""
+        }
+    };
+    const renderer = ShallowRenderer.createRenderer();
+    renderer.render(<MUITableSearch {...defaultProps} />);
+    const instance = renderer.getMountedInstance();
+    return instance as MUITableSearch;
+}
+
+describe("MUITableSearch", () => {
+    test("handles toggleSearch", () => {
+        const toggleSearchVisible = sandbox.spy();
+        const context: MUITableContext = {
+            ...DEFAULT_CONTEXT,
+            toggleSearchVisible,
+            search: { open: true, text: "" }
+        };
+        const { getByTestId } = render(<MUITableToolbar context={context} />);
+        const trigger = getByTestId("toggleSearchVisible");
+        fireEvent.click(trigger);
+        expect(toggleSearchVisible.called).toBe(true);
+    });
+    test("handleTextChange", () => {
+        const onSearchChange = sandbox.spy();
+        const instance = searchInstance({
+            context: {
+                ...DEFAULT_CONTEXT,
+                options: {
+                    ...DEFAULT_CONTEXT.options,
+                    hooks: {
+                        ...DEFAULT_CONTEXT.options.hooks,
+                        onSearchChange
+                    }
+                }
+            }
+        });
+        const testFn = () => instance.handleTextChange({ target: { value: "test" } } as any);
+        expect(testFn).not.toThrow();
+        expect(onSearchChange.called).toBe(true);
+    });
+    test("onKeyDown", () => {
+        const toggleSearchVisible = sandbox.spy();
+        const instance = searchInstance({
+            toggleSearchVisible
+        });
+        const testFn = () => instance.onKeyDown({ keyCode: 27 } as any);
+        expect(testFn).not.toThrow();
+        expect(toggleSearchVisible.called).toBe(true);
+    });
+    test("componentDidMount", () => {
+        const instance = searchInstance();
+        const testFn = () => instance.componentDidMount();
+        expect(testFn).not.toThrow();
+    });
+    test("componentWillUnmount", () => {
+        const instance = searchInstance();
+        const testFn = () => instance.componentWillUnmount();
+        expect(testFn).not.toThrow();
+    });
+});
+
+describe("MUITableViewCols", () => {
+    test("renders & changes", () => {
+        const toggleViewColumn = sandbox.spy();
+        const { getByTestId } = render(
+            <MUITableTestContext
+                override={{
+                    toggleViewColumn,
+                    columns: EXAMPLE_COLUMNS
+                }}
+            >
+                <MUITableViewCols />
+            </MUITableTestContext>
+        );
+        const instance = getByTestId("MUITableViewColsVal");
+        fireEvent.click(instance as any);
+        expect(toggleViewColumn.called).toBe(true);
+    });
+});

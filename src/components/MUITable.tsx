@@ -100,7 +100,7 @@ export class MUIChildTable extends React.Component<Props<any>, State<any>> {
         if (newFilters[colIndex]) {
             if (Array.isArray(value)) {
                 newFilters[colIndex] = value;
-            } else if (!value || value.length === 0) {
+            } else if (!value) {
                 newFilters[colIndex] = [];
             } else if (newFilters[colIndex].indexOf(value) >= 0) {
                 newFilters[colIndex] = newFilters[colIndex].filter(v => v !== value);
@@ -220,12 +220,20 @@ export class MUIChildTable extends React.Component<Props<any>, State<any>> {
             getFilterData: this.getFilterData,
             getVisibleColumns: this.getVisibleColumns
         };
-
+        const contextState = {
+            ...this.state,
+            pagination: {
+                ...this.state.pagination,
+                rowsPerPageOptions:
+                    options.pagination.rowsPerPageOptions ||
+                    this.state.pagination.rowsPerPageOptions
+            }
+        };
         const context: MUITableContext = {
             options,
             rows,
             columns,
-            ...this.state,
+            ...contextState,
             ...contextActions,
             displayRows
         };

@@ -1,27 +1,28 @@
-import { WithStyles, withStyles } from '@material-ui/core/styles';
-import MuiTableFooter from '@material-ui/core/TableFooter';
-import MuiTablePagination from '@material-ui/core/TablePagination';
-import MuiTableRow from '@material-ui/core/TableRow';
-import React, { ChangeEvent } from 'react';
-import { useMUITableContext } from '../MUITable';
-import MUITablePaginationActions from './MUITablePaginationActions';
+import { WithStyles, withStyles } from "@material-ui/core/styles";
+import MuiTableFooter from "@material-ui/core/TableFooter";
+import MuiTablePagination from "@material-ui/core/TablePagination";
+import MuiTableRow from "@material-ui/core/TableRow";
+import React, { ChangeEvent } from "react";
+import { useMUITableContext } from "../MUITable";
+import MUITablePaginationActions from "./MUITablePaginationActions";
+import classNames from "classnames";
 
 const defaultPaginationStyles = {
     root: {
-        '&:last-child': {
-            padding: '0px 24px 0px 24px'
+        "&:last-child": {
+            padding: "0px 24px 0px 24px"
         }
     },
     toolbar: {},
     selectRoot: {},
-    '@media screen and (max-width: 400px)': {
+    "@media screen and (max-width: 400px)": {
         toolbar: {
-            '& span:nth-child(2)': {
-                display: 'none'
+            "& span:nth-child(2)": {
+                display: "none"
             }
         },
         selectRoot: {
-            marginRight: '8px'
+            marginRight: "8px"
         }
     }
 };
@@ -30,7 +31,7 @@ export interface MUITablePaginationProps {}
 
 interface Props extends MUITablePaginationProps, WithStyles<typeof defaultPaginationStyles> {}
 
-const MUITablePagination = (props: Props) => {
+const MUITablePagination = (props: Props & any) => {
     const { classes } = props;
     const {
         options,
@@ -43,11 +44,13 @@ const MUITablePagination = (props: Props) => {
     if (!options.display.paginate) {
         return null;
     }
-    const handleRowChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    const onChangeRowsPerPage = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         changeRowsPerPage(parseInt(event.target.value, 10));
     };
     const textLabels = translations.pagination;
-
+    const onChangePage = (e: any, page: number) => {
+        changePage(page);
+    };
     return (
         <MuiTableFooter>
             <MuiTableRow>
@@ -57,6 +60,7 @@ const MUITablePagination = (props: Props) => {
                         toolbar: classes.toolbar,
                         selectRoot: classes.selectRoot
                     }}
+                    SelectProps={{ title: "MUITable-rowsPerPageSelect" }}
                     count={displayRows.length}
                     rowsPerPage={pagination.rowsPerPage}
                     page={pagination.page}
@@ -65,21 +69,21 @@ const MUITablePagination = (props: Props) => {
                         `${from}-${to} ${textLabels.displayRows} ${count}`
                     }
                     backIconButtonProps={{
-                        'aria-label': textLabels.previous
+                        "aria-label": textLabels.previous
                     }}
                     nextIconButtonProps={{
-                        'aria-label': textLabels.next
+                        "aria-label": textLabels.next
                     }}
                     rowsPerPageOptions={pagination.rowsPerPageOptions}
-                    onChangePage={(e, page) => changePage(page)}
-                    onChangeRowsPerPage={handleRowChange}
-                    ActionsComponent={() => <MUITablePaginationActions />}
+                    onChangePage={onChangePage}
+                    onChangeRowsPerPage={onChangeRowsPerPage}
+                    ActionsComponent={props => <MUITablePaginationActions {...props} />}
                 />
             </MuiTableRow>
         </MuiTableFooter>
     );
 };
 
-export default withStyles(defaultPaginationStyles, { name: 'MUITablePagination' })(
+export default withStyles(defaultPaginationStyles, { name: "MUITablePagination" })(
     MUITablePagination
-) as React.FunctionComponent<MUITablePaginationProps>;
+) as React.FunctionComponent<MUITablePaginationProps & any>;

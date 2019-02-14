@@ -2,7 +2,7 @@ import React from "react";
 import ShallowRenderer from "react-test-renderer/shallow";
 import { cleanup, render } from "react-testing-library";
 import sinon from "sinon";
-import { MUIChildTable, MUITable } from "../src/components/MUITable";
+import MUITableDefault, { MUIChildTable, MUITable } from "../src/components/MUITable";
 import { DEFAULT_COL, DEFAULT_OPTS } from "../src/constants";
 import MUITableUtils from "../src/constants/MUITableUtils";
 import { Optional, ParentProps, StateColumn } from "../src/types";
@@ -27,6 +27,18 @@ function tableInstance(props?: Optional<ParentProps<any>>): MUIChildTable {
 }
 
 describe("MUITableParent", () => {
+    test("default export renders", () => {
+        const test = () =>
+            render(
+                <MUITableDefault
+                    data={EXAMPLE_INPUT_DATA}
+                    columns={{ static: EXAMPLE_COLUMNS }}
+                    title={"test"}
+                    loading={false}
+                />
+            );
+        expect(test).not.toThrow();
+    });
     test("calls sortColumns if provided", () => {
         const sortColumns = sandbox.spy((c: any) => c);
         MUITable({
@@ -140,9 +152,9 @@ describe("MUITableChild", () => {
             instance.onFilterUpdate(0, value);
             expect(instance.state.columnFilters[0][0]).toBe(value[0]);
         });
-        test("sets 0 length if empty array passed", () => {
+        test("sets 0 length if null string passed", () => {
             const instance = tableInstance();
-            instance.onFilterUpdate(0, []);
+            instance.onFilterUpdate(0, '');
             expect(instance.state.columnFilters[0].length).toBe(0);
         });
         test("removes value if single existing value passed", () => {

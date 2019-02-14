@@ -8,19 +8,21 @@ export interface MUITablePopoverState {
 
 export interface MUITablePopoverProps extends PopoverProps {
     trigger: ReactElement<any, any>;
-    refClose: (cb: any) => void;
-    refExit: any;
+    refClose?: (cb: any) => void;
+    refExit?: any;
     content: ReactNode;
 }
 
 class MUITablePopover extends React.Component<MUITablePopoverProps, MUITablePopoverState> {
-    anchorEl: null | any = null;
-    popoverEl: null | any = null;
-    popoverActions: null | PopoverActions = null;
+    constructor(props: MUITablePopoverProps) {
+        super(props);
+        this.state = {
+            open: !!props.open
+        };
+    }
 
-    state = {
-        open: false
-    };
+    anchorEl: null | any = null;
+    popoverActions: null | PopoverActions = null;
 
     componentWillMount() {
         this.anchorEl = null;
@@ -67,7 +69,7 @@ class MUITablePopover extends React.Component<MUITablePopoverProps, MUITablePopo
     };
 
     render() {
-        const { trigger, content, open, ...providedProps } = this.props;
+        const { trigger, content, open } = this.props;
 
         const transformOriginSpecs: PopoverOrigin = {
             vertical: 'top',
@@ -99,10 +101,8 @@ class MUITablePopover extends React.Component<MUITablePopoverProps, MUITablePopo
                     onClose={this.handleRequestClose}
                     onExited={this.handleOnExit}
                     anchorEl={this.anchorEl}
-                    innerRef={el => this.popoverEl}
                     anchorOrigin={anchorOriginSpecs}
                     transformOrigin={transformOriginSpecs}
-                    {...providedProps}
                 >
                     {content}
                 </MuiPopover>

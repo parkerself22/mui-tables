@@ -166,6 +166,8 @@ interface TranslationOptions {
     pagination: {
         next: string;
         previous: string;
+        first: string;
+        last: string;
         rowsPerPage: string;
         displayRows: string;
     };

@@ -81,7 +81,7 @@ interface State {
     iconActive: string | null;
 }
 
-class MUITableToolbar extends React.Component<Props, State> {
+export class MUITableToolbar extends React.Component<Props, State> {
     searchButton: null | HTMLInputElement = null;
 
     state = {
@@ -89,7 +89,6 @@ class MUITableToolbar extends React.Component<Props, State> {
     };
 
     setActiveIcon = (iconName: string | null) => () => {
-        const { toggleSearchVisible } = this.props.context;
         this.setState(() => ({
             iconActive: iconName
         }));

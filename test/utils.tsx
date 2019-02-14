@@ -126,7 +126,6 @@ export const EXAMPLE_COLUMNS: StateColumn<any>[] = [
         filterOptions: {
             exact: false,
             type: "dropdown",
-            currentList: []
         },
 
     },
@@ -203,6 +202,8 @@ export const EXAMPLE_COLUMNS: StateColumn<any>[] = [
         display: "true"
     }
 ];
+
+export const EXAMPLE_ROWS = MUITableUtils.buildRows(EXAMPLE_INPUT_DATA, EXAMPLE_COLUMNS);
 
 interface Props {
     override?: Optional<MUITableContext>;

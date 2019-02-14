@@ -4,7 +4,8 @@ module.exports = (baseConfig, env, config) => {
         test: /\.tsx?$/,
         include: [
             path.resolve(__dirname, "../src"),
-            path.resolve(__dirname, "../test")
+            path.resolve(__dirname, "../test"),
+            path.resolve(__dirname, "../examples")
         ],
         use: [
             {

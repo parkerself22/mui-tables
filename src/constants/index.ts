@@ -48,6 +48,8 @@ export const DEFAULT_OPTS: Options<any> = {
         pagination: {
             next: 'Next Page',
             previous: 'Previous Page',
+            first: 'First Page',
+            last: 'Last Page',
             rowsPerPage: 'Rows per page:',
             displayRows: 'of'
         },

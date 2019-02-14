@@ -1,7 +1,7 @@
 import React from "react";
 import { cleanup, render } from "react-testing-library";
 import MUITableHead from "../../../src/components/Head/MUITableHead";
-import { DEFAULT_OPTS } from "../../../src/constants/index";
+import { DEFAULT_OPTS } from "../../../src/constants";
 import { EXAMPLE_COLUMNS, MUITableTestContext } from "../../utils";
 
 afterEach(cleanup);

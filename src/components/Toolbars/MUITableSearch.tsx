@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import ClearIcon from '@material-ui/icons/Clear';
 import SearchIcon from '@material-ui/icons/Search';
 import React, { ChangeEvent, KeyboardEvent } from 'react';
-import { MUITableContext } from '../../types/index';
+import { MUITableContext } from '../../types';
 
 const defaultSearchStyles = (theme: Theme) => ({
     main: {
@@ -34,7 +34,7 @@ export interface MUITableSearchProps {
 
 interface Props extends WithStyles<typeof defaultSearchStyles>, MUITableSearchProps {}
 
-class MUITableSearch extends React.Component<Props> {
+export class MUITableSearch extends React.Component<Props> {
     handleTextChange = (event: ChangeEvent<any>) => {
         const { searchTextUpdate, options } = this.props.context;
         if (options.hooks && options.hooks.onSearchChange) {
@@ -76,7 +76,7 @@ class MUITableSearch extends React.Component<Props> {
                         onChange={this.handleTextChange}
                         fullWidth={true}
                     />
-                    <IconButton className={classes.clearIcon} onClick={toggleSearchVisible}>
+                    <IconButton className={classes.clearIcon} data-testid="toggleSearchVisible" onClick={toggleSearchVisible}>
                         <ClearIcon />
                     </IconButton>
                 </div>

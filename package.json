@@ -4,7 +4,7 @@
   "author": "Parker Self",
   "license": "ISC",
   "description": "Pluggable table library built on top of Material-UI components",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "scripts": {
     "clean": "rm -rf ./dist && mkdir ./dist",
     "build:ts": "npm run lint && npm run prettier:write && npm run clean && tsc -p .",

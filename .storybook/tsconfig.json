@@ -1,8 +1,14 @@
 {
   "extends": "../tsconfig",
   "compilerOptions": {
+    "rootDir": "../.",
     "jsx": "react",
     "isolatedModules": false,
     "noEmit": false
-  }
+  },
+  "include": [
+    "../src",
+    "../examples",
+    "../tests"
+  ]
 }

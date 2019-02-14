@@ -287,6 +287,16 @@ describe("MUITableUtils", () => {
             expect(result[0][0].value).toBe(2);
             expect(result[1][0].value).toBe(1);
         });
+        test("Handles singleRow with value", () => {
+            const testState = { ...state, sortColumn: { index: 0, asc: false } };
+            const rows = [
+                [],
+                [{ value: 1, display: "1", column: col }]
+            ];
+            const result = MUITableUtils.sortRows(rows, testState, [col]);
+            expect(result[0].length).toBe(0);
+            expect(result[1][0].value).toBe(1);
+        });
     });
     describe(`MUITableUtils.filterRows`, () => {
         const col = { ...DEFAULT_COL, name: "test", type: "metric" as "metric" };
