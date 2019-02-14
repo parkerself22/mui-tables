@@ -290,14 +290,15 @@ describe("MUITableUtils", () => {
             expect(result[1][0].value).toBe(1);
         });
         test("Handles singleRow with value", () => {
+            const column = { ...DEFAULT_COL, name: "test", type: "metric" as "metric" };
             const testState = { ...state, sortColumn: { index: 0, asc: false } };
             const errorRows = [
                 [],
                 [{ value: 1, display: "1", column: col }]
             ];
-            const result = MUITableUtils.sortRows(errorRows, testState, [col]);
-            expect(result[0].length).toBe(0);
-            expect(result[1][0].value).toBe(1);
+            const result = MUITableUtils.sortRows(errorRows, testState, [column]);
+            const rowsWithCells = result.filter(r => r.length > 0);
+            expect(rowsWithCells.length).toBe(1);
         });
     });
     describe(`MUITableUtils.filterRows`, () => {
