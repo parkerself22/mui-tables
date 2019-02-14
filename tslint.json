@@ -1,21 +1,35 @@
 {
-    "extends": ["tslint-react", "tslint-config-prettier", "tslint-config-airbnb"],
-    "rules": {
-        "jsx-boolean-value": false,
-        "jsx-no-lambda": false,
-        "jsx-one-expression-per-line": false,
-        "ter-indent": false,
-        "trailing-comma": false,
-        "quotemark": false,
-        "semicolon": false,
-        "import-name": false,
-        "variable-name": false,
-        "ter-arrow-parens": false,
-        "no-trailing-whitespace": false,
-        "align": false,
-        "max-line-length": [true, { "limit": 100, "ignore-pattern": "^import |^export {(.*?)}" }]
-    },
-    "linterOptions": {
-        "exclude": ["*.json", "**/*.json"]
-    }
+  "extends": [
+    "tslint-react",
+    "tslint-config-prettier",
+    "tslint-config-airbnb"
+  ],
+  "rules": {
+    "jsx-boolean-value": false,
+    "jsx-no-lambda": false,
+    "jsx-one-expression-per-line": false,
+    "ter-indent": false,
+    "trailing-comma": false,
+    "quotemark": false,
+    "semicolon": false,
+    "import-name": false,
+    "variable-name": false,
+    "ter-arrow-parens": false,
+    "no-trailing-whitespace": false,
+    "align": false,
+    "max-line-length": [
+      true,
+      {
+        "limit": 100,
+        "ignore-pattern": "^import |^export {(.*?)}"
+      }
+    ],
+    "no-boolean-literal-compare": false
+  },
+  "linterOptions": {
+    "exclude": [
+      "*.json",
+      "**/*.json"
+    ]
+  }
 }

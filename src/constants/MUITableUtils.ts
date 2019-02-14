@@ -1,6 +1,5 @@
-import has from 'lodash/has';
-import get from 'lodash/get';
-import { DEFAULT_COL, DEFAULT_OPTS } from './index';
+import get from 'lodash.get';
+import has from 'lodash.has';
 import {
     Cell,
     GeneratedColumn,
@@ -14,6 +13,7 @@ import {
     SummaryFormats,
     SummaryRowCell
 } from '../types';
+import { DEFAULT_COL, DEFAULT_OPTS } from './index';
 
 export default class MUITableUtils {
     static formatSeconds = (secs: number) => {
