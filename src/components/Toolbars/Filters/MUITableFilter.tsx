@@ -12,107 +12,107 @@ import { Theme, WithStyles, withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import classNames from "classnames";
 import React from "react";
-import { useMUITableContext } from "../../MUITable";
 import { StateColumn } from "../../../types";
+import { useMUITableContext } from "../../MUITable";
 
 export const defaultFilterStyles = (theme: Theme) => ({
     __docgenInfo: {},
     displayName: {},
     root: {
         backgroundColor: theme.palette.background.default,
-        padding: "16px 24px 16px 24px",
-        fontFamily: "Roboto"
+        padding: '16px 24px 16px 24px',
+        fontFamily: 'Roboto'
     },
     header: {
-        flex: "0 0 auto",
-        marginBottom: "16px",
-        width: "100%",
-        display: "flex",
-        justifyContent: "space-between"
+        flex: '0 0 auto',
+        marginBottom: '16px',
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'space-between'
     },
     title: {
-        display: "inline-block",
-        marginLeft: "7px",
+        display: 'inline-block',
+        marginLeft: '7px',
         color: theme.palette.text.primary,
-        fontSize: "14px",
+        fontSize: '14px',
         fontWeight: 500
     },
     noMargin: {
-        marginLeft: "0px"
+        marginLeft: '0px'
     },
     reset: {
-        alignSelf: "left"
+        alignSelf: 'left'
     },
     resetLink: {
-        marginLeft: "16px",
-        fontSize: "12px",
-        cursor: "pointer"
+        marginLeft: '16px',
+        fontSize: '12px',
+        cursor: 'pointer'
     },
     filtersSelected: {
-        alignSelf: "right" as "right"
+        alignSelf: 'right' as 'right'
     },
     /* checkbox */
     checkboxList: {
-        flex: "1 1 100%",
-        display: "inline-flex",
-        marginRight: "24px"
+        flex: '1 1 100%',
+        display: 'inline-flex',
+        marginRight: '24px'
     },
     checkboxListTitle: {
-        marginLeft: "7px",
-        marginBottom: "8px",
-        fontSize: "14px",
+        marginLeft: '7px',
+        marginBottom: '8px',
+        fontSize: '14px',
         color: theme.palette.text.secondary,
-        textAlign: "left" as "left",
+        textAlign: 'left' as 'left',
         fontWeight: 500
     },
     checkboxFormGroup: {
-        marginTop: "8px"
+        marginTop: '8px'
     },
     checkboxFormControl: {
-        margin: "0px"
+        margin: '0px'
     },
     checkboxFormControlLabel: {
-        fontSize: "15px",
-        marginLeft: "8px",
+        fontSize: '15px',
+        marginLeft: '8px',
         color: theme.palette.text.primary
     },
     checkboxIcon: {
-        width: "32px",
-        height: "32px"
+        width: '32px',
+        height: '32px'
     },
     checkbox: {
-        "&$checked": {
+        '&$checked': {
             color: theme.palette.primary.main
         }
     },
     checked: {},
     /* selects */
     selectRoot: {
-        display: "flex",
-        marginTop: "16px",
-        flexDirection: "row" as "row",
-        flexWrap: "wrap" as "wrap",
-        width: "100%",
-        height: "80%",
-        justifyContent: "space-between"
+        display: 'flex',
+        marginTop: '16px',
+        flexDirection: 'row' as 'row',
+        flexWrap: 'wrap' as 'wrap',
+        width: '100%',
+        height: '80%',
+        justifyContent: 'space-between'
     },
     selectFormControl: {
-        flex: "1 1 calc(50% - 24px)",
-        marginRight: "24px",
-        marginBottom: "24px"
+        flex: '1 1 calc(50% - 24px)',
+        marginRight: '24px',
+        marginBottom: '24px'
     },
     /* textField */
     textFieldRoot: {
-        display: "flex",
-        marginTop: "16px",
-        flexDirection: "row" as "row",
-        flexWrap: "wrap" as "wrap",
-        width: "100%"
+        display: 'flex',
+        marginTop: '16px',
+        flexDirection: 'row' as 'row',
+        flexWrap: 'wrap' as 'wrap',
+        width: '100%'
     },
     textFieldFormControl: {
-        flex: "1 1 calc(50% - 24px)",
-        marginRight: "24px",
-        marginBottom: "24px"
+        flex: '1 1 calc(50% - 24px)',
+        marginRight: '24px',
+        marginBottom: '24px'
     }
 });
 
@@ -181,7 +181,7 @@ export const MUITableSelectFilter = (props: RenderFilterProp) => {
     } = useMUITableContext();
 
     const handleDropdownChange = (event: any) => {
-        const value = event.target.value === "All" ? "" : event.target.value;
+        const value = event.target.value === 'All' ? '' : event.target.value;
         onFilterUpdate(index, value);
     };
 
@@ -200,7 +200,7 @@ export const MUITableSelectFilter = (props: RenderFilterProp) => {
                     {column.title ? column.title : column.name}
                 </InputLabel>
                 <Select
-                    value={filterList.length > 0 ? filterList.join(",") : textLabels.all}
+                    value={filterList.length > 0 ? filterList.join(',') : textLabels.all}
                     name={column.title ? column.title : column.name}
                     onChange={handleDropdownChange}
                     input={<Input name={column.name} id={column.name} />}
@@ -213,7 +213,7 @@ export const MUITableSelectFilter = (props: RenderFilterProp) => {
                     </MenuItem>
                     {filterData.map((filterValue, filterIndex) => (
                         <MenuItem value={filterValue} key={filterIndex + 1}>
-                            {filterValue !== null ? filterValue.toString() : ""}
+                            {filterValue !== null ? filterValue.toString() : ''}
                         </MenuItem>
                     ))}
                 </Select>
@@ -245,7 +245,7 @@ export const MUITableCheckBoxFilter = (props: RenderFilterProp) => {
                             root: classes.checkboxFormControl,
                             label: classes.checkboxFormControlLabel
                         }}
-                        data-testid={"MUITableCheckBoxFilterVal"}
+                        data-testid={'MUITableCheckBoxFilterVal'}
                         control={
                             <Checkbox
                                 className={classes.checkboxIcon}
@@ -255,7 +255,7 @@ export const MUITableCheckBoxFilter = (props: RenderFilterProp) => {
                                     root: classes.checkbox,
                                     checked: classes.checked
                                 }}
-                                value={filterValue !== null ? filterValue : ""}
+                                value={filterValue !== null ? filterValue : ''}
                             />
                         }
                         label={filterValue}
@@ -301,14 +301,14 @@ const MUITableFilter = (props: Props) => {
             </div>
             {columns.map((col, index) =>
                 col.filterOptions ? (
-                    col.filterOptions.type === "checkbox" ? (
+                    col.filterOptions.type === 'checkbox' ? (
                         <MUITableCheckBoxFilter
                             classes={classes}
                             column={col}
                             index={index}
                             currentValues={columnFilters[index]}
                         />
-                    ) : col.filterOptions.type === "multiselect" ? (
+                    ) : col.filterOptions.type === 'multiselect' ? (
                         <MUITableMultiSelectFilter
                             classes={classes}
                             column={col}
@@ -329,6 +329,6 @@ const MUITableFilter = (props: Props) => {
     );
 };
 
-export default withStyles(defaultFilterStyles, { name: "MUIDataTableFilter" })(
+export default withStyles(defaultFilterStyles, { name: 'MUIDataTableFilter' })(
     MUITableFilter
 ) as React.ComponentType<{}>;

@@ -3,47 +3,47 @@ import { Theme, WithStyles, withStyles } from "@material-ui/core/styles";
 import TableCell from "@material-ui/core/TableCell";
 import classNames from "classnames";
 import React from "react";
-import { useMUITableContext } from "../MUITable";
 import { Row } from "../../types";
+import { useMUITableContext } from "../MUITable";
 
 const defaultSelectCellStyles = (theme: Theme) => ({
     root: {
-        [theme.breakpoints.down("sm")]: {
-            display: "none"
+        [theme.breakpoints.down('sm')]: {
+            display: 'none'
         }
     },
     fixedHeader: {
-        position: "sticky" as "sticky",
-        top: "0px",
-        left: "0px",
+        position: 'sticky' as 'sticky',
+        top: '0px',
+        left: '0px',
         zIndex: 100,
         backgroundColor: theme.palette.background.paper,
-        border: "none",
-        "&::after": {
+        border: 'none',
+        '&::after': {
             content: `""`,
             zIndex: 400,
-            position: "absolute" as "absolute",
+            position: 'absolute' as 'absolute',
             bottom: 0,
             left: 0,
-            width: "100%",
+            width: '100%',
             borderBottom: `1px solid ${theme.palette.divider}`
         }
     },
     icon: {
-        cursor: "pointer",
-        transition: "transform 0.25s"
+        cursor: 'pointer',
+        transition: 'transform 0.25s'
     },
     expanded: {
-        transform: "rotate(90deg)"
+        transform: 'rotate(90deg)'
     },
     hide: {
-        visibility: "hidden" as "hidden"
+        visibility: 'hidden' as 'hidden'
     },
     headerCell: {
         backgroundColor: theme.palette.background.paper
     },
     checkboxRoot: {
-        "&$checked": {
+        '&$checked': {
             color: theme.palette.primary.main
         }
     },
@@ -77,7 +77,7 @@ const TableSelectCell = (props: Props) => {
           };
     return !options.rows.selectable ? null : (
         <TableCell className={cellClass} padding="checkbox">
-            <div style={{ display: "flex", alignItems: "center" }}>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
                 <Checkbox
                     data-testid={testId}
                     classes={{
@@ -93,6 +93,6 @@ const TableSelectCell = (props: Props) => {
     );
 };
 
-export default withStyles(defaultSelectCellStyles, { name: "MUIDataTableSelectCell" })(
+export default withStyles(defaultSelectCellStyles, { name: 'MUIDataTableSelectCell' })(
     TableSelectCell
 ) as React.ComponentType<MUITableSelectCellProps>;

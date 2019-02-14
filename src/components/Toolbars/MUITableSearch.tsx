@@ -1,11 +1,11 @@
-import Grow from '@material-ui/core/Grow';
-import IconButton from '@material-ui/core/IconButton';
-import { Theme, WithStyles, withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import ClearIcon from '@material-ui/icons/Clear';
-import SearchIcon from '@material-ui/icons/Search';
-import React, { ChangeEvent, KeyboardEvent } from 'react';
-import { MUITableContext } from '../../types';
+import Grow from "@material-ui/core/Grow";
+import IconButton from "@material-ui/core/IconButton";
+import { Theme, WithStyles, withStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import ClearIcon from "@material-ui/icons/Clear";
+import SearchIcon from "@material-ui/icons/Search";
+import React, { ChangeEvent, KeyboardEvent } from "react";
+import { MUITableContext } from "../../types";
 
 const defaultSearchStyles = (theme: Theme) => ({
     main: {
@@ -76,7 +76,11 @@ export class MUITableSearch extends React.Component<Props> {
                         onChange={this.handleTextChange}
                         fullWidth={true}
                     />
-                    <IconButton className={classes.clearIcon} data-testid="toggleSearchVisible" onClick={toggleSearchVisible}>
+                    <IconButton
+                        className={classes.clearIcon}
+                        data-testid="toggleSearchVisible"
+                        onClick={toggleSearchVisible}
+                    >
                         <ClearIcon />
                     </IconButton>
                 </div>

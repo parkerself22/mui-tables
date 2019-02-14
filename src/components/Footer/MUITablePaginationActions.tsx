@@ -1,13 +1,12 @@
-import { TablePaginationActionsProps } from
-        "@material-ui/core/TablePagination/TablePaginationActions";
-import React from "react";
 import { Theme, WithStyles } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import withStyles from "@material-ui/core/styles/withStyles";
+import { TablePaginationActionsProps } from "@material-ui/core/TablePagination/TablePaginationActions";
 import FirstPageIcon from "@material-ui/icons/FirstPage";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import LastPageIcon from "@material-ui/icons/LastPage";
+import React from "react";
 import { useMUITableContext } from "../MUITable";
 
 const styles = (theme: Theme) => ({

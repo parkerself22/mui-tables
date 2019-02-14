@@ -134,13 +134,13 @@
         "workbox-webpack-plugin": "3.6.3"
     },
     "dependencies": {
-        "lodash": "^4.17.11"
+        "lodash.get": "^4.4.2",
+        "lodash.has": "^4.5.2"
     },
     "peerDependencies": {
         "@material-ui/core": ">= 3.9.0",
         "@material-ui/icons": ">= 3.0.0",
-        "react": ">= 16.8.1",
-        "lodash": ">= 4.17"
+        "react": ">= 16.8.1"
     },
     "repository": {
         "type": "git",

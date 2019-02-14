@@ -1,16 +1,16 @@
 import React, { useContext } from "react";
-import MUITableUtils from "../constants/MUITableUtils";
-import MUITableWrapper from "./MUITableWrapper";
 import { MUITABLE_DEF_CONTEXT } from "../constants";
+import MUITableUtils from "../constants/MUITableUtils";
 import {
-    MUITableContext,
     ContextActions,
+    MUITableContext,
     ParentProps,
     Props,
     Row,
-    StateColumn,
-    State
+    State,
+    StateColumn
 } from "../types";
+import MUITableWrapper from "./MUITableWrapper";
 
 export function useMUITableContext(): MUITableContext {
     const context = useContext<MUITableContext>(MUITABLE_DEF_CONTEXT);
@@ -41,7 +41,7 @@ export class MUIChildTable extends React.Component<Props<any>, State<any>> {
                 open: false,
                 text: null
             },
-            viewColumns: props.columns.map(c => c.display === "true"),
+            viewColumns: props.columns.map(c => c.display === 'true'),
             sortColumn: {
                 index: null,
                 asc: false
@@ -170,7 +170,7 @@ export class MUIChildTable extends React.Component<Props<any>, State<any>> {
 
     toggleSort = (colIndex: number) => {
         // default if it wasn't the sort column (we'll go asc, desc, off)
-        let newState: Pick<State<any>, "sortColumn"> = {
+        let newState: Pick<State<any>, 'sortColumn'> = {
             sortColumn: { index: colIndex, asc: true }
         };
         if (this.state.sortColumn.index === colIndex) {

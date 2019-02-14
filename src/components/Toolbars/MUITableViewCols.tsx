@@ -11,34 +11,34 @@ export const styles = (theme: Theme) => ({
     __docgenInfo: {},
     displayName: {},
     root: {
-        padding: "16px 24px 16px 24px",
-        fontFamily: "Roboto"
+        padding: '16px 24px 16px 24px',
+        fontFamily: 'Roboto'
     },
     title: {
-        marginLeft: "-7px",
-        fontSize: "14px",
+        marginLeft: '-7px',
+        fontSize: '14px',
         color: theme.palette.text.secondary,
-        textAlign: "left" as "left",
+        textAlign: 'left' as 'left',
         fontWeight: 500
     },
     formGroup: {
-        marginTop: "8px"
+        marginTop: '8px'
     },
     formControl: {},
     checkbox: {
-        padding: "0px",
-        width: "32px",
-        height: "32px"
+        padding: '0px',
+        width: '32px',
+        height: '32px'
     },
     checkboxRoot: {
-        "&$checked": {
+        '&$checked': {
             color: theme.palette.primary.main
         }
     },
     checked: {},
     label: {
-        fontSize: "15px",
-        marginLeft: "8px",
+        fontSize: '15px',
+        marginLeft: '8px',
         color: theme.palette.text.primary
     }
 });
@@ -49,7 +49,7 @@ const MUITableViewCols = (props: WithStyles<typeof styles>) => {
     const textLabels = options.translations.viewColumns;
     return (
         <FormControl
-            component={"fieldset" as any}
+            component={'fieldset' as any}
             className={classes.root}
             aria-label={textLabels.titleAria}
         >
@@ -61,7 +61,7 @@ const MUITableViewCols = (props: WithStyles<typeof styles>) => {
                     <FormControlLabel
                         key={index}
                         classes={{ root: classes.formControl, label: classes.label }}
-                        data-testid={"MUITableViewColsVal"}
+                        data-testid={'MUITableViewColsVal'}
                         control={
                             <Checkbox
                                 className={classes.checkbox}
@@ -81,6 +81,6 @@ const MUITableViewCols = (props: WithStyles<typeof styles>) => {
         </FormControl>
     );
 };
-export default withStyles(styles, { name: "MUITableViewCols" })(
+export default withStyles(styles, { name: 'MUITableViewCols' })(
     MUITableViewCols
 ) as React.FunctionComponent<{}>;

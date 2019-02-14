@@ -5,24 +5,23 @@ import MuiTableRow from "@material-ui/core/TableRow";
 import React, { ChangeEvent } from "react";
 import { useMUITableContext } from "../MUITable";
 import MUITablePaginationActions from "./MUITablePaginationActions";
-import classNames from "classnames";
 
 const defaultPaginationStyles = {
     root: {
-        "&:last-child": {
-            padding: "0px 24px 0px 24px"
+        '&:last-child': {
+            padding: '0px 24px 0px 24px'
         }
     },
     toolbar: {},
     selectRoot: {},
-    "@media screen and (max-width: 400px)": {
+    '@media screen and (max-width: 400px)': {
         toolbar: {
-            "& span:nth-child(2)": {
-                display: "none"
+            '& span:nth-child(2)': {
+                display: 'none'
             }
         },
         selectRoot: {
-            marginRight: "8px"
+            marginRight: '8px'
         }
     }
 };
@@ -60,7 +59,7 @@ const MUITablePagination = (props: Props & any) => {
                         toolbar: classes.toolbar,
                         selectRoot: classes.selectRoot
                     }}
-                    SelectProps={{ title: "MUITable-rowsPerPageSelect" }}
+                    SelectProps={{ title: 'MUITable-rowsPerPageSelect' }}
                     count={displayRows.length}
                     rowsPerPage={pagination.rowsPerPage}
                     page={pagination.page}
@@ -69,10 +68,10 @@ const MUITablePagination = (props: Props & any) => {
                         `${from}-${to} ${textLabels.displayRows} ${count}`
                     }
                     backIconButtonProps={{
-                        "aria-label": textLabels.previous
+                        'aria-label': textLabels.previous
                     }}
                     nextIconButtonProps={{
-                        "aria-label": textLabels.next
+                        'aria-label': textLabels.next
                     }}
                     rowsPerPageOptions={pagination.rowsPerPageOptions}
                     onChangePage={onChangePage}
@@ -84,6 +83,6 @@ const MUITablePagination = (props: Props & any) => {
     );
 };
 
-export default withStyles(defaultPaginationStyles, { name: "MUITablePagination" })(
+export default withStyles(defaultPaginationStyles, { name: 'MUITablePagination' })(
     MUITablePagination
 ) as React.FunctionComponent<MUITablePaginationProps & any>;
