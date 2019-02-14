@@ -1,7 +1,7 @@
 import React from "react";
-import { DEFAULT_COL, DEFAULT_CONTEXT, MUI_TABLE_CONTEXT } from "../src/constants";
+import { DEFAULT_COL, DEFAULT_CONTEXT, MUITABLE_DEF_CONTEXT } from "../src/constants";
 import MUITableUtils from "../src/constants/MUITableUtils";
-import { Context, Optional, StateColumn } from "../src/types";
+import { MUITableContext, Optional, StateColumn } from "../src/types";
 
 export const EXAMPLE_INPUT_DATA = [
     {
@@ -205,7 +205,7 @@ export const EXAMPLE_COLUMNS: StateColumn<any>[] = [
 ];
 
 interface Props {
-    override?: Optional<Context>;
+    override?: Optional<MUITableContext>;
     children: any;
 }
 
@@ -213,6 +213,6 @@ export const MUITableTestContext = (props: Props) => {
     const { children, override } = props;
     const value = { ...DEFAULT_CONTEXT, ...override };
     return (
-        <MUI_TABLE_CONTEXT.Provider value={value}>{children}</MUI_TABLE_CONTEXT.Provider>
+        <MUITABLE_DEF_CONTEXT.Provider value={value}>{children}</MUITABLE_DEF_CONTEXT.Provider>
     );
 };

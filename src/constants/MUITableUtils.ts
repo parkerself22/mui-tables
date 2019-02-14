@@ -13,7 +13,7 @@ import {
     StateColumn,
     SummaryFormats,
     SummaryRowCell
-} from '../types/index';
+} from '../types';
 
 export default class MUITableUtils {
     static formatSeconds = (secs: number) => {

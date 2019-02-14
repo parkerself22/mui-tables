@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 
 /////////////////////////// UTILS ///////////////////////////
 
@@ -27,11 +27,11 @@ export type Row<R extends MUIDataObj = MUIDataObj> = Cell<R>[];
 
 /////////////////////////// COLUMNS ///////////////////////////
 
-type CalculateCell<R extends MUIDataObj> = (entry: R) => Omit<Cell<R>, 'column'>;
+type CalculateCell<R extends MUIDataObj> = (entry: R) => Omit<Cell<R>, "column">;
 
-export type SummaryFormats = 'float' | 'integer' | 'seconds' | 'hours' | 'minutes';
+export type SummaryFormats = "float" | "integer" | "seconds" | "hours" | "minutes";
 
-type SummaryTypes = 'AVG' | 'SUM';
+type SummaryTypes = "AVG" | "SUM";
 
 interface SummaryOpts {
     type: SummaryTypes;
@@ -40,7 +40,7 @@ interface SummaryOpts {
     postfix?: string;
     customCalculate?: (displayRows: Row<any>[], allRows: Row<any>[]) => SummaryRowCell;
     customRender?: (s: SummaryRowCell) => ReactNode;
-    showComparison?: 'true' | 'whenDifferent' | 'false';
+    showComparison?: "true" | "whenDifferent" | "false";
 }
 
 export interface SummaryRowCell {
@@ -48,28 +48,27 @@ export interface SummaryRowCell {
     total: Cell<any>;
 }
 
-export type FilterTypes = 'checkbox' | 'dropdown' | 'multiselect';
+export type FilterTypes = "checkbox" | "dropdown" | "multiselect";
 
-interface FilterOpts {
+export interface FilterOpts {
     exact: boolean;
     type: FilterTypes;
-    currentList: string[];
-    options?: string[];
+    defaultOpts?: string[];
     sortFilterList?: boolean;
 }
 
-type RequiredColProps = 'name' | 'calculateCellDefinition';
+type RequiredColProps = "name" | "calculateCellDefinition";
 
 export interface PropColumn<R extends MUIDataObj>
     extends OptionalExceptFor<StateColumn<R>, RequiredColProps> {}
 
-type ColTypes = 'dimension' | 'metric';
+type ColTypes = "dimension" | "metric";
 
 export interface StateColumn<R extends MUIDataObj> {
     title?: string;
     name: string;
     type: ColTypes;
-    display: 'true' | 'false' | 'excluded';
+    display: "true" | "false" | "excluded";
 
     calculateCellDefinition: CalculateCell<R>;
 
@@ -153,7 +152,7 @@ interface PaginationOptions {
     count?: number;
     rowsPerPage?: number;
     rowsPerPageOptions?: number[];
-    customFooter?: (context: Context) => ReactNode;
+    customFooter?: (context: MUITableContext) => ReactNode;
     onChangePage?: (currentPage: number) => void;
     onChangeRowsPerPage?: (numberOfRows: number) => void;
 }
@@ -203,7 +202,7 @@ interface DisplayOptions {
     fixedHeader: boolean;
     viewColumns: boolean;
     elevation: number;
-    responsive: 'stacked' | 'scroll';
+    responsive: "stacked" | "scroll";
     filterValues: boolean;
 }
 
@@ -289,7 +288,9 @@ export interface ContextActions<R extends MUIDataObj = MUIDataObj> {
     getVisibleColumns: () => StateColumn<R>[];
 }
 
-export interface Context<R extends MUIDataObj = MUIDataObj> extends State<R>, ContextActions<R> {
+export interface MUITableContext<R extends MUIDataObj = MUIDataObj>
+    extends State<R>,
+        ContextActions<R> {
     options: Options<R>;
     rows: Row<R>[];
     displayRows: Row<R>[];

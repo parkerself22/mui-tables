@@ -1,9 +1,9 @@
 import React from "react";
 import { cleanup, render } from "react-testing-library";
-import MUITableBody from "../../src/components/Body/MUITableBody";
-import { StateColumn } from "../../src/types";
-import { DEFAULT_COL, DEFAULT_CONTEXT } from "../../src/constants";
-import { MUITableTestContext } from "../utils";
+import MUITableBody from "../../../src/components/Body/MUITableBody";
+import { StateColumn } from "../../../src/types/index";
+import { DEFAULT_COL, DEFAULT_CONTEXT } from "../../../src/constants/index";
+import { MUITableTestContext } from "../../utils";
 
 afterEach(cleanup);
 describe("MUITableBody", () => {

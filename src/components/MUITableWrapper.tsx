@@ -48,7 +48,8 @@ interface Props {
 
 const MUITableWrapper = (props: Props) => {
     const { loading } = props;
-    const { options, selectedRows } = useMUITableContext();
+    const context = useMUITableContext();
+    const { options, selectedRows } = context;
     const { title } = options;
     return (
         <Paper
@@ -59,7 +60,7 @@ const MUITableWrapper = (props: Props) => {
             {selectedRows.length > 0 ? (
                 <MUITableToolbarSelect />
             ) : (
-                <MUITableToolbar context={useMUITableContext()} />
+                <MUITableToolbar context={context} />
             )}
             <MUITableFilterList />
             <div

@@ -1,9 +1,9 @@
 import React from "react";
 import { cleanup, fireEvent, render, wait } from "react-testing-library";
 import sinon from "sinon";
-import MUITableDatePicker from "../../src/components/Toolbars/MUITableDatePicker";
-import { DEFAULT_CONTEXT } from "../../src/constants";
-import { MUITableTestContext } from "../utils";
+import MUITableDatePicker from "../../../src/components/Toolbars/MUITableDatePicker";
+import { DEFAULT_CONTEXT } from "../../../src/constants/index";
+import { MUITableTestContext } from "../../utils";
 
 const sandbox = sinon.createSandbox();
 

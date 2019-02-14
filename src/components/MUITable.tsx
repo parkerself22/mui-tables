@@ -1,20 +1,28 @@
-import React, { useContext } from 'react';
-import MUITableUtils from '../constants/MUITableUtils';
-import MUITableWrapper from './MUITableWrapper';
-import { MUI_TABLE_CONTEXT } from '../constants';
-import { Context, ContextActions, ParentProps, Props, Row, StateColumn, State } from '../types';
+import React, { useContext } from "react";
+import MUITableUtils from "../constants/MUITableUtils";
+import MUITableWrapper from "./MUITableWrapper";
+import { MUITABLE_DEF_CONTEXT } from "../constants";
+import {
+    MUITableContext,
+    ContextActions,
+    ParentProps,
+    Props,
+    Row,
+    StateColumn,
+    State
+} from "../types";
 
-export function useMUITableContext(): Context {
-    const context = useContext<Context>(MUI_TABLE_CONTEXT);
+export function useMUITableContext(): MUITableContext {
+    const context = useContext<MUITableContext>(MUITABLE_DEF_CONTEXT);
     if (!context) {
         throw new Error(
             `MUITable child components cannot be rendered outside the MUITable component`
         );
     }
-    return context;
+    return context as MUITableContext;
 }
 
-class MUIChildTable extends React.Component<Props<any>, State<any>> {
+export class MUIChildTable extends React.Component<Props<any>, State<any>> {
     constructor(props: Props<any>) {
         super(props);
         const options = props.options;
@@ -27,13 +35,13 @@ class MUIChildTable extends React.Component<Props<any>, State<any>> {
             paginateOptions.rowsPerPageOptions.push(paginateOptions.rowsPerPage);
         }
         this.state = {
-            columnFilters: props.columns.map(c => []),
+            columnFilters: props.columns.map(() => []),
             selectedRows: [],
             search: {
                 open: false,
                 text: null
             },
-            viewColumns: props.columns.map(c => c.display === 'true'),
+            viewColumns: props.columns.map(c => c.display === "true"),
             sortColumn: {
                 index: null,
                 asc: false
@@ -48,7 +56,7 @@ class MUIChildTable extends React.Component<Props<any>, State<any>> {
         };
     }
 
-    sortedFilteredRows = (join: boolean = true) => {
+    sortedFilteredRows = (/* join: boolean = true */) => {
         const { rows, columns, options } = this.props;
         const sorted = MUITableUtils.sortRows(rows, this.state, columns);
         return {
@@ -58,17 +66,9 @@ class MUIChildTable extends React.Component<Props<any>, State<any>> {
     };
 
     getVisibleColumns = () => {
-        const { columnFilters } = this.state;
+        const { viewColumns } = this.state;
         const { columns } = this.props;
-        return columns.reduce(
-            (visible, col, i) => {
-                if (!columnFilters[i]) {
-                    return visible;
-                }
-                return [...visible, col];
-            },
-            [] as StateColumn<any>[]
-        );
+        return columns.filter((c, i) => !!viewColumns[i]);
     };
 
     toggleViewColumn = (i: number) => {
@@ -86,7 +86,12 @@ class MUIChildTable extends React.Component<Props<any>, State<any>> {
 
     toggleSearchVisible = () => {
         const { text, open } = this.state.search;
-        this.setState({ search: { text: open ? null : text, open: !this.state.search.open } });
+        this.setState({
+            search: {
+                text: open ? null : text,
+                open: !open
+            }
+        });
     };
 
     onFilterUpdate = (colIndex: number, value: string | string[]) => {
@@ -108,7 +113,7 @@ class MUIChildTable extends React.Component<Props<any>, State<any>> {
 
     onFilterReset = () => {
         const { columns } = this.props;
-        const columnFilters = columns.map(c => []);
+        const columnFilters = columns.map(() => []);
         this.setState({ columnFilters });
     };
 
@@ -140,13 +145,10 @@ class MUIChildTable extends React.Component<Props<any>, State<any>> {
         const { rows, columns } = this.props;
         const colIndex = columns.findIndex(c => c.name === column.name);
         if (colIndex < 0) return [];
-
         const dynamicVals = rows.reduce(
             (opts, row) => {
                 if (row[colIndex]) {
-                    const opt = row[colIndex].display
-                        ? row[colIndex].display
-                        : String(row[colIndex].value);
+                    const opt = row[colIndex].display;
                     if (opt && opts.indexOf(opt) < 0) {
                         return [...opts, opt];
                     }
@@ -155,8 +157,8 @@ class MUIChildTable extends React.Component<Props<any>, State<any>> {
             },
             [] as string[]
         );
-        if (column.filterOptions && column.filterOptions.options) {
-            return [...column.filterOptions.options, ...dynamicVals];
+        if (column.filterOptions && column.filterOptions.defaultOpts) {
+            return [...column.filterOptions.defaultOpts, ...dynamicVals];
         }
         return dynamicVals;
     };
@@ -168,7 +170,7 @@ class MUIChildTable extends React.Component<Props<any>, State<any>> {
 
     toggleSort = (colIndex: number) => {
         // default if it wasn't the sort column (we'll go asc, desc, off)
-        let newState: Pick<State<any>, 'sortColumn'> = {
+        let newState: Pick<State<any>, "sortColumn"> = {
             sortColumn: { index: colIndex, asc: true }
         };
         if (this.state.sortColumn.index === colIndex) {
@@ -193,10 +195,10 @@ class MUIChildTable extends React.Component<Props<any>, State<any>> {
     handleAllSelect = () => {
         const { displayRows } = this.sortedFilteredRows();
         const { selectedRows } = this.state;
-        if (selectedRows.length > 0) {
+        if (selectedRows.length === displayRows.length) {
             return this.setState({ selectedRows: [] });
         }
-        this.setState({ selectedRows: displayRows as any });
+        this.setState({ selectedRows: displayRows.map(r => MUITableUtils.rowId(r)) });
     };
 
     render = () => {
@@ -219,7 +221,7 @@ class MUIChildTable extends React.Component<Props<any>, State<any>> {
             getVisibleColumns: this.getVisibleColumns
         };
 
-        const context: Context = {
+        const context: MUITableContext = {
             options,
             rows,
             columns,
@@ -229,9 +231,9 @@ class MUIChildTable extends React.Component<Props<any>, State<any>> {
         };
 
         return (
-            <MUI_TABLE_CONTEXT.Provider value={context}>
+            <MUITABLE_DEF_CONTEXT.Provider value={context}>
                 <MUITableWrapper loading={loading} />
-            </MUI_TABLE_CONTEXT.Provider>
+            </MUITABLE_DEF_CONTEXT.Provider>
         );
     };
 }

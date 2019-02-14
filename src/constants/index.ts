@@ -1,5 +1,5 @@
 import React from 'react';
-import { Context, Options, StateColumn } from '../types';
+import { MUITableContext, FilterOpts, Options, StateColumn } from "../types";
 
 export const DEFAULT_COL: StateColumn<any> = {
     name: 'column',
@@ -12,9 +12,8 @@ export const DEFAULT_COL: StateColumn<any> = {
     filter: true,
     filterOptions: {
         type: 'multiselect',
-        exact: false,
-        currentList: []
-    },
+        exact: false
+    } as FilterOpts,
     sort: true,
     download: true,
     viewColumns: true
@@ -89,7 +88,7 @@ export const DEFAULT_OPTS: Options<any> = {
     }
 };
 
-export const DEFAULT_CONTEXT: Context = {
+export const DEFAULT_CONTEXT: MUITableContext = {
     options: DEFAULT_OPTS,
     columns: [],
     rows: [],
@@ -125,4 +124,4 @@ export const DEFAULT_CONTEXT: Context = {
     getVisibleColumns: () => []
 };
 
-export const MUI_TABLE_CONTEXT = React.createContext<Context>(DEFAULT_CONTEXT);
+export const MUITABLE_DEF_CONTEXT = React.createContext<MUITableContext>(DEFAULT_CONTEXT);

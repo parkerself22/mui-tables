@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import ClearIcon from '@material-ui/icons/Clear';
 import SearchIcon from '@material-ui/icons/Search';
 import React, { ChangeEvent, KeyboardEvent } from 'react';
-import { Context } from '../../types/index';
+import { MUITableContext } from '../../types/index';
 
 const defaultSearchStyles = (theme: Theme) => ({
     main: {
@@ -28,7 +28,7 @@ const defaultSearchStyles = (theme: Theme) => ({
 });
 
 export interface MUITableSearchProps {
-    context: Context;
+    context: MUITableContext;
     toggleSearchVisible: () => void;
 }
 

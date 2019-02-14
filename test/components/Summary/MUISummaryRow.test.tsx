@@ -1,10 +1,10 @@
 import React from "react";
 import { cleanup, render } from "react-testing-library";
-import MUISummaryRow, { MUISummaryCell } from "../../src/components/Summary/SummaryRow";
-import { DEFAULT_COL } from "../../src/constants";
-import MUITableUtils from "../../src/constants/MUITableUtils";
-import { Context, Optional, Row, StateColumn } from "../../src/types";
-import { EXAMPLE_COLUMNS, EXAMPLE_INPUT_DATA, MUITableTestContext } from "../utils";
+import MUISummaryRow, { MUISummaryCell } from "../../../src/components/Summary/SummaryRow";
+import { DEFAULT_COL } from "../../../src/constants/index";
+import MUITableUtils from "../../../src/constants/MUITableUtils";
+import { MUITableContext, Optional, Row, StateColumn } from "../../../src/types/index";
+import { EXAMPLE_COLUMNS, EXAMPLE_INPUT_DATA, MUITableTestContext } from "../../utils";
 
 afterEach(cleanup);
 describe("MUISummaryCell", () => {
@@ -110,7 +110,7 @@ describe("MUISummaryRow", () => {
             summary: false
         };
         const rows: Row[] = MUITableUtils.buildRows(EXAMPLE_INPUT_DATA, [column]);
-        const contextPartial: Optional<Context> = {
+        const contextPartial: Optional<MUITableContext> = {
             rows,
             displayRows: rows,
             columns: [column]
@@ -124,7 +124,7 @@ describe("MUISummaryRow", () => {
     });
     test("renders summary cells", () => {
         const rows: Row[] = MUITableUtils.buildRows(EXAMPLE_INPUT_DATA, EXAMPLE_COLUMNS);
-        const contextPartial: Optional<Context> = {
+        const contextPartial: Optional<MUITableContext> = {
             rows,
             displayRows: rows,
             columns: EXAMPLE_COLUMNS

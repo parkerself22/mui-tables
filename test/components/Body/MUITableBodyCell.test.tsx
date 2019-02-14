@@ -1,8 +1,8 @@
 import React from "react";
 import { cleanup, render, fireEvent } from "react-testing-library";
-import MUITableBodyCell from "../../src/components/Body/MUITableBodyCell";
-import { DEFAULT_COL, DEFAULT_CONTEXT } from "../../src/constants";
-import { MUITableTestContext } from "../utils";
+import MUITableBodyCell from "../../../src/components/Body/MUITableBodyCell";
+import { DEFAULT_COL, DEFAULT_CONTEXT } from "../../../src/constants";
+import { MUITableTestContext } from "../../utils";
 import sinon from "sinon";
 const sandbox = sinon.createSandbox();
 afterEach(cleanup);

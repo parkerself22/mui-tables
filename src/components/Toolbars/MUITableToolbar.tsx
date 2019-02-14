@@ -12,7 +12,7 @@ import MUITableFilter from './Filters/MUITableFilter';
 import Popover from './MUITablePopover';
 import MUITableSearch from './MUITableSearch';
 import MUITableViewCols from './MUITableViewCols';
-import { Context } from '../../types/index';
+import { MUITableContext } from '../../types/index';
 
 export const defaultToolbarStyles = (theme: Theme) => ({
     root: {},
@@ -72,7 +72,7 @@ export const defaultToolbarStyles = (theme: Theme) => ({
 });
 
 export interface MUITableToolbarProps {
-    context: Context;
+    context: MUITableContext;
 }
 
 interface Props extends MUITableToolbarProps, WithStyles<typeof defaultToolbarStyles> {}
