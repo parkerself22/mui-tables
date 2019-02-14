@@ -291,11 +291,11 @@ describe("MUITableUtils", () => {
         });
         test("Handles singleRow with value", () => {
             const testState = { ...state, sortColumn: { index: 0, asc: false } };
-            const rows = [
+            const errorRows = [
                 [],
                 [{ value: 1, display: "1", column: col }]
             ];
-            const result = MUITableUtils.sortRows(rows, testState, [col]);
+            const result = MUITableUtils.sortRows(errorRows, testState, [col]);
             expect(result[0].length).toBe(0);
             expect(result[1][0].value).toBe(1);
         });
