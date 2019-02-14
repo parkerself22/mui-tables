@@ -1,9 +1,9 @@
 import React from "react";
 import { cleanup, render } from "react-testing-library";
 import MUISummaryRow, { MUISummaryCell } from "../../../src/components/Summary/SummaryRow";
-import { DEFAULT_COL } from "../../../src/constants/index";
+import { DEFAULT_COL } from "../../../src/constants";
 import MUITableUtils from "../../../src/constants/MUITableUtils";
-import { MUITableContext, Optional, Row, StateColumn } from "../../../src/types/index";
+import { MUITableContext, Optional, Row, StateColumn } from "../../../src/types";
 import { EXAMPLE_COLUMNS, EXAMPLE_INPUT_DATA, MUITableTestContext } from "../../utils";
 
 afterEach(cleanup);

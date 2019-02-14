@@ -8,6 +8,7 @@ import { MUITableTestContext } from "../../utils";
 const sandbox = sinon.createSandbox();
 
 afterEach(cleanup);
+afterAll(sandbox.restore);
 
 describe("MUITableFooter", () => {
     test("renders pagination", () => {
@@ -23,7 +24,7 @@ describe("MUITableFooter", () => {
                     }
                 }}
             >
-                <MUITableFooter/>
+                <MUITableFooter />
             </MUITableTestContext>
         );
         const test = () => getByText("Rows per page:");
@@ -42,7 +43,7 @@ describe("MUITableFooter", () => {
                     }
                 }}
             >
-                <MUITableFooter/>
+                <MUITableFooter />
             </MUITableTestContext>
         );
         const test = () => getByText("Rows per page:");
@@ -67,7 +68,7 @@ describe("MUITableFooter", () => {
                     }
                 }}
             >
-                <MUITableFooter/>
+                <MUITableFooter />
             </MUITableTestContext>
         );
         expect(spy.called).toBe(true);

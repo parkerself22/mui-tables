@@ -5,7 +5,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import classNames from 'classnames';
 import React from 'react';
 import { useMUITableContext } from '../MUITable';
-import { StateColumn } from '../../types/index';
+import { StateColumn } from '../../types';
 
 const defaultHeadCellStyles = (theme: Theme) => ({
     root: {},
@@ -65,11 +65,8 @@ interface Props extends MUITableHeadCellProps, WithStyles<typeof defaultHeadCell
 
 const MUITableHeadCell = (props: Props) => {
     const { children, classes, column, index } = props;
-    const {
-        toggleSort,
-        sortColumn,
-        options: { display, translations }
-    } = useMUITableContext();
+    const { toggleSort, sortColumn, options } = useMUITableContext();
+    const { display, translations } = options;
     const handleSortClick = () => toggleSort(props.index);
 
     const sort = column.sort !== false && display.sort !== false;

@@ -10,6 +10,7 @@ import { Optional } from "../../../src/types";
 const sandbox = sinon.createSandbox();
 
 afterEach(cleanup);
+afterAll(sandbox.restore);
 
 function popoverInstance(props?: Optional<MUITablePopoverProps>): MUITablePopover {
     const defaultProps: MUITablePopoverProps = {
@@ -28,7 +29,11 @@ describe("MUITablePopover", () => {
     test("handles trigger onClick", () => {
         const onClick = sandbox.spy();
         const props: MUITablePopoverProps = {
-            trigger: <span onClick={onClick} data-testid="MUITablePopoverTrigger">test</span>,
+            trigger: (
+                <span onClick={onClick} data-testid="MUITablePopoverTrigger">
+                    test
+                </span>
+            ),
             content: <span>test</span>,
             open: true
         };
@@ -38,15 +43,15 @@ describe("MUITablePopover", () => {
         expect(onClick.called).toBe(true);
     });
     test("handleRequestClose", () => {
-       const instance = popoverInstance();
-       const testFn = () => instance.handleRequestClose(() => {});
-       expect(testFn).not.toThrow()
+        const instance = popoverInstance();
+        const testFn = () => instance.handleRequestClose(() => {});
+        expect(testFn).not.toThrow();
     });
     test("handleOnExit", () => {
         const refExit = sandbox.spy();
-       const instance = popoverInstance({ refExit });
-       const testFn = () => instance.handleOnExit();
-       expect(testFn).not.toThrow();
-       expect(refExit.called).toBe(true);
+        const instance = popoverInstance({ refExit });
+        const testFn = () => instance.handleOnExit();
+        expect(testFn).not.toThrow();
+        expect(refExit.called).toBe(true);
     });
 });

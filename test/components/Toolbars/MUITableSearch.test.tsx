@@ -1,14 +1,10 @@
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
 import React from "react";
 import ShallowRenderer from "react-test-renderer/shallow";
 import { cleanup, fireEvent, render } from "react-testing-library";
 import sinon from "sinon";
-import MUITablePopover, {
-    MUITablePopoverProps
-} from "../../../src/components/Toolbars/MUITablePopover";
-import MUISearchDefault, {
-    MUITableSearchProps,
-    MUITableSearch
+import {
+    MUITableSearch,
+    MUITableSearchProps
 } from "../../../src/components/Toolbars/MUITableSearch";
 import MUITableToolbar from "../../../src/components/Toolbars/MUITableToolbar";
 import MUITableViewCols from "../../../src/components/Toolbars/MUITableViewCols";
@@ -19,6 +15,7 @@ import { EXAMPLE_COLUMNS, MUITableTestContext } from "../../utils";
 const sandbox = sinon.createSandbox();
 
 afterEach(cleanup);
+afterAll(sandbox.restore);
 
 function searchInstance(props?: Optional<MUITableSearchProps>): MUITableSearch {
     const defaultProps = {

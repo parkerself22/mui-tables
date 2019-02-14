@@ -3,15 +3,16 @@ import { cleanup, render } from "react-testing-library";
 import sinon from "sinon";
 import MUITableToolbarSelect from "../../../src/components/Toolbars/MUITableToolbarSelect";
 import { DEFAULT_CONTEXT } from "../../../src/constants";
-import { EXAMPLE_INPUT_DATA, MUITableTestContext } from "../../utils";
+import { MUITableTestContext } from "../../utils";
 
 const sandbox = sinon.createSandbox();
 
 afterEach(cleanup);
+afterAll(sandbox.restore);
 
 describe("MUITableToolbarSelect", () => {
     test("renders", () => {
-        const testFn = () => render(<MUITableToolbarSelect />);
+        const testFn = () => render(<MUITableToolbarSelect/>);
         expect(testFn).not.toThrow();
     });
     test("renders customToolbarSelect if exists", () => {
@@ -28,7 +29,7 @@ describe("MUITableToolbarSelect", () => {
                     }
                 }}
             >
-                <MUITableToolbarSelect />
+                <MUITableToolbarSelect/>
             </MUITableTestContext>
         );
         expect(customToolbarSelect.called).toBe(true);
@@ -36,5 +37,5 @@ describe("MUITableToolbarSelect", () => {
     test("default context bs", () => {
         const testFn = () => DEFAULT_CONTEXT.getVisibleColumns();
         expect(testFn).not.toThrow();
-    })
+    });
 });

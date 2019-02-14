@@ -8,6 +8,7 @@ import { EXAMPLE_ROWS, MUITableTestContext } from "../../utils";
 const sandbox = sinon.createSandbox();
 
 afterEach(cleanup);
+afterAll(sandbox.restore);
 
 describe("MUITablePagination", () => {
     test("renders null if options.display.paginate = false", () => {

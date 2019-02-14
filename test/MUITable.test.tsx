@@ -6,11 +6,12 @@ import MUITableDefault, { MUIChildTable, MUITable } from "../src/components/MUIT
 import { DEFAULT_COL, DEFAULT_OPTS } from "../src/constants";
 import MUITableUtils from "../src/constants/MUITableUtils";
 import { Optional, ParentProps, StateColumn } from "../src/types";
-import { EXAMPLE_COLUMNS, EXAMPLE_INPUT_DATA, MUITableTestContext } from "./utils";
+import { EXAMPLE_COLUMNS, EXAMPLE_INPUT_DATA } from "./utils";
 
 const sandbox = sinon.createSandbox();
 
 afterEach(cleanup);
+afterAll(sandbox.restore);
 
 function tableInstance(props?: Optional<ParentProps<any>>): MUIChildTable {
     const ChildTable = MUITable({
@@ -154,7 +155,7 @@ describe("MUITableChild", () => {
         });
         test("sets 0 length if null string passed", () => {
             const instance = tableInstance();
-            instance.onFilterUpdate(0, '');
+            instance.onFilterUpdate(0, "");
             expect(instance.state.columnFilters[0].length).toBe(0);
         });
         test("removes value if single existing value passed", () => {

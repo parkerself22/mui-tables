@@ -2,7 +2,9 @@ import MUITableUtils from "../src/constants/MUITableUtils";
 import { GeneratedColumn, StateColumn, SummaryRowCell } from "../src/types";
 import { DEFAULT_COL, DEFAULT_OPTS } from "../src/constants";
 import sinon from "sinon";
+
 const sandbox = sinon.createSandbox();
+afterAll(sandbox.restore);
 
 describe("MUITableUtils", () => {
     afterEach(() => {

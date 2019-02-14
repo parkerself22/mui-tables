@@ -4,8 +4,11 @@ import MUITableBodyCell from "../../../src/components/Body/MUITableBodyCell";
 import { DEFAULT_COL, DEFAULT_CONTEXT } from "../../../src/constants";
 import { MUITableTestContext } from "../../utils";
 import sinon from "sinon";
+
 const sandbox = sinon.createSandbox();
 afterEach(cleanup);
+afterAll(sandbox.restore);
+
 describe("MUITableBodyCell", () => {
     test("renders children when no cell is passed", () => {
         const { getByText } = render(

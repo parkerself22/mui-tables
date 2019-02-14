@@ -6,8 +6,9 @@ import { MUITableTestContext } from "../../utils";
 import sinon from "sinon";
 
 const sandbox = sinon.createSandbox();
-
 afterEach(cleanup);
+afterAll(sandbox.restore);
+
 describe("MUITableBodyRow", () => {
     test("returns an empty row when no display rows exist", () => {
         const { getByText } = render(

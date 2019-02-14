@@ -1,12 +1,15 @@
 import React from "react";
-import { cleanup, render, fireEvent } from "react-testing-library";
+import { cleanup, fireEvent, render } from "react-testing-library";
+import sinon from "sinon";
 import MUITableBodyCell from "../../../src/components/Body/MUITableBodyCell";
 import MUITableSelectCell from "../../../src/components/Body/MUITableSelectCell";
-import { DEFAULT_COL, DEFAULT_CONTEXT, DEFAULT_OPTS } from "../../../src/constants";
+import { DEFAULT_OPTS } from "../../../src/constants";
 import { MUITableTestContext } from "../../utils";
-import sinon from "sinon";
+
 const sandbox = sinon.createSandbox();
 afterEach(cleanup);
+afterAll(sandbox.restore);
+
 describe("MUITableBodyCell", () => {
     test("renders cell if rows are selectable", () => {
         const { getByTestId } = render(

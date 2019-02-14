@@ -8,6 +8,7 @@ import sinon from "sinon";
 
 const sandbox = sinon.createSandbox();
 afterEach(cleanup);
+afterAll(sandbox.restore);
 
 describe("MUITableFilter", () => {
     test("renders with title", () => {
