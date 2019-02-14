@@ -240,7 +240,7 @@ export class MUIChildTable extends React.Component<Props<any>, State<any>> {
 
         return (
             <MUITABLE_DEF_CONTEXT.Provider value={context}>
-                <MUITableWrapper loading={loading}/>
+                <MUITableWrapper loading={loading} />
             </MUITABLE_DEF_CONTEXT.Provider>
         );
     };
@@ -262,7 +262,7 @@ const MUIParentTable = (props: ParentProps<any>) => {
     }
     const rows = MUITableUtils.buildRows(props.data, columns);
 
-    return <MUIChildTable options={options} data={props.data} columns={columns} rows={rows}/>;
+    return <MUIChildTable options={options} data={props.data} columns={columns} rows={rows} />;
 };
 
 export const MUITable = MUIParentTable;
