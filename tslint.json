@@ -1,6 +1,7 @@
 {
   "extends": [
     "tslint-react",
+    "tslint-react-hooks",
     "tslint-config-prettier",
     "tslint-config-airbnb"
   ],
@@ -24,7 +25,8 @@
         "ignore-pattern": "^import |^export {(.*?)}"
       }
     ],
-    "no-boolean-literal-compare": false
+    "no-boolean-literal-compare": false,
+    "react-hooks-nesting": "error"
   },
   "linterOptions": {
     "exclude": [
