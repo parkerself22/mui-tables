@@ -1,3 +1,13 @@
+## [1.0.11](https://github.com/parkerself22/mui-table/compare/v1.0.10...v1.0.11) (2019-02-15)
+
+
+### Bug Fixes
+
+* **add LICENSE:** add license ([7348b2a](https://github.com/parkerself22/mui-table/commit/7348b2a))
+* **documentation:** add better documentation ([e5c7fa8](https://github.com/parkerself22/mui-table/commit/e5c7fa8))
+* **license + package.json:** fix typo, update docs ([255cf1a](https://github.com/parkerself22/mui-table/commit/255cf1a))
+* **release config:** turns out renaming the repo wasn't the best call ([4ec74f9](https://github.com/parkerself22/mui-table/commit/4ec74f9))
+
 ## [1.0.10](https://github.com/parkerself22/mui-table/compare/v1.0.9...v1.0.10) (2019-02-15)
 
 
