@@ -272,14 +272,14 @@ const GeneratedColumnExampleData = [
         }
     }
 ];
-const GeneratedColumnExample: GeneratedColumn<any> = {
+const DynamicColumnExample = {
     path: ["task"],
     nameProp: "name",
     type: "dimension",
     options: {
         isRowId: true
     },
-    modifyProps: (column, entry) => {
+    modifyProps: (column: Column, entry: Object) => {
         column.name = entry.task.name;
         return column;
     }
@@ -297,7 +297,7 @@ Coming soon...
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the releases on this repository.
+We use [SemVer](http://semver.org/) for versioning. For the versions available, [see the releases on this repository](https://github.com/parkerself22/mui-tables/releases).
 
 ## Authors
 
@@ -305,5 +305,5 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](https://gist.github.com/PurpleBooth/LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/parkerself22/mui-tables/blob/master/LICENSE) file for details
 
