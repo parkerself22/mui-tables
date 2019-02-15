@@ -90,6 +90,7 @@
         "semantic-release": "^15.13.3",
         "sinon": "^7.2.3",
         "ts-jest": "^23.10.5",
+        "tsconfig-paths-webpack-plugin": "^3.2.0",
         "tslint": "^5.12.1",
         "tslint-config-airbnb": "^5.11.1",
         "tslint-config-prettier": "^1.17.0",
@@ -116,16 +117,17 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/parkerself22/mui-table.git"
+        "url": "https://github.com/parkerself22/mui-tables.git"
     },
-    "homepage": "https://github.com/parkerself22/mui-table",
+    "homepage": "https://parkerself.gitbook.io/mui-table",
     "bugs": {
-        "url": "https://github.com/parkerself22/mui-table/issues"
+        "url": "https://github.com/parkerself22/mui-tables/issues"
     },
     "keywords": [
         "react",
         "reactjs",
         "mui-table",
+        "mui-tables",
         "material-ui",
         "mui"
     ],

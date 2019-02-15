@@ -1,9 +1,10 @@
-import { configure, addDecorator } from "@storybook/react";
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import * as React from "react";
-import { withKnobs } from "@storybook/addon-knobs";
-import { withNotes } from "@storybook/addon-notes";
-import { withInfo } from "@storybook/addon-info";
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { withInfo } from '@storybook/addon-info';
+import { withKnobs } from '@storybook/addon-knobs';
+import { withNotes } from '@storybook/addon-notes';
+import { addDecorator, configure } from '@storybook/react';
+import * as React from 'react';
+
 const req = require.context("../src", true, /\.stories\.js$/);
 const reqTs = require.context("../", true, /\.stories\.tsx$/);
 
@@ -14,7 +15,7 @@ function loadStories() {
 }
 
 const theme = createMuiTheme();
-const ThemeDecorator = storyFn => <MuiThemeProvider theme={theme}>{storyFn()}</MuiThemeProvider>;
+const ThemeDecorator = storyFn => <MuiThemeProvider theme={theme}><div style={{paddingTop: 40}}>{storyFn()}</div></MuiThemeProvider>;
 
 addDecorator(withInfo);
 addDecorator(ThemeDecorator);

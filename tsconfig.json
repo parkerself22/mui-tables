@@ -19,7 +19,11 @@
     "resolveJsonModule": true,
     "jsx": "react",
     "sourceMap": true,
-    "declaration": true
+    "declaration": true,
+    "baseUrl": ".",
+    "paths": {
+      "mui-tables": ["./dist"]
+    }
   },
   "include": [
     "src"

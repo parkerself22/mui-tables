@@ -4,7 +4,11 @@
     "rootDir": "../.",
     "jsx": "react",
     "isolatedModules": false,
-    "noEmit": false
+    "noEmit": false,
+    "paths": {
+      "mui-tables": ["./src"]
+    },
+    "baseUrl": "../."
   },
   "include": [
     "../src",

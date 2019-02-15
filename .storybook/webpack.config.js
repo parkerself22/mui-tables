@@ -1,4 +1,5 @@
 const path = require("path");
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 module.exports = (baseConfig, env, config) => {
     config.module.rules.push({
         test: /\.tsx?$/,
@@ -15,9 +16,14 @@ module.exports = (baseConfig, env, config) => {
                 }
             },
             require.resolve("react-docgen-typescript-loader")
-        ]
+        ],
+        resolve: {
+            alias: {
+                "mui-tables": "../dist"
+            }
+        }
     });
     //defaultConfig.plugins.push(new TSDocgenPlugin());
-    config.resolve.extensions.push(".ts", ".tsx");
+    config.resolve.extensions.push(".ts", ".tsx", ".js");
     return config;
 };
