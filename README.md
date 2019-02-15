@@ -6,9 +6,9 @@ MUI Tables is a highly-pluggable table library built on top of the fantastic [Ma
 
 There are admittedly already multiple libraries doing the same thing, but few \(in my opinion\) that provide as much abstraction on top of the data management aspect of building and using tables. The goal for MUI Tables is to make data management as painless as possible.
 
-\*\*\*\*\* This documentation is very much still a work in progress \*\*\*\*
+**\*\*\*\*\* This documentation is very much still a work in progress \*\*\*\*\***
 
-![Example with Summary, Date Toolbar, Filters, ](.gitbook/assets/image%20%285%29.png)
+![Example with Summary, Date Toolbar, Filters, ](docs/.gitbook/assets/image%20%285%29.png)
 
 ## Installation
 
@@ -28,7 +28,7 @@ npm i --save mui-tables
 
 ## Example Usage
 
-![Intro Example](.gitbook/assets/image%20%281%29.png)
+![Intro Example](docs/.gitbook/assets/image%20%281%29.png)
 
 ```jsx
 import React from 'react';
