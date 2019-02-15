@@ -2,11 +2,15 @@ import depcheck from 'depcheck';
 import path from 'path';
 
 const options = {
-    withoutDev: false, // [DEPRECATED] check against devDependencies
+    withoutDev: true, // [DEPRECATED] check against devDependencies
     ignoreBinPackage: false, // ignore the packages with bin entry
     skipMissing: false, // skip calculation of missing dependencies
     ignoreDirs: [ // folder with these names will be ignored
-        'dist'
+        'dist',
+        "test",
+        "config",
+        "scripts",
+        "storybook"
     ],
     ignoreMatches: [ // ignore dependencies that matches these globs
         '@babel/*',
