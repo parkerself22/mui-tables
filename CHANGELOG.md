@@ -1,3 +1,10 @@
+## [1.0.9](https://github.com/parkerself22/mui-table/compare/v1.0.8...v1.0.9) (2019-02-15)
+
+
+### Bug Fixes
+
+* **testing dependencies:** add a dependency check test using depcheck ([cc84cda](https://github.com/parkerself22/mui-table/commit/cc84cda))
+
 ## [1.0.8](https://github.com/parkerself22/mui-table/compare/v1.0.7...v1.0.8) (2019-02-14)
 
 
