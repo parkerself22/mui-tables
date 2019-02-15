@@ -1,3 +1,10 @@
+## [1.0.10](https://github.com/parkerself22/mui-table/compare/v1.0.9...v1.0.10) (2019-02-15)
+
+
+### Bug Fixes
+
+* **testing dependencies:** Ignore devDependencies because last push passed due to module in dev when it should have been in deps. ([cb30a4d](https://github.com/parkerself22/mui-table/commit/cb30a4d))
+
 ## [1.0.9](https://github.com/parkerself22/mui-table/compare/v1.0.8...v1.0.9) (2019-02-15)
 
 
