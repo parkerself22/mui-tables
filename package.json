@@ -1,6 +1,6 @@
 {
     "name": "mui-tables",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "author": "Parker Self",
     "license": "ISC",
     "description": "Pluggable table library built on top of Material-UI components",
