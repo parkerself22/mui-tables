@@ -2,5 +2,7 @@
 
 * [Overview \| MUI Tables](README.md)
 
-## Examples
+## Options
+
+* [Options](options/options.md)
 
