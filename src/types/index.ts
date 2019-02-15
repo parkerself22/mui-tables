@@ -38,6 +38,10 @@ interface SummaryOpts {
     format: SummaryFormats;
     prefix?: string;
     postfix?: string;
+    /**
+     * Given the non-filtered rows and all rows (array of cells), return a calculation
+     * of the visible and total cells
+     */
     customCalculate?: (displayRows: Row<any>[], allRows: Row<any>[]) => SummaryRowCell;
     customRender?: (s: SummaryRowCell) => ReactNode;
     showComparison?: 'true' | 'whenDifferent' | 'false';
@@ -65,8 +69,8 @@ export interface PropColumn<R extends MUIDataObj>
 type ColTypes = 'dimension' | 'metric';
 
 export interface StateColumn<R extends MUIDataObj> {
-    title?: string;
     name: string;
+    title?: string;
     type: ColTypes;
     display: 'true' | 'false' | 'excluded';
 
