@@ -18,8 +18,6 @@ npm i --save mui-tables
 
 #### Peer Dependencies:
 
-{% code-tabs %}
-{% code-tabs-item title="Peer Dependencies" %}
 ```javascript
 {
     "@material-ui/core": ">= 3.9.0",
@@ -27,15 +25,11 @@ npm i --save mui-tables
     "react": ">= 16.8.1"
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
 
 ## Example Usage
 
 ![Intro Example](.gitbook/assets/image%20%281%29.png)
 
-{% code-tabs %}
-{% code-tabs-item title="intro.js" %}
 ```jsx
 import React from 'react';
 import MUITable from 'mui-tables';
@@ -71,8 +65,6 @@ export const IntroExample = () => (
     <MUITable data={data} title={'Intro Table'} columns={columns} loading={false} />
 );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
 
 ## Props / Options
 
