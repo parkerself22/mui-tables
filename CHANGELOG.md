@@ -1,3 +1,10 @@
+## [1.0.12](https://github.com/parkerself22/mui-table/compare/v1.0.11...v1.0.12) (2019-02-20)
+
+
+### Bug Fixes
+
+* **hooks, mergeRows, test coverage:** Fixed support for firing all hooks. Added row duplicate filtering and merging options to row props. Increased test coverage up to 100% ([5d19848](https://github.com/parkerself22/mui-table/commit/5d19848))
+
 ## [1.0.11](https://github.com/parkerself22/mui-table/compare/v1.0.10...v1.0.11) (2019-02-15)
 
 
