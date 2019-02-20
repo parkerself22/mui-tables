@@ -33,7 +33,10 @@ export const DEFAULT_OPTS: Options<any> = {
         rowHover: false,
         showSummaryRow: false,
         summaryTop: true,
-        selectable: false
+        selectable: false,
+        skipDuplicates: false,
+        mergeDuplicates: false,
+        hiddenColumnsMergeDuplicates: false
     },
     pagination: {
         rowsPerPage: 5,

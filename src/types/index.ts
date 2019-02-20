@@ -25,6 +25,12 @@ export interface Cell<R extends MUIDataObj> {
 
 export type Row<R extends MUIDataObj = MUIDataObj> = Cell<R>[];
 
+export type DisplayRow<R extends MUIDataObj = MUIDataObj> = {
+    cells: Cell<R>[];
+    rowId?: string;
+    rowIds?: string[];
+};
+
 /////////////////////////// COLUMNS ///////////////////////////
 
 type CalculateCell<R extends MUIDataObj> = (entry: R) => Omit<Cell<R>, 'column'>;
@@ -76,9 +82,9 @@ export interface StateColumn<R extends MUIDataObj> {
 
     calculateCellDefinition: CalculateCell<R>;
 
+    // Use cell value for this column to create a unique rowId
+    // defaults to true if dimension, false if metric
     isRowId: boolean;
-
-    cellJoinProps?: string[];
 
     summary: boolean;
     summaryOptions?: SummaryOpts;
@@ -117,7 +123,55 @@ interface RowOptions<R extends MUIDataObj> {
     summaryTop: boolean;
     setRowProps?: (row: Row<R>, rowIndex: number) => { [k: string]: any };
     customToolbarSelect?: (selectedRows: Row<R>[]) => ReactNode;
-    joinProps?: string[]; // column names that are ok to merge rows with when columns hidden
+
+    /**
+     * @property {boolean = false} skipDuplicates
+     *
+     * If this is true, rows with all cell values matching will be only displayed once.
+     *
+     * IMPORTANT: Takes precedence over mergeDuplicates, so make sure skipDuplicates = false if
+     * mergeDuplicates is the desired behavior
+     *
+     * Example if true:
+     * rows = [ [parker, 11/1, 5], [parker, 11/1, 5] ]
+     * displayRows = [ [parker, 11/1, 5] ]
+     */
+    skipDuplicates: boolean;
+
+    /**
+     * @property {boolean = false} mergeDuplicates
+     *
+     * If this is true, rows with duplicate dimensions will have their metric columns summed
+     * instead of displaying twice.
+     *
+     * IMPORTANT: skipDuplicates takes precedence over mergeDuplicates, so make sure
+     * skipDuplicates = false if mergeDuplicates is the desired behavior
+     *
+     * Example if true:
+     * rows = [ [parker, 11/1, 5], [parker, 11/1, 5] ]
+     * displayRows = [ [parker, 11/1, 10] ]
+     */
+    mergeDuplicates: boolean;
+
+    /**
+     * Used for both mergeDuplicates and hiddenColumnsMergeDuplicates
+     * If not provided, each cell in a metric column is summed.
+     * @param cells {Row[]}
+     */
+    mergeFunction?: (rows: Row<any>[]) => Row<any>;
+
+    /**
+     * @property {boolean = false} mergeHidden
+     *
+     * If this is true, rows with duplicate dimensions when columns are hidden
+     * will have their metric columns summed instead of displaying twice.
+     *
+     * Example if true:
+     *  columnsVisible = [true, false, true]
+     *  rows = [ [parker, 11/1, 5], [parker, 11/3, 5]
+     *  displayRows = [parker, null, 10]
+     */
+    hiddenColumnsMergeDuplicates: boolean;
 }
 
 type SortColumns<R extends MUIDataObj> = (cols: StateColumn<R>[]) => StateColumn<R>[];
@@ -128,7 +182,7 @@ interface ColumnOptions<R extends MUIDataObj> {
     sortColumns?: SortColumns<R>;
 }
 
-interface ToolbarOptions<R extends MUIDataObj> {
+export interface ToolbarOptions<R extends MUIDataObj> {
     showDates: boolean;
     startDate?: Date;
     endDate?: Date;
@@ -138,27 +192,28 @@ interface ToolbarOptions<R extends MUIDataObj> {
     customToolbar?: () => ReactNode;
 }
 
-interface HookOptions<R extends MUIDataObj> {
-    onDataChange?: (columns: StateColumn<R>[], rows: Row<R>[]) => void;
+export interface HookOptions<R extends MUIDataObj> {
     onSearchChange?: (searchText: string) => void;
-    onFilterChange?: (change: string | string[], filterList: string[][]) => void;
-    onColumnSortChange?: (changedColumn: string, direction: string) => void;
-    onColumnViewChange?: (changedColumn: string, action: string) => void;
-    onRowsSelect?: (currentRowsSelected: Row<R>[], rowsSelected: any[]) => void;
+    onRowsSelect?: (
+        newSelections: Row<R>[],
+        removedSelections: Row<R>[],
+        currentSelections: Row<R>[]
+    ) => void;
     onRowsDelete?: (rowsDeleted: Row<R>[]) => void;
+    onFilterChange?: (change: string | string[], filterList: string[][]) => void;
     onRowClick?: (row: Row<R>, rowIndex: number) => void;
     onCellClick?: (cell: Cell<any>, row: Row<any>, rowIndex: number) => void;
-    onTableChange?: (action: string, tableState: State<R>) => void;
+    onColumnSortChange?: (changedColumn: StateColumn<any>, direction: string|null) => void;
+    onColumnViewChange?: (changedColumn: StateColumn<any>, visible: boolean) => void;
+    onChangePage?: (currentPage: number) => void;
+    onChangeRowsPerPage?: (numberOfRows: number) => void;
 }
 
 interface PaginationOptions {
     page?: number;
-    count?: number;
     rowsPerPage?: number;
     rowsPerPageOptions?: number[];
     customFooter?: (context: MUITableContext) => ReactNode;
-    onChangePage?: (currentPage: number) => void;
-    onChangeRowsPerPage?: (numberOfRows: number) => void;
 }
 
 interface TranslationOptions {

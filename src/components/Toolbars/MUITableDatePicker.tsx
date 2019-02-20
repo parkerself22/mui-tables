@@ -1,9 +1,9 @@
 import MomentUtils from '@date-io/moment';
 import { createStyles, Theme, WithStyles, withStyles } from '@material-ui/core/styles';
+import classnames from 'classnames';
 import { InlineDatePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
 import * as React from 'react';
 import { useMUITableContext } from '../MUITable';
-import classnames from 'classnames';
 
 const styles = (theme: Theme) =>
     createStyles({
@@ -39,7 +39,6 @@ const MUITableDatePicker = (props: WithStyles<typeof styles>) => {
         return null;
     }
 
-    const defaultHandler = (value: any) => {};
     const startLabelText = startLabel ? startLabel : 'Start Date';
     const endLabelText = endLabel ? endLabel : 'End Date';
 
@@ -47,7 +46,7 @@ const MUITableDatePicker = (props: WithStyles<typeof styles>) => {
         <MuiPickersUtilsProvider utils={MomentUtils}>
             <div className={classes.datePickerWrapper}>
                 {customToolbar ? customToolbar() : null}
-                {showDates && startDate ? (
+                {showDates && startDate && handleDateChange ? (
                     <InlineDatePicker
                         className={classnames(
                             classes.datePicker,
@@ -55,17 +54,17 @@ const MUITableDatePicker = (props: WithStyles<typeof styles>) => {
                         )}
                         label={startLabelText}
                         value={start}
-                        onChange={handleDateChange ? handleDateChange(true) : defaultHandler}
+                        onChange={handleDateChange(true)}
                         disableFuture={true}
                         maxDate={end}
                     />
                 ) : null}
-                {showDates && endDate ? (
+                {showDates && endDate && handleDateChange ? (
                     <InlineDatePicker
                         className={classnames(classes.datePicker, 'muiTableToolbar-datePicker-end')}
                         label={endLabelText}
                         value={end}
-                        onChange={handleDateChange ? handleDateChange(false) : defaultHandler}
+                        onChange={handleDateChange(false)}
                         minDate={start}
                         disableFuture={true}
                     />

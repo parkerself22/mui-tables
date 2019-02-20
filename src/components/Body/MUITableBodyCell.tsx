@@ -1,9 +1,9 @@
-import React from 'react';
-import classNames from 'classnames';
-import TableCell from '@material-ui/core/TableCell';
 import { Theme, WithStyles, withStyles } from '@material-ui/core/styles';
-import { useMUITableContext } from '../MUITable';
+import TableCell from '@material-ui/core/TableCell';
+import classNames from 'classnames';
+import React from 'react';
 import { Cell, Row } from '../../types/index';
+import { useMUITableContext } from '../MUITable';
 
 const defaultBodyCellStyles = (theme: Theme) => ({
     root: {},
@@ -49,6 +49,9 @@ const MUITableBodyCell = (props: Props) => {
         options: { hooks, display }
     } = useMUITableContext();
     const handleClick = () => {
+        if (hooks && hooks.onRowClick && row) {
+            hooks.onRowClick(row, rowIndex);
+        }
         if (hooks && hooks.onCellClick && cell && row) {
             hooks.onCellClick(cell, row, rowIndex);
         }

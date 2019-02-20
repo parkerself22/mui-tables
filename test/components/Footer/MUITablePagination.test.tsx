@@ -1,9 +1,9 @@
-import React from "react";
-import { cleanup, fireEvent, render } from "react-testing-library";
-import sinon from "sinon";
-import MUITablePagination from "../../../src/components/Footer/MUITablePagination";
-import { DEFAULT_CONTEXT, DEFAULT_OPTS } from "../../../src/constants";
-import { EXAMPLE_ROWS, MUITableTestContext } from "../../utils";
+import React from 'react';
+import { cleanup, fireEvent, render } from 'react-testing-library';
+import sinon from 'sinon';
+import MUITablePagination from '../../../src/components/Footer/MUITablePagination';
+import { DEFAULT_CONTEXT, DEFAULT_OPTS } from '../../../src/constants';
+import { EXAMPLE_ROWS, MUITableTestContext } from '../../utils';
 
 const sandbox = sinon.createSandbox();
 
@@ -57,6 +57,35 @@ describe("MUITablePagination", () => {
         fireEvent.click(button);
         expect(changePage.called).toBe(true);
         expect(changePage.calledWith(1)).toBe(true);
+    });
+    test("calls onChangePage hook if provided", () => {
+        const onChangePage = sandbox.spy();
+        const { getByTestId } = render(
+            <MUITableTestContext
+                override={{
+                    displayRows: EXAMPLE_ROWS,
+                    options: {
+                        ...DEFAULT_OPTS,
+                        display: {
+                            ...DEFAULT_OPTS.display,
+                            paginate: true
+                        },
+                        pagination: {
+                            rowsPerPage: 1
+                        },
+                        hooks: {
+                            onChangePage
+                        }
+                    }
+                }}
+            >
+                <MUITablePagination />
+            </MUITableTestContext>
+        );
+        const button = getByTestId("Next Page");
+        fireEvent.click(button);
+        expect(onChangePage.called).toBe(true);
+        expect(onChangePage.calledWith(1)).toBe(true);
     });
     test("handles previous page click", () => {
         const changePage = sandbox.spy();
@@ -114,7 +143,7 @@ describe("MUITablePagination", () => {
         const last = getByTestId("Last Page");
         fireEvent.click(last);
         expect(changePage.called).toBe(true);
-        expect(changePage.calledWith(EXAMPLE_ROWS.length)).toBe(true);
+        expect(changePage.calledWith(EXAMPLE_ROWS.length - 1)).toBe(true);
     });
     test("handles first page click", () => {
         const changePage = sandbox.spy();
@@ -179,5 +208,42 @@ describe("MUITablePagination", () => {
         const option = getAllByRole("option");
         option[0].click();
         expect(changeRowsPerPage.called).toBe(true);
+    });
+    test("calls onChangeRowsPerPage hook if provided", () => {
+        const onChangeRowsPerPage = sandbox.spy();
+        let r: any;
+        const { getByValue, getByTitle, getAllByRole } = render(
+            <MUITableTestContext
+                override={{
+                    displayRows: EXAMPLE_ROWS,
+                    options: {
+                        ...DEFAULT_OPTS,
+                        display: {
+                            ...DEFAULT_OPTS.display,
+                            paginate: true
+                        },
+                        hooks: {
+                            onChangeRowsPerPage
+                        }
+                    },
+                    pagination: {
+                        ...DEFAULT_CONTEXT.pagination,
+                        rowsPerPage: 69
+                    }
+                }}
+            >
+                <MUITablePagination
+                    innerRef={(ref: any) => {
+                        r = ref;
+                    }}
+                />
+            </MUITableTestContext>
+        );
+        // @ts-ignore
+        const perPageInput = getByTitle("MUITable-rowsPerPageSelect").firstChild.firstChild;
+        fireEvent.click(perPageInput as any);
+        const option = getAllByRole("option");
+        option[0].click();
+        expect(onChangeRowsPerPage.called).toBe(true);
     });
 });

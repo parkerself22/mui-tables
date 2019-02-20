@@ -1,10 +1,10 @@
-import React from "react";
-import { cleanup, fireEvent, render } from "react-testing-library";
-import sinon from "sinon";
-import MUITableBodyCell from "../../../src/components/Body/MUITableBodyCell";
-import MUITableSelectCell from "../../../src/components/Body/MUITableSelectCell";
-import { DEFAULT_OPTS } from "../../../src/constants";
-import { MUITableTestContext } from "../../utils";
+import React from 'react';
+import { cleanup, fireEvent, render } from 'react-testing-library';
+import sinon from 'sinon';
+import MUITableBodyCell from '../../../src/components/Body/MUITableBodyCell';
+import MUITableSelectCell from '../../../src/components/Body/MUITableSelectCell';
+import { DEFAULT_OPTS } from '../../../src/constants';
+import { MUITableTestContext } from '../../utils';
 
 const sandbox = sinon.createSandbox();
 afterEach(cleanup);
@@ -97,5 +97,32 @@ describe("MUITableBodyCell", () => {
         const inputs = checkbox.getElementsByTagName("input");
         fireEvent.click(inputs.item(0) as any);
         expect(toggleRowSelected.called).toBe(true);
+    });
+    test("doesnt call toggleRowSelected if !isHeaderCell and row is null", () => {
+        const toggleRowSelected = sandbox.spy(() => {});
+        const { getByTestId } = render(
+            <MUITableTestContext
+                override={{
+                    toggleRowSelected,
+                    options: {
+                        ...DEFAULT_OPTS,
+                        rows: {
+                            ...DEFAULT_OPTS.rows,
+                            selectable: true
+                        }
+                    }
+                }}
+            >
+                <MUITableSelectCell
+                    testId={"testSelectCell"}
+                    checked={true}
+                    isHeaderCell={false}
+                />
+            </MUITableTestContext>
+        );
+        const checkbox = getByTestId("testSelectCell");
+        const inputs = checkbox.getElementsByTagName("input");
+        fireEvent.click(inputs.item(0) as any);
+        expect(toggleRowSelected.called).toBe(false);
     });
 });

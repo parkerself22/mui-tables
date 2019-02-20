@@ -1,10 +1,11 @@
+import { action } from '@storybook/addon-actions';
 import { array, boolean, object, text } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 import React from 'react';
 import { MUITable } from '../src/components/MUITable';
 import MUITableUtils from '../src/constants/MUITableUtils';
-import { PropColumn, UserOptions } from '../src/types';
-// @ts-ignore
+import { HookOptions, PropColumn, UserOptions } from '../src/types';
+import { HooksExample } from './hooks-actions';
 import { IntroExample } from './intro';
 
 storiesOf('MUITable', module)
@@ -136,6 +137,7 @@ storiesOf('MUITable', module)
                     name: 'string',
                     title: text('Col1 Title', 'String', 'Static Columns'),
                     type: 'dimension',
+                    isRowId: true,
                     calculateCellDefinition: entry => ({
                         value: entry.string,
                         display: entry.string
@@ -149,7 +151,8 @@ storiesOf('MUITable', module)
                 {
                     name: 'date',
                     title: 'Date',
-                    type: 'metric',
+                    type: 'dimension',
+                    isRowId: true,
                     calculateCellDefinition: entry => ({
                         value: new Date(entry.number),
                         display: entry.date
@@ -161,6 +164,7 @@ storiesOf('MUITable', module)
                     name: 'user',
                     title: 'User',
                     type: 'dimension',
+                    isRowId: true,
                     calculateCellDefinition: entry => ({ value: entry.user, display: entry.user }),
                     summary: false,
                     filterOptions: {
@@ -215,7 +219,41 @@ storiesOf('MUITable', module)
                 }
             ];
 
+            const hooks: HookOptions<any> = {
+                onSearchChange: boolean('onSearchChange', true, 'Options.hooks')
+                    ? action(`onSearchChange`)
+                    : undefined,
+                onFilterChange: boolean('onFilterChange', true, 'Options.hooks')
+                    ? action(`onFilterChange`)
+                    : undefined,
+                onColumnSortChange: boolean('onColumnSortChange', true, 'Options.hooks')
+                    ? action(`onColumnSortChange`)
+                    : undefined,
+                onColumnViewChange: boolean('onColumnViewChange', true, 'Options.hooks')
+                    ? action(`onColumnViewChange`)
+                    : undefined,
+                onRowsSelect: boolean('onRowsSelect', true, 'Options.hooks')
+                    ? action(`onRowsSelect`)
+                    : undefined,
+                onRowsDelete: boolean('onRowsDelete', true, 'Options.hooks')
+                    ? action(`onRowsDelete`)
+                    : undefined,
+                onRowClick: boolean('onRowClick', true, 'Options.hooks')
+                    ? action(`onRowClick`)
+                    : undefined,
+                onCellClick: boolean('onCellClick', true, 'Options.hooks')
+                    ? action(`onCellClick`)
+                    : undefined,
+                onChangePage: boolean('onChangePage', true, 'Options.hooks')
+                    ? action(`onChangePage`)
+                    : undefined,
+                onChangeRowsPerPage: boolean('onChangeRowsPerPage', true, 'Options.hooks')
+                    ? action(`onChangeRowsPerPage`)
+                    : undefined
+            };
+
             const propsKnob: UserOptions<any> = {
+                hooks,
                 title: text('title', 'Table', 'Options'),
                 loading: boolean('loading', false, 'Options'),
                 columns: {
@@ -234,7 +272,14 @@ storiesOf('MUITable', module)
                     rowHover: boolean('rowHover', false, 'Options.rows'),
                     showSummaryRow: boolean('showSummaryRow', false, 'Options.rows'),
                     summaryTop: boolean('summaryTop', false, 'Options.rows'),
-                    selectable: boolean('selectableRows', false, 'Options.rows')
+                    selectable: boolean('selectableRows', false, 'Options.rows'),
+                    skipDuplicates: boolean('skipDuplicates', true, 'Options.rows'),
+                    mergeDuplicates: boolean('mergeDuplicates', false, 'Options.rows'),
+                    hiddenColumnsMergeDuplicates: boolean(
+                        'hiddenColumnsMergeDuplicates',
+                        false,
+                        'Options.rows'
+                    )
                 },
                 pagination: {
                     rowsPerPage: 3,
@@ -330,4 +375,5 @@ storiesOf('MUITable', module)
         },
         { info: { inline: false } }
     )
-    .add('Intro Example', () => <IntroExample />);
+    .add('Intro Example', () => <IntroExample />)
+    .add('Hooks Demo', () => <HooksExample />);

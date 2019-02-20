@@ -1,9 +1,9 @@
-import React from "react";
-import { cleanup, render, fireEvent } from "react-testing-library";
-import MUITableBodyCell from "../../../src/components/Body/MUITableBodyCell";
-import { DEFAULT_COL, DEFAULT_CONTEXT } from "../../../src/constants";
-import { MUITableTestContext } from "../../utils";
-import sinon from "sinon";
+import React from 'react';
+import { cleanup, fireEvent, render } from 'react-testing-library';
+import sinon from 'sinon';
+import MUITableBodyCell from '../../../src/components/Body/MUITableBodyCell';
+import { DEFAULT_COL, DEFAULT_CONTEXT } from '../../../src/constants';
+import { MUITableTestContext } from '../../utils';
 
 const sandbox = sinon.createSandbox();
 afterEach(cleanup);
@@ -45,6 +45,31 @@ describe("MUITableBodyCell", () => {
                     options: {
                         ...DEFAULT_CONTEXT.options,
                         hooks: { onCellClick: spy }
+                    }
+                }}
+            >
+                <MUITableBodyCell
+                    key={"1"}
+                    colSpan={1}
+                    rowIndex={0}
+                    row={row}
+                    cell={row[0]}
+                />
+            </MUITableTestContext>
+        );
+        const cell = getByText("CELL DISPLAY");
+        fireEvent.click(cell);
+        expect(spy.called).toBe(true);
+    });
+    test("calls onRowClick hook when its clicked", () => {
+        const spy = sandbox.spy((e: any) => {});
+        const row = [{ display: "CELL DISPLAY", value: 1, column: DEFAULT_COL }];
+        const { getByText } = render(
+            <MUITableTestContext
+                override={{
+                    options: {
+                        ...DEFAULT_CONTEXT.options,
+                        hooks: { onRowClick: spy }
                     }
                 }}
             >

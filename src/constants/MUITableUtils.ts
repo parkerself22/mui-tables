@@ -233,7 +233,7 @@ export default class MUITableUtils {
         );
     };
 
-    static findRowIndexById = (row: Row<any>, rowIds: string[]) => {
+    static findRowIndex = (row: Row<any>, rowIds: string[]) => {
         const rowId = MUITableUtils.rowId(row);
         return rowIds.findIndex(r => rowId === r);
     };
@@ -249,28 +249,36 @@ export default class MUITableUtils {
             [] as string[]
         );
         if (idVals.length <= 0) {
-            return Math.random().toString();
+            return "-";
         }
         return idVals.join('-');
     };
 
     static buildRows = <R extends MUIDataObj = MUIDataObj>(
         data: R[],
-        columns: StateColumn<any>[]
+        columns: StateColumn<any>[],
+        options: Options<any>
     ) => {
-        return data.map(entry => {
+        const rows = data.map(entry => {
             return columns.map(c => ({
                 ...c.calculateCellDefinition(entry),
                 column: c
             }));
         });
+        if (options.rows.skipDuplicates) {
+            return MUITableUtils.filterDuplicates(rows);
+        }
+        if (options.rows.mergeDuplicates) {
+            return MUITableUtils.mergeDuplicates(rows, options);
+        }
+        return rows;
     };
 
     static buildOptions = (props: ParentProps<any>) => {
         const defaultOpts = DEFAULT_OPTS;
         const options: Options<any> = {
-            title: props.title ? props.title : 'Table',
-            loading: props.loading ? props.loading : false,
+            title: props.title,
+            loading:  props.loading,
             display: {
                 ...defaultOpts.display,
                 ...props.display
@@ -310,6 +318,7 @@ export default class MUITableUtils {
         const defaultCol = DEFAULT_COL;
         const columns: StateColumn<any>[] = staticCols.map(s => ({
             ...defaultCol,
+            isRowId: s.type === "dimension",
             ...s
         }));
         return generatedColumns
@@ -339,9 +348,7 @@ export default class MUITableUtils {
                     [] as MUIDataObj[]
                 );
                 for (const entry of columnSourceObjs) {
-                    const title = entry[dynamicCol.nameProp as string]
-                        ? String(entry[dynamicCol.nameProp as string])
-                        : Math.random().toString();
+                    const title = entry[dynamicCol.nameProp as string];
                     const name =
                         title
                             .toLowerCase()
@@ -367,7 +374,7 @@ export default class MUITableUtils {
                     if (dynamicCol.generateRelatedColumns) {
                         try {
                             const genCols = dynamicCol.generateRelatedColumns(newCol, entry);
-                            if (genCols) {
+                            if (genCols && Array.isArray(genCols)) {
                                 genCols.forEach(genCol =>
                                     columns.push({
                                         ...DEFAULT_COL,
@@ -383,6 +390,102 @@ export default class MUITableUtils {
                 return columns;
             },
             [] as StateColumn<any>[]
+        );
+    };
+
+    static getRowIds = (rows: Row<any>[]) => {
+        return rows.map(r => MUITableUtils.rowId(r));
+    };
+
+    static filterDuplicates: (rows: Row<any>[]) => Row<any>[] = rows => {
+        return rows.reduce(
+            (prev, row) => {
+                if (MUITableUtils.findRowIndex(row, MUITableUtils.getRowIds(prev)) < 0) {
+                    return [...prev, row];
+                }
+                return prev;
+            },
+            [] as Row<any>[]
+        );
+    };
+
+    static mergeDuplicates: (rows: Row<any>[], options: Options<any>) => Row<any>[] = (
+        rows,
+        options
+    ) => {
+        return rows.reduce(
+            (prev, row) => {
+                const prevIndex = MUITableUtils.findRowIndex(row, MUITableUtils.getRowIds(prev));
+                const existingRow = prev[prevIndex];
+                if (existingRow) {
+                    if (options.rows.mergeFunction) {
+                        try {
+                            prev[prevIndex] = options.rows.mergeFunction([existingRow, row]);
+                        } catch (e) {
+                            console.error(
+                                'Error thrown in the options.rows.mergeFunction provided, ' +
+                                    'reverting to default',
+                                e
+                            );
+                            prev[prevIndex] = MUITableUtils.mergeCellsCalc([existingRow, row]);
+                        }
+                    } else {
+                        prev[prevIndex] = MUITableUtils.mergeCellsCalc([existingRow, row]);
+                    }
+                    return prev;
+                }
+                return [...prev, row];
+            },
+            [] as Row<any>[]
+        );
+    };
+
+    static mergeForHiddenColumns = (
+        rows: Row<any>[],
+        options: Options<any>,
+        viewColumns: boolean[]
+    ) => {
+        // If no columns are hidden or the option = false just return rows
+        if (!options.rows.hiddenColumnsMergeDuplicates || viewColumns.indexOf(false) < 0) {
+            return rows;
+        }
+        /**
+         * Set isRowId = false for any columns that are hidden, since rowIds are calculated
+         * based on cells where the column.isRowId = true
+         */
+        const newRows = rows.map(row =>
+            row.map((cell, colIndex) => ({
+                ...cell,
+                column: {
+                    ...cell.column,
+                    isRowId: cell.column.isRowId && !!viewColumns[colIndex]
+                }
+            }))
+        );
+        return MUITableUtils.mergeDuplicates(newRows, options);
+    };
+
+    // Utility function, used for both mergeDuplicates and hiddenColumnsMergeDuplicates
+    static mergeCellsCalc: (rows: Row<any>[]) => Row<any> = rows => {
+        return rows.reduce(
+            (finalRow, row) => {
+                row.forEach((cell, cellIndex) => {
+                    if (!finalRow[cellIndex]) {
+                        finalRow[cellIndex] = cell;
+                    } else if (cell.column.type === 'metric') {
+                        const existingSummaryOpts = finalRow[cellIndex].column.summaryOptions;
+                        const format = existingSummaryOpts ? existingSummaryOpts.format : 'float';
+                        finalRow[cellIndex].value =
+                            Number(finalRow[cellIndex].value) + Number(cell.value);
+                        finalRow[cellIndex].display = MUITableUtils.formatValue(
+                            finalRow[cellIndex].value,
+                            format
+                        );
+                    }
+                });
+                return finalRow;
+            },
+            [] as Row<any>
         );
     };
 }

@@ -12,7 +12,7 @@ import { Theme, WithStyles, withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
 import React from 'react';
-import { StateColumn } from '../../../types';
+import { FilterOpts, StateColumn } from '../../../types';
 import { useMUITableContext } from '../../MUITable';
 
 export const defaultFilterStyles = (theme: Theme) => ({
@@ -121,7 +121,7 @@ interface Props extends WithStyles<typeof defaultFilterStyles> {}
 interface RenderFilterProp extends WithStyles<typeof defaultFilterStyles> {
     column: StateColumn<any>;
     index: number;
-    currentValues?: string[];
+    currentValues: string[];
 }
 
 export const MUITableMultiSelectFilter = (props: RenderFilterProp) => {
@@ -131,17 +131,15 @@ export const MUITableMultiSelectFilter = (props: RenderFilterProp) => {
         onFilterUpdate(index, e.target.value);
     };
     const filterData = getFilterData(column);
-    const filterList = currentValues ? currentValues : [];
+    const filterList = currentValues;
 
     return (
         <div className={classes.selectRoot} data-testid="MUITableMultiSelectFilter">
             <FormControl className={classes.selectFormControl} key={index}>
-                <InputLabel htmlFor={column.name}>
-                    {column.title ? column.title : column.name}
-                </InputLabel>
+                <InputLabel htmlFor={column.name}>{column.title || column.name}</InputLabel>
                 <Select
                     multiple
-                    value={filterList || []}
+                    value={filterList}
                     renderValue={selected => (
                         <span data-testid="MUITableMultiSelectFilterVal">
                             {selected ? selected.toString() : null}
@@ -186,7 +184,7 @@ export const MUITableSelectFilter = (props: RenderFilterProp) => {
     };
 
     const filterData = getFilterData(column);
-    const filterList = currentValues ? currentValues : [];
+    const filterList = currentValues;
     const textLabels = translations.filter;
 
     return (
@@ -196,12 +194,10 @@ export const MUITableSelectFilter = (props: RenderFilterProp) => {
                 key={index}
                 data-testid="MUITableSelectFilter"
             >
-                <InputLabel htmlFor={column.name}>
-                    {column.title ? column.title : column.name}
-                </InputLabel>
+                <InputLabel htmlFor={column.name}>{column.title || column.name}</InputLabel>
                 <Select
                     value={filterList.length > 0 ? filterList.join(',') : textLabels.all}
-                    name={column.title ? column.title : column.name}
+                    name={column.title || column.name}
                     onChange={handleDropdownChange}
                     input={<Input name={column.name} id={column.name} />}
                     renderValue={value => (
@@ -213,7 +209,7 @@ export const MUITableSelectFilter = (props: RenderFilterProp) => {
                     </MenuItem>
                     {filterData.map((filterValue, filterIndex) => (
                         <MenuItem value={filterValue} key={filterIndex + 1}>
-                            {filterValue !== null ? filterValue.toString() : ''}
+                            {filterValue.toString()}
                         </MenuItem>
                     ))}
                 </Select>
@@ -230,13 +226,13 @@ export const MUITableCheckBoxFilter = (props: RenderFilterProp) => {
     };
 
     const filterData = getFilterData(column);
-    const filterList = currentValues ? currentValues : [];
+    const filterList = currentValues;
 
     return (
         <div className={classes.checkboxList} key={index} data-testid="MUITableCheckBoxFilter">
             <FormGroup>
                 <Typography variant="body2" className={classes.checkboxListTitle}>
-                    {column.title ? column.title : column.name}
+                    {column.title || column.name}
                 </Typography>
                 {filterData.map((filterValue, filterIndex) => (
                     <FormControlLabel
@@ -255,7 +251,7 @@ export const MUITableCheckBoxFilter = (props: RenderFilterProp) => {
                                     root: classes.checkbox,
                                     checked: classes.checked
                                 }}
-                                value={filterValue !== null ? filterValue : ''}
+                                value={filterValue}
                             />
                         }
                         label={filterValue}
@@ -265,6 +261,11 @@ export const MUITableCheckBoxFilter = (props: RenderFilterProp) => {
         </div>
     );
 };
+
+// For test coverage need extended type
+interface WithFilterOpts extends StateColumn<any> {
+    filterOptions: FilterOpts;
+}
 
 const MUITableFilter = (props: Props) => {
     const { classes } = props;
@@ -299,9 +300,10 @@ const MUITableFilter = (props: Props) => {
                 </div>
                 <div className={classes.filtersSelected} />
             </div>
-            {columns.map((col, index) =>
-                col.filterOptions ? (
-                    col.filterOptions.type === 'checkbox' ? (
+            {columns
+                .filter<WithFilterOpts>((c): c is WithFilterOpts => !!c.filterOptions)
+                .map((col, index) => {
+                    return col.filterOptions.type === 'checkbox' ? (
                         <MUITableCheckBoxFilter
                             classes={classes}
                             column={col}
@@ -322,9 +324,8 @@ const MUITableFilter = (props: Props) => {
                             index={index}
                             currentValues={columnFilters[index]}
                         />
-                    )
-                ) : null
-            )}
+                    );
+                })}
         </div>
     );
 };

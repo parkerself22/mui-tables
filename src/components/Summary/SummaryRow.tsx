@@ -4,9 +4,9 @@ import TableRow from '@material-ui/core/TableRow/TableRow';
 import Typography from '@material-ui/core/Typography/Typography';
 import classNames from 'classnames';
 import React from 'react';
-import { useMUITableContext } from '../MUITable';
 import MUITableUtils from '../../constants/MUITableUtils';
 import { SummaryRowCell } from '../../types/index';
+import { useMUITableContext } from '../MUITable';
 
 const styles = (theme: Theme) => ({
     summaryTitle: {
@@ -136,7 +136,7 @@ const SummaryRow = (props: WithStyles<typeof styles>) => {
             {summaryRow.map((cell, index) => {
                 if (cell.visible.column.display === 'true' && viewColumns[index] !== false) {
                     if (index === 0 && !options.rows.selectable && cell.visible.value === null) {
-                        return <MUISummaryTitle classes={classes} />;
+                        return <MUISummaryTitle classes={classes} key={"0"}/>;
                     }
                     return (
                         <MUISummaryCell

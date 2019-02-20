@@ -58,10 +58,15 @@ export class MUIChildTable extends React.Component<Props<any>, State<any>> {
 
     sortedFilteredRows = (/* join: boolean = true */) => {
         const { rows, columns, options } = this.props;
-        const sorted = MUITableUtils.sortRows(rows, this.state, columns);
+        const { viewColumns } = this.state;
+
+        const preppedRows = MUITableUtils.mergeForHiddenColumns(rows, options, viewColumns);
+        const sortedRows = MUITableUtils.sortRows(preppedRows, this.state, columns);
+        const displayRows = MUITableUtils.filterRows(sortedRows, this.state, options, columns);
+
         return {
-            rows: sorted,
-            displayRows: MUITableUtils.filterRows(sorted, this.state, options, columns)
+            displayRows,
+            rows: sortedRows
         };
     };
 
@@ -72,11 +77,15 @@ export class MUIChildTable extends React.Component<Props<any>, State<any>> {
     };
 
     toggleViewColumn = (i: number) => {
+        const { options, columns } = this.props;
         const { viewColumns } = this.state;
         const newViewCols = [...viewColumns];
         if (newViewCols.hasOwnProperty(i)) {
             newViewCols[i] = !newViewCols[i];
             this.setState({ viewColumns: newViewCols });
+            if (options.hooks && options.hooks.onColumnViewChange) {
+                options.hooks.onColumnViewChange(columns[i], newViewCols[i]);
+            }
         }
     };
 
@@ -95,6 +104,7 @@ export class MUIChildTable extends React.Component<Props<any>, State<any>> {
     };
 
     onFilterUpdate = (colIndex: number, value: string | string[]) => {
+        const { options } = this.props;
         const { columnFilters } = this.state;
         const newFilters = [...columnFilters];
         if (newFilters[colIndex]) {
@@ -108,12 +118,18 @@ export class MUIChildTable extends React.Component<Props<any>, State<any>> {
                 newFilters[colIndex] = [value];
             }
             this.setState({ columnFilters: newFilters });
+            if (options.hooks && options.hooks.onFilterChange) {
+                options.hooks.onFilterChange(value, newFilters);
+            }
         }
     };
 
     onFilterReset = () => {
-        const { columns } = this.props;
+        const { columns, options } = this.props;
         const columnFilters = columns.map(() => []);
+        if (options.hooks && options.hooks.onFilterChange) {
+            options.hooks.onFilterChange([], columnFilters);
+        }
         this.setState({ columnFilters });
     };
 
@@ -132,13 +148,25 @@ export class MUIChildTable extends React.Component<Props<any>, State<any>> {
     };
 
     toggleRowSelected = (row: Row<any>) => {
+        const { options } = this.props;
         const { selectedRows } = this.state;
-        const index = MUITableUtils.findRowIndexById(row, selectedRows);
-        if (index < 0) {
-            this.setState({ selectedRows: [...selectedRows, MUITableUtils.rowId(row)] });
-        } else {
-            this.setState({ selectedRows: selectedRows.filter((r, i) => i !== index) });
-        }
+        const index = MUITableUtils.findRowIndex(row, selectedRows);
+        const selectedRowIds =
+            index < 0
+                ? [...selectedRows, MUITableUtils.rowId(row)]
+                : selectedRows.filter((r, i) => i !== index);
+        this.setState({ selectedRows: selectedRowIds }, () => {
+            if (options.hooks && options.hooks.onRowsSelect) {
+                const currentSelected = this.sortedFilteredRows().rows.filter(
+                    r => selectedRowIds.indexOf(MUITableUtils.rowId(r)) >= 0
+                );
+                options.hooks.onRowsSelect(
+                    index < 0 ? [row] : [],
+                    index < 0 ? [] : [row],
+                    currentSelected
+                );
+            }
+        });
     };
 
     getFilterData = (column: StateColumn<any>) => {
@@ -169,6 +197,7 @@ export class MUIChildTable extends React.Component<Props<any>, State<any>> {
     };
 
     toggleSort = (colIndex: number) => {
+        const { options, columns } = this.props;
         // default if it wasn't the sort column (we'll go asc, desc, off)
         let newState: Pick<State<any>, 'sortColumn'> = {
             sortColumn: { index: colIndex, asc: true }
@@ -183,6 +212,15 @@ export class MUIChildTable extends React.Component<Props<any>, State<any>> {
             }
         }
         this.setState(newState);
+        if (options.hooks && options.hooks.onColumnSortChange) {
+            const dir =
+                newState.sortColumn.index === null
+                    ? null
+                    : newState.sortColumn.asc
+                    ? 'asc'
+                    : 'desc';
+            options.hooks.onColumnSortChange(columns[colIndex], dir);
+        }
     };
 
     changeRowsPerPage = (rows: number) => {
@@ -193,17 +231,31 @@ export class MUIChildTable extends React.Component<Props<any>, State<any>> {
     };
 
     handleAllSelect = () => {
+        const { options } = this.props;
         const { displayRows } = this.sortedFilteredRows();
         const { selectedRows } = this.state;
-        if (selectedRows.length === displayRows.length) {
-            return this.setState({ selectedRows: [] });
+        if (options.hooks && options.hooks.onRowsSelect) {
+            const removedSelections = selectedRows.length === displayRows.length ? displayRows : [];
+            const newSelections =
+                selectedRows.length === displayRows.length
+                    ? []
+                    : displayRows.filter(d => selectedRows.indexOf(MUITableUtils.rowId(d)) < 0);
+
+            options.hooks.onRowsSelect(
+                newSelections,
+                removedSelections,
+                selectedRows.length === displayRows.length ? [] : displayRows
+            );
         }
-        this.setState({ selectedRows: displayRows.map(r => MUITableUtils.rowId(r)) });
+        if (selectedRows.length === displayRows.length) {
+            this.setState({ selectedRows: [] });
+        } else {
+            this.setState({ selectedRows: displayRows.map(r => MUITableUtils.rowId(r)) });
+        }
     };
 
-    render = () => {
+    getContext: () => MUITableContext = () => {
         const { options, columns } = this.props;
-        const loading = options.loading;
         const { displayRows, rows } = this.sortedFilteredRows();
         const contextActions: ContextActions = {
             toggleViewColumn: this.toggleViewColumn,
@@ -229,7 +281,7 @@ export class MUIChildTable extends React.Component<Props<any>, State<any>> {
                     this.state.pagination.rowsPerPageOptions
             }
         };
-        const context: MUITableContext = {
+        return {
             options,
             rows,
             columns,
@@ -237,6 +289,12 @@ export class MUIChildTable extends React.Component<Props<any>, State<any>> {
             ...contextActions,
             displayRows
         };
+    };
+
+    render = () => {
+        const { options } = this.props;
+        const loading = options.loading;
+        const context = this.getContext();
 
         return (
             <MUITABLE_DEF_CONTEXT.Provider value={context}>
@@ -260,7 +318,7 @@ const MUIParentTable = (props: ParentProps<any>) => {
             console.error(e);
         }
     }
-    const rows = MUITableUtils.buildRows(props.data, columns);
+    const rows = MUITableUtils.buildRows(props.data, columns, options);
 
     return <MUIChildTable options={options} data={props.data} columns={columns} rows={rows} />;
 };

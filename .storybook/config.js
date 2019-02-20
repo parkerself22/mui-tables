@@ -17,8 +17,10 @@ function loadStories() {
 const theme = createMuiTheme();
 const ThemeDecorator = storyFn => <MuiThemeProvider theme={theme}><div style={{paddingTop: 40}}>{storyFn()}</div></MuiThemeProvider>;
 
-addDecorator(withInfo);
 addDecorator(ThemeDecorator);
 addDecorator(withKnobs);
+addDecorator(withInfo({
+    propTablesExclude: [MuiThemeProvider]
+}));
 addDecorator(withNotes);
 configure(loadStories, module);

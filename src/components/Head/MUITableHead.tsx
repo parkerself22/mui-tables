@@ -2,11 +2,11 @@ import { Theme, WithStyles, withStyles } from '@material-ui/core/styles';
 import MuiTableHead from '@material-ui/core/TableHead';
 import classNames from 'classnames';
 import React from 'react';
+import TableSelectCell from '../Body/MUITableSelectCell';
 import { useMUITableContext } from '../MUITable';
 import MUISummaryRow from '../Summary/SummaryRow';
 import TableHeadCell from './MUITableHeadCell';
 import TableHeadRow from './MUITableHeadRow';
-import TableSelectCell from '../Body/MUITableSelectCell';
 
 const defaultHeadStyles = (theme: Theme) => ({
     main: {},
@@ -37,14 +37,11 @@ export const MUITableHead = (props: Props) => {
                 <TableSelectCell checked={isChecked} isHeaderCell={true} />
                 {columns.map(
                     (column, index) =>
-                        viewColumns[index] &&
-                        (column.customHeadRender ? (
-                            column.customHeadRender(column)
-                        ) : (
+                        viewColumns[index] && (
                             <TableHeadCell key={index} index={index} column={column}>
                                 {column.title ? column.title : column.name}
                             </TableHeadCell>
-                        ))
+                        )
                 )}
             </TableHeadRow>
             {options.rows.showSummaryRow && options.rows.summaryTop && <MUISummaryRow />}

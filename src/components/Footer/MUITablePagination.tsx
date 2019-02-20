@@ -44,11 +44,18 @@ const MUITablePagination = (props: Props & any) => {
         return null;
     }
     const onChangeRowsPerPage = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-        changeRowsPerPage(parseInt(event.target.value, 10));
+        const rows = parseInt(event.target.value, 10);
+        changeRowsPerPage(rows);
+        if (options.hooks && options.hooks.onChangeRowsPerPage) {
+            options.hooks.onChangeRowsPerPage(rows);
+        }
     };
     const textLabels = translations.pagination;
     const onChangePage = (e: any, page: number) => {
         changePage(page);
+        if (options.hooks && options.hooks.onChangePage) {
+            options.hooks.onChangePage(page);
+        }
     };
     return (
         <MuiTableFooter>

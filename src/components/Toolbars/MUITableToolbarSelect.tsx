@@ -5,8 +5,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/Delete';
 import React from 'react';
-import { useMUITableContext } from '../MUITable';
 import MUITableUtils from '../../constants/MUITableUtils';
+import { useMUITableContext } from '../MUITable';
 
 const defaultToolbarSelectStyles = (theme: Theme) => ({
     root: {
@@ -42,7 +42,9 @@ const TableToolbarSelect = (props: Props) => {
     const { classes } = props;
     const { selectedRows, options, onRowsDelete, rows } = useMUITableContext();
     const textLabels = options.translations.selectedRows;
-    const selectedRowData = rows.filter(r => selectedRows.indexOf(MUITableUtils.rowId(r)) >= 0);
+    const selectedRowData = rows.filter(r => {
+        return selectedRows.indexOf(MUITableUtils.rowId(r)) >= 0
+    });
     return (
         <Paper className={classes.root}>
             <div>

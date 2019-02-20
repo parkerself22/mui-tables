@@ -25,14 +25,13 @@ const MUITableBody = () => {
         viewColumns,
         pagination
     } = useMUITableContext();
-    const isRowSelected = (row: Row) => MUITableUtils.findRowIndexById(row, selectedRows) >= 0;
+    const isRowSelected = (row: Row) => MUITableUtils.findRowIndex(row, selectedRows) >= 0;
 
-    let tableRows = [...displayRows];
-    if (options.display.paginate) {
-        const start = pagination.rowsPerPage * pagination.page;
-        const end = start + pagination.rowsPerPage;
-        tableRows = tableRows.slice(start, end);
-    }
+    // Pagination for displayRows
+    const start = options.display.paginate ? pagination.rowsPerPage * pagination.page : 0;
+    const end = options.display.paginate ? start + pagination.rowsPerPage : displayRows.length;
+
+    const tableRows = [...displayRows].slice(start, end);
 
     if (tableRows.length <= 0) {
         return (

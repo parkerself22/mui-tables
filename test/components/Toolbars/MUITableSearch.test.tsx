@@ -1,16 +1,16 @@
-import React from "react";
-import ShallowRenderer from "react-test-renderer/shallow";
-import { cleanup, fireEvent, render } from "react-testing-library";
-import sinon from "sinon";
+import React from 'react';
+import ShallowRenderer from 'react-test-renderer/shallow';
+import { cleanup, fireEvent, render } from 'react-testing-library';
+import sinon from 'sinon';
 import {
     MUITableSearch,
     MUITableSearchProps
-} from "../../../src/components/Toolbars/MUITableSearch";
-import MUITableToolbar from "../../../src/components/Toolbars/MUITableToolbar";
-import MUITableViewCols from "../../../src/components/Toolbars/MUITableViewCols";
-import { DEFAULT_CONTEXT } from "../../../src/constants";
-import { MUITableContext, Optional } from "../../../src/types";
-import { EXAMPLE_COLUMNS, MUITableTestContext } from "../../utils";
+} from '../../../src/components/Toolbars/MUITableSearch';
+import MUITableToolbar from '../../../src/components/Toolbars/MUITableToolbar';
+import MUITableViewCols from '../../../src/components/Toolbars/MUITableViewCols';
+import { DEFAULT_CONTEXT } from '../../../src/constants';
+import { MUITableContext, Optional } from '../../../src/types';
+import { EXAMPLE_COLUMNS, MUITableTestContext } from '../../utils';
 
 const sandbox = sinon.createSandbox();
 
@@ -50,8 +50,22 @@ describe("MUITableSearch", () => {
         const trigger = getByTestId("toggleSearchVisible");
         fireEvent.click(trigger);
         expect(toggleSearchVisible.called).toBe(true);
+
     });
-    test("handleTextChange", () => {
+    test("handles toggleSearch when search closed ", () => {
+        const toggleSearchVisible = sandbox.spy();
+        const context: MUITableContext = {
+            ...DEFAULT_CONTEXT,
+            toggleSearchVisible,
+            search: { open: false, text: null }
+        };
+        const { getByTestId, getByTitle } = render(<MUITableToolbar context={context} />);
+        const trigger = getByTitle("Search");
+        fireEvent.click(trigger);
+        expect(toggleSearchVisible.called).toBe(true);
+
+    });
+    test("handleTextChange with hooks", () => {
         const onSearchChange = sandbox.spy();
         const instance = searchInstance({
             context: {
@@ -69,7 +83,14 @@ describe("MUITableSearch", () => {
         expect(testFn).not.toThrow();
         expect(onSearchChange.called).toBe(true);
     });
-    test("onKeyDown", () => {
+    test("handleTextChange without hooks", () => {
+        const onSearchChange = sandbox.spy();
+        const instance = searchInstance();
+        const testFn = () => instance.handleTextChange({ target: { value: "test" } } as any);
+        expect(testFn).not.toThrow();
+        expect(onSearchChange.called).toBe(false);
+    });
+    test("onKeyDown with esc", () => {
         const toggleSearchVisible = sandbox.spy();
         const instance = searchInstance({
             toggleSearchVisible
@@ -77,6 +98,15 @@ describe("MUITableSearch", () => {
         const testFn = () => instance.onKeyDown({ keyCode: 27 } as any);
         expect(testFn).not.toThrow();
         expect(toggleSearchVisible.called).toBe(true);
+    });
+    test("onKeyDown without esc", () => {
+        const toggleSearchVisible = sandbox.spy();
+        const instance = searchInstance({
+            toggleSearchVisible
+        });
+        const testFn = () => instance.onKeyDown({ keyCode: 299 } as any);
+        expect(testFn).not.toThrow();
+        expect(toggleSearchVisible.called).toBe(false);
     });
     test("componentDidMount", () => {
         const instance = searchInstance();
@@ -93,11 +123,13 @@ describe("MUITableSearch", () => {
 describe("MUITableViewCols", () => {
     test("renders & changes", () => {
         const toggleViewColumn = sandbox.spy();
+        const columns = [...EXAMPLE_COLUMNS];
+        columns[0].title = undefined;
         const { getByTestId } = render(
             <MUITableTestContext
                 override={{
-                    toggleViewColumn,
-                    columns: EXAMPLE_COLUMNS
+                    columns,
+                    toggleViewColumn
                 }}
             >
                 <MUITableViewCols />

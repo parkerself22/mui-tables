@@ -1,26 +1,26 @@
-import MUITableUtils from "../src/constants/MUITableUtils";
-import { GeneratedColumn, StateColumn, SummaryRowCell } from "../src/types";
-import { DEFAULT_COL, DEFAULT_OPTS } from "../src/constants";
-import sinon from "sinon";
+import sinon from 'sinon';
+import { DEFAULT_COL, DEFAULT_OPTS } from '../src/constants';
+import MUITableUtils from '../src/constants/MUITableUtils';
+import { GeneratedColumn, StateColumn, SummaryRowCell } from '../src/types';
 
 const sandbox = sinon.createSandbox();
 afterAll(sandbox.restore);
 
-describe("MUITableUtils", () => {
+describe('MUITableUtils', () => {
     afterEach(() => {
         sandbox.restore();
     });
     describe(`MUITableUtils.formatSeconds`, () => {
         const timeTests = [
-            [0, "0:00"], // 0
-            [59, "0:00"], // < 1 min
-            [60, "0:01"], //  1 min
-            [3599, "0:59"], // < 1 hour
-            [3600, "1:00"], // 1 hour
-            [3661, "1:01"], // 1 hour, 1 minute
-            [35959, "9:59"], // < 10 hours
-            [36000, "10:00"], // 10 hours
-            [36060, "10:01"] // 10 hours 1 minute
+            [0, '0:00'], // 0
+            [59, '0:00'], // < 1 min
+            [60, '0:01'], //  1 min
+            [3599, '0:59'], // < 1 hour
+            [3600, '1:00'], // 1 hour
+            [3661, '1:01'], // 1 hour, 1 minute
+            [35959, '9:59'], // < 10 hours
+            [36000, '10:00'], // 10 hours
+            [36060, '10:01'] // 10 hours 1 minute
         ];
         it.each(timeTests)(`formats %i seconds into %s`, (secs, text) => {
             const result = MUITableUtils.formatSeconds(secs);
@@ -29,11 +29,11 @@ describe("MUITableUtils", () => {
     });
     describe(`MUITableUtils.formatValue`, () => {
         const tests = [
-            [2.25, "float", "2.25"],
-            [2.25, "integer", "2"],
-            [60, "seconds", "0:01"],
-            [60, "minutes", "1:00"],
-            [5, "hours", "5:00"]
+            [2.25, 'float', '2.25'],
+            [2.25, 'integer', '2'],
+            [60, 'seconds', '0:01'],
+            [60, 'minutes', '1:00'],
+            [5, 'hours', '5:00']
         ];
         test.each(tests)(`formats %i %s into %s`, (val, format, expected) => {
             const result = MUITableUtils.formatValue(val, format);
@@ -44,35 +44,35 @@ describe("MUITableUtils", () => {
         const tests = [
             [
                 2.25,
-                "Postfix",
-                "2.25 Postfix",
+                'Postfix',
+                '2.25 Postfix',
                 {
-                    name: "test",
+                    name: 'test',
                     summaryOptions: {
-                        postfix: " Postfix"
+                        postfix: ' Postfix'
                     }
                 }
             ],
             [
                 2.25,
-                "Prefix",
-                "Prefix 2.25",
+                'Prefix',
+                'Prefix 2.25',
                 {
-                    name: "test",
+                    name: 'test',
                     summaryOptions: {
-                        prefix: "Prefix "
+                        prefix: 'Prefix '
                     }
                 }
             ],
             [
                 2.25,
-                "Prefix & Postfix",
-                "Prefix 2.25 Postfix",
+                'Prefix & Postfix',
+                'Prefix 2.25 Postfix',
                 {
-                    name: "test",
+                    name: 'test',
                     summaryOptions: {
-                        prefix: "Prefix ",
-                        postfix: " Postfix"
+                        prefix: 'Prefix ',
+                        postfix: ' Postfix'
                     }
                 }
             ]
@@ -85,10 +85,10 @@ describe("MUITableUtils", () => {
     describe(`MUITableUtils.sumColumnCell`, () => {
         const tests = [
             // value, case, cell, expected
-            [1, "cell with value", { value: 1 }, 2],
-            [1, "cell without value", {}, 1],
-            [1, "NaN cell", { value: NaN }, 1],
-            [1, "String cell value", { value: "1" }, 2]
+            [1, 'cell with value', { value: 1 }, 2],
+            [1, 'cell without value', {}, 1],
+            [1, 'NaN cell', { value: NaN }, 1],
+            [1, 'String cell value', { value: '1' }, 2]
         ];
         test.each(tests)(`sums %i %s into %s`, (val, testCase, cell, expected) => {
             const result = MUITableUtils.sumColumnCell(val, cell);
@@ -96,12 +96,12 @@ describe("MUITableUtils", () => {
         });
     });
     describe(`MUITableUtils.validateCustomSummaryCell`, () => {
-        test("throws when not an object", () => {
+        test('throws when not an object', () => {
             expect(() => {
-                MUITableUtils.validateCustomSummaryCell("" as any);
+                MUITableUtils.validateCustomSummaryCell('' as any);
             }).toThrow();
         });
-        test("throws when missing top level props", () => {
+        test('throws when missing top level props', () => {
             const missingProps = {
                 total: {}
             };
@@ -109,7 +109,7 @@ describe("MUITableUtils", () => {
                 MUITableUtils.validateCustomSummaryCell(missingProps as any);
             }).toThrow();
         });
-        test("throws when missing nested props", () => {
+        test('throws when missing nested props', () => {
             const missingProps = {
                 total: {},
                 visible: {
@@ -122,46 +122,46 @@ describe("MUITableUtils", () => {
         });
     });
     describe(`MUITableUtils.calculateSummaryRow`, () => {
-        const displayRows = [[{ value: 1, display: "1", column: {} as any }]];
+        const displayRows = [[{ value: 1, display: '1', column: {} as any }]];
         const allRows = [...displayRows];
-        test("console.errors for custom calculate columns errors", () => {
-            const calcResult = "";
+        test('console.errors for custom calculate columns errors', () => {
+            const calcResult = '';
             const calcSpy = sandbox.spy((displayRows: any, allRows: any) => calcResult);
             const cols: StateColumn<any>[] = [
                 {
                     ...DEFAULT_COL,
-                    name: "test",
-                    type: "metric",
+                    name: 'test',
+                    type: 'metric',
                     summary: true,
-                    calculateCellDefinition: entry => ({ value: 1, display: "1" }),
+                    calculateCellDefinition: entry => ({ value: 1, display: '1' }),
                     summaryOptions: {
-                        type: "SUM",
-                        format: "integer",
+                        type: 'SUM',
+                        format: 'integer',
                         customCalculate: calcSpy
                     }
                 }
             ];
-            const consoleSpy = sandbox.stub(console, "error");
+            const consoleSpy = sandbox.stub(console, 'error');
             MUITableUtils.calculateSummaryRow(displayRows, allRows, cols);
             expect(consoleSpy.callCount).toBe(3);
             consoleSpy.restore();
         });
-        test("uses custom calculate columns", () => {
+        test('uses custom calculate columns', () => {
             const calcResult: SummaryRowCell = {
-                total: { value: 1, display: "1", column: {} as any },
-                visible: { value: 1, display: "1", column: {} as any }
+                total: { value: 1, display: '1', column: {} as any },
+                visible: { value: 1, display: '1', column: {} as any }
             };
             const calcSpy = sandbox.spy((displayRows: any, allRows: any) => calcResult);
             const cols: StateColumn<any>[] = [
                 {
                     ...DEFAULT_COL,
-                    name: "test",
-                    type: "metric",
+                    name: 'test',
+                    type: 'metric',
                     summary: true,
-                    calculateCellDefinition: entry => ({ value: 1, display: "1" }),
+                    calculateCellDefinition: entry => ({ value: 1, display: '1' }),
                     summaryOptions: {
-                        type: "SUM",
-                        format: "integer",
+                        type: 'SUM',
+                        format: 'integer',
                         customCalculate: calcSpy
                     }
                 }
@@ -170,12 +170,12 @@ describe("MUITableUtils", () => {
             expect(calcSpy.callCount).toBe(1);
             expect(result[0]).toMatchObject(calcResult);
         });
-        test("returns null cell for summary: false column", () => {
+        test('returns null cell for summary: false column', () => {
             const cols: StateColumn<any>[] = [
                 {
                     ...DEFAULT_COL,
-                    name: "test",
-                    type: "metric",
+                    name: 'test',
+                    type: 'metric',
                     summary: false
                 }
             ];
@@ -183,16 +183,16 @@ describe("MUITableUtils", () => {
             result.forEach(r => {
                 expect(r.visible.value).toBe(null);
                 expect(r.total.value).toBe(null);
-                expect(r.visible.display).toBe("");
-                expect(r.total.display).toBe("");
+                expect(r.visible.display).toBe('');
+                expect(r.total.display).toBe('');
             });
         });
-        test("returns null cell for type: dimension column", () => {
+        test('returns null cell for type: dimension column', () => {
             const cols: StateColumn<any>[] = [
                 {
                     ...DEFAULT_COL,
-                    name: "test",
-                    type: "dimension",
+                    name: 'test',
+                    type: 'dimension',
                     summary: true
                 }
             ];
@@ -200,40 +200,40 @@ describe("MUITableUtils", () => {
             result.forEach(r => {
                 expect(r.visible.value).toBe(null);
                 expect(r.total.value).toBe(null);
-                expect(r.visible.display).toBe("");
-                expect(r.total.display).toBe("");
+                expect(r.visible.display).toBe('');
+                expect(r.total.display).toBe('');
             });
         });
-        test("SUMS rows by default", () => {
+        test('SUMS rows by default', () => {
             const cols: StateColumn<any>[] = [
                 {
                     ...DEFAULT_COL,
-                    name: "test",
-                    type: "metric",
+                    name: 'test',
+                    type: 'metric',
                     summary: true,
-                    calculateCellDefinition: entry => ({ display: "1", value: 1 })
+                    calculateCellDefinition: entry => ({ display: '1', value: 1 })
                 }
             ];
             const result = MUITableUtils.calculateSummaryRow(displayRows, allRows, cols);
             result.forEach(r => {
                 expect(r.visible.value).toBe(1);
                 expect(r.total.value).toBe(1);
-                expect(r.visible.display).toBe("1.00");
-                expect(r.total.display).toBe("1.00");
+                expect(r.visible.display).toBe('1.00');
+                expect(r.total.display).toBe('1.00');
             });
         });
-        test("AVGs rows correctly", () => {
+        test('AVGs rows correctly', () => {
             const cols: StateColumn<any>[] = [
                 {
                     ...DEFAULT_COL,
-                    name: "test",
-                    type: "metric",
+                    name: 'test',
+                    type: 'metric',
                     summary: true,
                     summaryOptions: {
-                        format: "float",
-                        type: "AVG"
+                        format: 'float',
+                        type: 'AVG'
                     },
-                    calculateCellDefinition: entry => ({ display: "1.00", value: 1 })
+                    calculateCellDefinition: entry => ({ display: '1.00', value: 1 })
                 }
             ];
             const newRows = [...displayRows];
@@ -241,16 +241,16 @@ describe("MUITableUtils", () => {
             result.forEach(r => {
                 expect(r.visible.value).toBe(1);
                 expect(r.total.value).toBe(1);
-                expect(r.visible.display).toBe("1.00");
-                expect(r.total.display).toBe("1.00");
+                expect(r.visible.display).toBe('1.00');
+                expect(r.total.display).toBe('1.00');
             });
         });
     });
     describe(`MUITableUtils.sortRows`, () => {
-        const col = { ...DEFAULT_COL, name: "test", type: "metric" as "metric" };
+        const col = { ...DEFAULT_COL, name: 'test', type: 'metric' as 'metric' };
         const rows = [
-            [{ value: 1, display: "1", column: col }],
-            [{ value: 2, display: "2", column: col }]
+            [{ value: 1, display: '1', column: col }],
+            [{ value: 2, display: '2', column: col }]
         ];
         const state = {
             displayRows: [],
@@ -271,41 +271,48 @@ describe("MUITableUtils", () => {
                 rowsPerPageOptions: [5, 10, 15]
             }
         };
-        test("Returns rows in same order when sort index is null", () => {
+        test('Returns rows in same order when sort index is null', () => {
             const testState = { ...state };
             const result = MUITableUtils.sortRows(rows, testState, [col]);
             expect(result[0][0].value).toBe(1);
             expect(result[1][0].value).toBe(2);
         });
-        test("Returns rows in correct order when sort.asc is true", () => {
+        test('Handles rows with string', () => {
+            const testRows = [
+                [{ value: '1', display: '1', column: col }],
+                [{ value: '2', display: '2', column: col }]
+            ];
+            const testState = { ...state, sortColumn: { index: 0, asc: true } };
+            const result = MUITableUtils.sortRows(testRows, testState, [col]);
+            expect(result[0][0].value).toBe('1');
+            expect(result[1][0].value).toBe('2');
+        });
+        test('Returns rows in correct order when sort.asc is true', () => {
             const testState = { ...state, sortColumn: { index: 0, asc: true } };
             const result = MUITableUtils.sortRows(rows, testState, [col]);
             expect(result[0][0].value).toBe(1);
             expect(result[1][0].value).toBe(2);
         });
-        test("Returns rows in correct order when sort.asc is false", () => {
+        test('Returns rows in correct order when sort.asc is false', () => {
             const testState = { ...state, sortColumn: { index: 0, asc: false } };
             const result = MUITableUtils.sortRows(rows, testState, [col]);
             expect(result[0][0].value).toBe(2);
             expect(result[1][0].value).toBe(1);
         });
-        test("Handles singleRow with value", () => {
-            const column = { ...DEFAULT_COL, name: "test", type: "metric" as "metric" };
+        test('Handles singleRow with value', () => {
+            const column = { ...DEFAULT_COL, name: 'test', type: 'metric' as 'metric' };
             const testState = { ...state, sortColumn: { index: 0, asc: false } };
-            const errorRows = [
-                [],
-                [{ value: 1, display: "1", column: col }]
-            ];
+            const errorRows = [[], [{ value: 1, display: '1', column: col }]];
             const result = MUITableUtils.sortRows(errorRows, testState, [column]);
             const rowsWithCells = result.filter(r => r.length > 0);
             expect(rowsWithCells.length).toBe(1);
         });
     });
     describe(`MUITableUtils.filterRows`, () => {
-        const col = { ...DEFAULT_COL, name: "test", type: "metric" as "metric" };
+        const col = { ...DEFAULT_COL, name: 'test', type: 'metric' as 'metric' };
         const rows = [
-            [{ value: 1, display: "1", column: col }],
-            [{ value: 2, display: "2", column: col }]
+            [{ value: 1, display: '1', column: col }],
+            [{ value: 2, display: '2', column: col }]
         ];
         const state = {
             displayRows: [],
@@ -332,11 +339,11 @@ describe("MUITableUtils", () => {
                 ...DEFAULT_OPTS,
                 display: { ...DEFAULT_OPTS.display, filter: false }
             };
-            const spy = sandbox.stub(testRows, "reduce");
+            const spy = sandbox.stub(testRows, 'reduce');
             MUITableUtils.filterRows(rows, state, opts, [col]);
             expect(spy.callCount).toBe(0);
         });
-        test("It handles rows that dont have cells for all columns", () => {
+        test('It handles rows that dont have cells for all columns', () => {
             const testRows = [rows[0], [{}], [null]];
             const opts = {
                 ...DEFAULT_OPTS,
@@ -344,14 +351,14 @@ describe("MUITableUtils", () => {
             };
             const testState = {
                 ...state,
-                columnFilters: [["12"]]
+                columnFilters: [['12']]
             };
             const tester = () => MUITableUtils.filterRows(testRows as any, testState, opts, [col]);
             expect(tester).not.toThrow();
         });
-        test("It handles columns with no active filters", () => {
+        test('It handles columns with no active filters', () => {
             const testRows = [
-                [{ value: 1, display: "1", column: col }, { value: 2, display: "2", column: col }]
+                [{ value: 1, display: '1', column: col }, { value: 2, display: '2', column: col }]
             ];
             const opts = {
                 ...DEFAULT_OPTS,
@@ -359,30 +366,30 @@ describe("MUITableUtils", () => {
             };
             const testState = {
                 ...state,
-                columnFilters: [["12"], []]
+                columnFilters: [['12'], []]
             };
             const tester = () => MUITableUtils.filterRows(testRows as any, testState, opts, [col]);
             expect(tester).not.toThrow();
         });
-        test("It filters when opts.display.filter = true", () => {
+        test('It filters when opts.display.filter = true', () => {
             const testRows = [...rows];
             const opts = {
                 ...DEFAULT_OPTS,
                 display: { ...DEFAULT_OPTS.display, filter: true }
             };
-            const testState = { ...state, columnFilters: [["1"]] };
-            const spy = sandbox.stub(Array.prototype, "reduce");
+            const testState = { ...state, columnFilters: [['1']] };
+            const spy = sandbox.stub(Array.prototype, 'reduce');
             MUITableUtils.filterRows(rows, testState, opts, [col]);
             expect(spy.callCount).toBe(1);
             sandbox.restore();
         });
-        test("It only includes exact matches when filterOptions.exact = true", () => {
-            const testRows = [...rows, [{ value: 12, display: "12", column: col }]];
+        test('It only includes exact matches when filterOptions.exact = true', () => {
+            const testRows = [...rows, [{ value: 12, display: '12', column: col }]];
             const testCol = {
                 ...col,
                 filterOptions: {
                     exact: true,
-                    type: "multiselect" as "multiselect",
+                    type: 'multiselect' as 'multiselect',
                     currentList: []
                 }
             };
@@ -390,17 +397,17 @@ describe("MUITableUtils", () => {
                 ...DEFAULT_OPTS,
                 display: { ...DEFAULT_OPTS.display, filter: true }
             };
-            const testState = { ...state, columnFilters: [["12"]] };
+            const testState = { ...state, columnFilters: [['12']] };
             const result = MUITableUtils.filterRows(testRows, testState, opts, [testCol]);
-            expect(result[0][0].display).toBe("12");
+            expect(result[0][0].display).toBe('12');
         });
         test("It includes 'contains' matches when filterOptions.exact = false", () => {
-            const testRows = [...rows, [{ value: 12, display: "12", column: col }]];
+            const testRows = [...rows, [{ value: 12, display: '12', column: col }]];
             const testCol = {
                 ...col,
                 filterOptions: {
                     exact: false,
-                    type: "multiselect" as "multiselect",
+                    type: 'multiselect' as 'multiselect',
                     currentList: []
                 }
             };
@@ -408,13 +415,13 @@ describe("MUITableUtils", () => {
                 ...DEFAULT_OPTS,
                 display: { ...DEFAULT_OPTS.display, filter: true }
             };
-            const testState = { ...state, columnFilters: [["1"]] };
+            const testState = { ...state, columnFilters: [['1']] };
             const result = MUITableUtils.filterRows(testRows, testState, opts, [testCol]);
             expect(result.length).toBe(2);
         });
     });
     describe(`MUITableUtils.searchFilterOk`, () => {
-        const col = { ...DEFAULT_COL, name: "test", type: "metric" as "metric" };
+        const col = { ...DEFAULT_COL, name: 'test', type: 'metric' as 'metric' };
         const state = {
             displayRows: [],
             columnFilters: [],
@@ -434,13 +441,13 @@ describe("MUITableUtils", () => {
                 rowsPerPageOptions: [5, 10, 15]
             }
         };
-        test("It returns ok = true when search not open", () => {
-            const testRow = [{ value: 1, display: "1", column: col }];
+        test('It returns ok = true when search not open', () => {
+            const testRow = [{ value: 1, display: '1', column: col }];
             const testState = {
                 ...state,
                 ...{
                     search: {
-                        text: " ",
+                        text: ' ',
                         open: false
                     }
                 }
@@ -448,8 +455,8 @@ describe("MUITableUtils", () => {
             const result = MUITableUtils.searchFilterOk(testRow, testState);
             expect(result).toBe(true);
         });
-        test("It returns ok = true when search text is null", () => {
-            const testRow = [{ value: 1, display: "1", column: col }];
+        test('It returns ok = true when search text is null', () => {
+            const testRow = [{ value: 1, display: '1', column: col }];
             const testState = {
                 ...state,
                 ...{
@@ -462,13 +469,13 @@ describe("MUITableUtils", () => {
             const result = MUITableUtils.searchFilterOk(testRow, testState);
             expect(result).toBe(true);
         });
-        test("It returns ok = false when search text not in row", () => {
-            const testRow = [{ value: 1, display: "1", column: col }];
+        test('It returns ok = false when search text not in row', () => {
+            const testRow = [{ value: 1, display: '1', column: col }];
             const testState = {
                 ...state,
                 ...{
                     search: {
-                        text: "2",
+                        text: '2',
                         open: true
                     }
                 }
@@ -476,13 +483,13 @@ describe("MUITableUtils", () => {
             const result = MUITableUtils.searchFilterOk(testRow, testState);
             expect(result).toBe(false);
         });
-        test("It returns ok = true when search text in the row", () => {
-            const testRow = [{ value: 1, display: "1", column: col }];
+        test('It returns ok = true when search text in the row', () => {
+            const testRow = [{ value: 1, display: '1', column: col }];
             const testState = {
                 ...state,
                 ...{
                     search: {
-                        text: "1",
+                        text: '1',
                         open: true
                     }
                 }
@@ -492,53 +499,89 @@ describe("MUITableUtils", () => {
         });
     });
     describe(`MUITableUtils.findRowIndexById`, () => {
-        test("It finds row if its id exists in list", () => {
-            const col = { ...DEFAULT_COL, name: "test", type: "metric" as "metric", isRowId: true };
-            const row = [{ value: 1, display: "1", column: col }];
+        test('It finds row if its id exists in list', () => {
+            const col = { ...DEFAULT_COL, name: 'test', type: 'metric' as 'metric', isRowId: true };
+            const row = [{ value: 1, display: '1', column: col }];
             const rowId = MUITableUtils.rowId(row);
             const list = [rowId];
-            expect(MUITableUtils.findRowIndexById(row, list)).toBe(0);
+            expect(MUITableUtils.findRowIndex(row, list)).toBe(0);
         });
         test("It doesn't find row if when id not in list", () => {
-            const col = { ...DEFAULT_COL, name: "test", type: "metric" as "metric", isRowId: true };
-            const row = [{ value: 1, display: "1", column: col }];
+            const col = { ...DEFAULT_COL, name: 'test', type: 'metric' as 'metric', isRowId: true };
+            const row = [{ value: 1, display: '1', column: col }];
             const rowId = MUITableUtils.rowId(row);
             const list: string[] = [];
-            expect(MUITableUtils.findRowIndexById(row, list)).toBe(-1);
+            expect(MUITableUtils.findRowIndex(row, list)).toBe(-1);
         });
     });
     describe(`MUITableUtils.rowId`, () => {
-        test("It generates random when no isRowId columns passed", () => {
+        test('It generates random when no isRowId columns passed', () => {
             const col = {
                 ...DEFAULT_COL,
-                name: "test",
-                type: "metric" as "metric",
+                name: 'test',
+                type: 'metric' as 'metric',
                 isRowId: false
             };
-            const row = [{ value: 1, display: "1", column: col }];
+            const row = [{ value: 1, display: '1', column: col }];
             expect(() => MUITableUtils.rowId(row)).not.toThrow();
-            expect(MUITableUtils.rowId(row)).not.toBe("1");
+            expect(MUITableUtils.rowId(row)).not.toBe('1');
         });
-        test("It joins row props to generate id when isRowId = true", () => {
-            const col = { ...DEFAULT_COL, name: "test", type: "metric" as "metric", isRowId: true };
-            const row = [{ value: 1, display: "1", column: col }];
-            const exp = "1";
+        test('It joins row props to generate id when isRowId = true', () => {
+            const col = { ...DEFAULT_COL, name: 'test', type: 'metric' as 'metric', isRowId: true };
+            const row = [{ value: 1, display: '1', column: col }];
+            const exp = '1';
             expect(MUITableUtils.rowId(row)).toBe(exp);
         });
     });
     describe(`MUITableUtils.buildRows`, () => {
-        test("It calls calculateCellDefinition", () => {
-            const spy = sandbox.spy((e: any) => ({ display: "1", value: 1 }));
+        test('It calls calculateCellDefinition', () => {
+            const spy = sandbox.spy((e: any) => ({ display: '1', value: 1 }));
             const col = {
                 ...DEFAULT_COL,
-                name: "test",
-                type: "metric" as "metric",
+                name: 'test',
+                type: 'metric' as 'metric',
                 isRowId: false,
                 calculateCellDefinition: spy
             };
             const data = [{ value: 1 }];
-            const result = MUITableUtils.buildRows(data, [col]);
+            const result = MUITableUtils.buildRows(data, [col], DEFAULT_OPTS);
             expect(spy.callCount).toBe(1);
+        });
+        test('It calls filterDuplicates if skipDuplicates = true', () => {
+            const stub = sandbox
+                .stub(MUITableUtils, 'filterDuplicates')
+                .callsFake((rows: any) => rows);
+            const col = {
+                ...DEFAULT_COL,
+                name: 'test',
+                type: 'metric' as 'metric',
+                isRowId: false,
+                calculateCellDefinition: (e: any) => ({ display: '1', value: 1 })
+            };
+            const data = [{ value: 1 }, { value: 1 }];
+            MUITableUtils.buildRows(data, [DEFAULT_COL, col], {
+                ...DEFAULT_OPTS,
+                rows: { ...DEFAULT_OPTS.rows, skipDuplicates: true }
+            });
+            expect(stub.called).toBe(true);
+        });
+        test('It calls mergeDuplicates if mergeDuplicates = true', () => {
+            const stub = sandbox
+                .stub(MUITableUtils, 'mergeDuplicates')
+                .callsFake((rows: any) => rows);
+            const col = {
+                ...DEFAULT_COL,
+                name: 'test',
+                type: 'metric' as 'metric',
+                isRowId: false,
+                calculateCellDefinition: (e: any) => ({ display: '1', value: 1 })
+            };
+            const data = [{ value: 1 }, { value: 1 }];
+            MUITableUtils.buildRows(data, [DEFAULT_COL, col], {
+                ...DEFAULT_OPTS,
+                rows: { ...DEFAULT_OPTS.rows, mergeDuplicates: true, skipDuplicates: false }
+            });
+            expect(stub.called).toBe(true);
         });
     });
     describe(`MUITableUtils.buildOptions`, () => {
@@ -546,7 +589,7 @@ describe("MUITableUtils", () => {
             const data = [{ value: 1 }];
             const props = {
                 data,
-                title: "t",
+                title: 't',
                 loading: false,
                 columns: {
                     static: [],
@@ -569,68 +612,247 @@ describe("MUITableUtils", () => {
                 value: 1,
                 obj: {
                     entry: {
-                        name: "Generated Column",
-                        value: "test"
+                        name: 'Generated Column',
+                        value: 'test'
                     }
                 }
             }
         ];
         const generatedColumn: GeneratedColumn<any> = {
-            path: ["obj", "entry"],
-            nameProp: "name",
-            type: "dimension",
+            path: ['obj', 'entry'],
+            nameProp: 'name',
+            type: 'dimension',
             options: {
                 calculateCellDefinition: entry => ({ display: entry.value, value: entry })
             }
         };
-        test("It returns the correct column", () => {
+        test('It returns the correct column', () => {
             const result = MUITableUtils.buildGeneratedColumns([generatedColumn], data);
-            expect(result[0].title).toBe("Generated Column");
+            expect(result[0].title).toBe('Generated Column');
         });
-        test("It handles inaccessible propsPath", () => {
-            const col = { ...generatedColumn, path: ["doesnt", "exist"] };
+        test('It handles generateRelated', () => {
+            const genCol: GeneratedColumn<any> = {
+                ...generatedColumn,
+                generateRelatedColumns: (c, e) => [{} as any]
+            };
+            const test = () => MUITableUtils.buildGeneratedColumns([genCol], data);
+            expect(test).not.toThrow();
+        });
+        test('It handles generateRelated not being an array', () => {
+            const genCol: GeneratedColumn<any> = {
+                ...generatedColumn,
+                generateRelatedColumns: (c, e) => ({} as any)
+            };
+            const test = () => MUITableUtils.buildGeneratedColumns([genCol], data);
+            expect(test).not.toThrow();
+        });
+        test('It handles inaccessible propsPath', () => {
+            const col = { ...generatedColumn, path: ['doesnt', 'exist'] };
             const test = () => MUITableUtils.buildGeneratedColumns([col], data);
             expect(test).not.toThrow();
             const result = test();
             expect(result.length).toBe(0);
         });
-        test("It calls modifyProps", () => {
+        test('It calls modifyProps', () => {
             const col = { ...generatedColumn };
             const modifyPropsSpy = sandbox.spy((col: any) => col);
             col.modifyProps = modifyPropsSpy;
             MUITableUtils.buildGeneratedColumns([col], data);
             expect(modifyPropsSpy.callCount).toBe(1);
         });
-        test("It calls generateRelatedColumns", () => {
+        test('It calls generateRelatedColumns', () => {
             const col = { ...generatedColumn };
             const genRelated = sandbox.spy((col: any) => []);
             col.generateRelatedColumns = genRelated;
             MUITableUtils.buildGeneratedColumns([col], data);
             expect(genRelated.callCount).toBe(1);
         });
-        test("It returns the cols from generateRelatedColumns", () => {
+        test('It returns the cols from generateRelatedColumns', () => {
             const col = { ...generatedColumn };
             col.generateRelatedColumns = () => [DEFAULT_COL];
             const result = MUITableUtils.buildGeneratedColumns([col], data);
             expect(result.length).toBe(2);
         });
-        test("It handles modifyProps errors", () => {
+        test('It handles modifyProps errors', () => {
             const col = { ...generatedColumn };
             const modifyPropsSpy = sandbox.spy((col: any) => {
-                throw new Error("test");
+                throw new Error('test');
             });
             col.modifyProps = modifyPropsSpy;
             const test = () => MUITableUtils.buildGeneratedColumns([col], data);
             expect(test).not.toThrow();
         });
-        test("It handles generateRelatedColumns errors", () => {
+        test('It handles generateRelatedColumns errors', () => {
             const col = { ...generatedColumn };
             const genRelated = sandbox.spy((col: any) => {
-                throw new Error("test");
+                throw new Error('test');
             });
             col.generateRelatedColumns = genRelated;
             const test = () => MUITableUtils.buildGeneratedColumns([col], data);
             expect(test).not.toThrow();
+        });
+    });
+    describe(`MUITableUtils.filterDuplicates`, () => {
+        test('It returns the correct amount of rows', () => {
+            const col = {
+                ...DEFAULT_COL,
+                name: 'test',
+                type: 'metric' as 'metric',
+                isRowId: false,
+                calculateCellDefinition: (e: any) => ({ display: '1', value: 1 })
+            };
+            const data = [{ value: 1 }, { value: 1 }];
+            const result = MUITableUtils.buildRows(data, [DEFAULT_COL, col], {
+                ...DEFAULT_OPTS,
+                rows: { ...DEFAULT_OPTS.rows, skipDuplicates: true }
+            });
+            expect(result).toHaveLength(1);
+        });
+    });
+    describe(`MUITableUtils.mergeDuplicates`, () => {
+        test('It sums the row values', () => {
+            const col = {
+                ...DEFAULT_COL,
+                name: 'test',
+                type: 'metric' as 'metric',
+                isRowId: false,
+                calculateCellDefinition: (e: any) => ({ display: '1', value: 1 })
+            };
+            const data = [{ value: 1 }, { value: 1 }];
+            const result = MUITableUtils.buildRows(data, [col, DEFAULT_COL], {
+                ...DEFAULT_OPTS,
+                rows: { ...DEFAULT_OPTS.rows, mergeDuplicates: true, skipDuplicates: false }
+            });
+            expect(result).toHaveLength(1);
+            expect(result[0][0].value).toBe(2);
+        });
+        test('It handles mergeFunction errors', () => {
+            const col = {
+                ...DEFAULT_COL,
+                name: 'test',
+                type: 'metric' as 'metric',
+                isRowId: false,
+                calculateCellDefinition: (e: any) => ({ display: '1', value: 1 })
+            };
+            const data = [{ value: 1 }, { value: 1 }];
+            const mergeFunction: any = () => {
+                throw new Error('test');
+            };
+
+            const test = () =>
+                MUITableUtils.buildRows(data, [col, DEFAULT_COL], {
+                    ...DEFAULT_OPTS,
+                    rows: {
+                        ...DEFAULT_OPTS.rows,
+                        mergeFunction,
+                        mergeDuplicates: true,
+                        skipDuplicates: false
+                    }
+                });
+            expect(test).not.toThrow();
+            const result = test();
+            expect(result[0][0].value).toBe(2);
+        });
+    });
+    describe(`MUITableUtils.mergeForHiddenColumns`, () => {
+        test('returns rows if !hiddenColumnsMergeDuplicates', () => {
+            const col = {
+                ...DEFAULT_COL,
+                name: 'test',
+                type: 'metric' as 'metric',
+                isRowId: false,
+                calculateCellDefinition: (e: any) => ({ display: '1', value: 1 })
+            };
+            const data = [{ value: 1 }, { value: 1 }];
+            const rows = MUITableUtils.buildRows(data, [col, DEFAULT_COL], DEFAULT_OPTS);
+            const result = MUITableUtils.mergeForHiddenColumns(rows, DEFAULT_OPTS, [true, false]);
+            expect(result).toHaveLength(rows.length);
+        });
+        test('returns rows if no columns hidden', () => {
+            const col = {
+                ...DEFAULT_COL,
+                name: 'test',
+                type: 'metric' as 'metric',
+                isRowId: false,
+                calculateCellDefinition: (e: any) => ({ display: '1', value: 1 })
+            };
+            const data = [{ value: 1 }, { value: 1 }];
+            const opts = {
+                ...DEFAULT_OPTS,
+                rows: { ...DEFAULT_OPTS.rows, hiddenColumnsMergeDuplicates: true }
+            };
+            const rows = MUITableUtils.buildRows(data, [col, DEFAULT_COL], opts);
+            const result = MUITableUtils.mergeForHiddenColumns(rows, opts, [true, true]);
+            expect(result).toHaveLength(rows.length);
+        });
+        test('It sums the row values', () => {
+            const col = {
+                ...DEFAULT_COL,
+                name: 'test',
+                type: 'metric' as 'metric',
+                isRowId: false,
+                calculateCellDefinition: (e: any) => ({ display: '1', value: 1 })
+            };
+            const data = [{ value: 1 }, { value: 1 }];
+            const opts = {
+                ...DEFAULT_OPTS,
+                rows: {
+                    ...DEFAULT_OPTS.rows,
+                    hiddenColumnsMergeDuplicates: true,
+                    skipDuplicates: false
+                }
+            };
+            const rows = MUITableUtils.buildRows(data, [col, DEFAULT_COL], opts);
+            const result = MUITableUtils.mergeForHiddenColumns(rows, opts, [true, false]);
+            expect(result).toHaveLength(1);
+            expect(result[0][0].value).toBe(2);
+        });
+    });
+    describe(`MUITableUtils.mergeCellsCalc`, () => {
+        test('it doesnt change dimensions', () => {
+            const col = {
+                ...DEFAULT_COL,
+                name: 'test',
+                type: 'metric' as 'metric',
+                isRowId: false,
+                calculateCellDefinition: (e: any) => ({ display: '1', value: 1 })
+            };
+            const data = [{ value: 1 }, { value: 1 }];
+            const rows = MUITableUtils.buildRows(data, [col, DEFAULT_COL], DEFAULT_OPTS);
+            const result = MUITableUtils.mergeCellsCalc(rows);
+            expect(result[1].display).toBe('');
+        });
+        test('it sums metrics', () => {
+            const col = {
+                ...DEFAULT_COL,
+                name: 'test',
+                type: 'metric' as 'metric',
+                isRowId: false,
+                calculateCellDefinition: (e: any) => ({ display: '1', value: 1 })
+            };
+            const data = [{ value: 1 }, { value: 1 }];
+            const rows = MUITableUtils.buildRows(data, [col, DEFAULT_COL], DEFAULT_OPTS);
+            const result = MUITableUtils.mergeCellsCalc(rows);
+            expect(result[0].value).toBe(2);
+        });
+        test('uses the columns summaryFormat', () => {
+            const stub = sandbox.stub(MUITableUtils, 'formatValue');
+            const col = {
+                ...DEFAULT_COL,
+                name: 'test',
+                type: 'metric' as 'metric',
+                isRowId: false,
+                summaryOptions: {
+                    type: 'AVG' as any,
+                    format: 'seconds' as any
+                },
+                calculateCellDefinition: (e: any) => ({ display: '1', value: 1 })
+            };
+            const data = [{ value: 1 }, { value: 1 }];
+            const rows = MUITableUtils.buildRows(data, [col, DEFAULT_COL], DEFAULT_OPTS);
+            const result = MUITableUtils.mergeCellsCalc(rows);
+            expect(result[0].value).toBe(2);
+            expect(stub.args[0][1]).toBe('seconds');
         });
     });
 });

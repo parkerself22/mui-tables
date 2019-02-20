@@ -1,15 +1,15 @@
-import React from "react";
-import { cleanup, render } from "react-testing-library";
-import MUITableFilterList from "../../../../src/components/Toolbars/Filters/MUITableFilterList";
-import { DEFAULT_OPTS } from "../../../../src/constants";
-import MUITableUtils from "../../../../src/constants/MUITableUtils";
-import { EXAMPLE_COLUMNS, EXAMPLE_INPUT_DATA, MUITableTestContext } from "../../../utils";
+import React from 'react';
+import { cleanup, render } from 'react-testing-library';
+import MUITableFilterList from '../../../../src/components/Toolbars/Filters/MUITableFilterList';
+import { DEFAULT_OPTS } from '../../../../src/constants';
+import MUITableUtils from '../../../../src/constants/MUITableUtils';
+import { EXAMPLE_COLUMNS, EXAMPLE_INPUT_DATA, MUITableTestContext } from '../../../utils';
 
 afterEach(cleanup);
 
 describe("MUITableFilterList", () => {
     test("renders chips for filter values", () => {
-        const rows = MUITableUtils.buildRows(EXAMPLE_INPUT_DATA, EXAMPLE_COLUMNS);
+        const rows = MUITableUtils.buildRows(EXAMPLE_INPUT_DATA, EXAMPLE_COLUMNS, DEFAULT_OPTS);
         const columnFilters = EXAMPLE_COLUMNS.map(c => ["TEST"]);
         const { getByText } = render(
             <MUITableTestContext
@@ -25,7 +25,7 @@ describe("MUITableFilterList", () => {
         expect(test).not.toThrow();
     });
     test("renders null if options.display.filterValues = false", () => {
-        const rows = MUITableUtils.buildRows(EXAMPLE_INPUT_DATA, EXAMPLE_COLUMNS);
+        const rows = MUITableUtils.buildRows(EXAMPLE_INPUT_DATA, EXAMPLE_COLUMNS, DEFAULT_OPTS);
         const columnFilters = EXAMPLE_COLUMNS.map(c => ["TEST"]);
         const { getByText } = render(
             <MUITableTestContext

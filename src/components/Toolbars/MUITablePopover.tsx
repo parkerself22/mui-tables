@@ -9,7 +9,7 @@ export interface MUITablePopoverState {
 export interface MUITablePopoverProps extends PopoverProps {
     trigger: ReactElement<any, any>;
     refClose?: (cb: any) => void;
-    refExit?: any;
+    refExit?: () => void;
     content: ReactNode;
 }
 
@@ -40,9 +40,7 @@ class MUITablePopover extends React.Component<MUITablePopoverProps, MUITablePopo
          * it affects the window height which would cause the Popover to in the wrong place
          */
         if (this.state.open === true) {
-            if (this.anchorEl) {
-                this.anchorEl = findDOMNode(this.anchorEl);
-            }
+            this.anchorEl = findDOMNode(this.anchorEl);
             if (this.popoverActions) {
                 this.popoverActions.updatePosition();
             }
@@ -50,15 +48,13 @@ class MUITablePopover extends React.Component<MUITablePopoverProps, MUITablePopo
     }
 
     handleClick = () => {
-        if (this.anchorEl) {
-            this.anchorEl = findDOMNode(this.anchorEl);
-        }
+        this.anchorEl = findDOMNode(this.anchorEl);
         this.setState({ open: true });
     };
 
     handleRequestClose = (cb: any) => {
         this.setState({ open: false }, () => {
-            cb && typeof cb === 'function' ? cb() : null;
+            cb && typeof cb === 'function' && cb();
         });
     };
 

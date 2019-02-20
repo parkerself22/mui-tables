@@ -2,13 +2,13 @@ import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import React from 'react';
 import MUITableBody from './Body/MUITableBody';
-import MUITableFilterList from './Toolbars/Filters/MUITableFilterList';
 import MUITableFooter from './Footer/MUITableFooter';
 import MUITableHead from './Head/MUITableHead';
 import { MUITableLoader } from './Head/MUITableLoader';
+import { useMUITableContext } from './MUITable';
+import MUITableFilterList from './Toolbars/Filters/MUITableFilterList';
 import MUITableToolbar from './Toolbars/MUITableToolbar';
 import MUITableToolbarSelect from './Toolbars/MUITableToolbarSelect';
-import { useMUITableContext } from './MUITable';
 
 const classes = {
     root: {},
@@ -53,7 +53,7 @@ const MUITableWrapper = (props: Props) => {
     const { title } = options;
     return (
         <Paper
-            elevation={options.display.elevation ? options.display.elevation : 4}
+            elevation={options.display.elevation}
             style={classes.paper}
         >
             <MUITableLoader loading={loading} />
@@ -64,6 +64,7 @@ const MUITableWrapper = (props: Props) => {
             )}
             <MUITableFilterList />
             <div
+                data-testid="responsive-style-div"
                 style={
                     options.display.responsive === 'scroll'
                         ? classes.responsiveScroll
