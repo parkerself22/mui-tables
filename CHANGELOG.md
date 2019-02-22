@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/parkerself22/mui-table/compare/v1.0.12...v1.1.0) (2019-02-22)
+
+
+### Features
+
+* **fixedSearch in header, more custom toolbar options, tests:** Added an ever-present searchbar options for the header. Added more custom toolbar hooks. + test coverage for all. ([06802bc](https://github.com/parkerself22/mui-table/commit/06802bc))
+
 ## [1.0.12](https://github.com/parkerself22/mui-table/compare/v1.0.11...v1.0.12) (2019-02-20)
 
 
