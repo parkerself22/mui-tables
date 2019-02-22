@@ -1,10 +1,11 @@
+import { Typography } from '@material-ui/core';
 import { action } from '@storybook/addon-actions';
 import { array, boolean, object, text } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 import React from 'react';
 import { MUITable } from '../src/components/MUITable';
 import MUITableUtils from '../src/constants/MUITableUtils';
-import { HookOptions, PropColumn, UserOptions } from '../src/types';
+import { HookOptions, ColumnProp, UserOptions } from '../src/types';
 import { HooksExample } from './hooks-actions';
 import { IntroExample } from './intro';
 
@@ -133,7 +134,7 @@ storiesOf('MUITable', module)
                 }
             ];
 
-            const columns: PropColumn<any>[] = [
+            const columns: ColumnProp<any>[] = [
                 {
                     name: 'string',
                     title: text('Col1 Title', 'String', 'Static Columns'),
@@ -277,8 +278,8 @@ storiesOf('MUITable', module)
                     selectable: boolean('selectableRows', false, 'Options.rows'),
                     skipDuplicates: boolean('skipDuplicates', true, 'Options.rows'),
                     mergeDuplicates: boolean('mergeDuplicates', false, 'Options.rows'),
-                    hiddenColumnsMergeDuplicates: boolean(
-                        'hiddenColumnsMergeDuplicates',
+                    hiddenColumnMerge: boolean(
+                        'hiddenColumnMerge',
                         false,
                         'Options.rows'
                     )
@@ -367,14 +368,20 @@ storiesOf('MUITable', module)
                     filter: boolean('filter', true, 'Options.display'),
                     search: boolean('search', true, 'Options.display'),
                     fixedSearch: boolean('fixedSearch', true, 'Options.display'),
-                    print: boolean('print', false, 'Options.display'),
                     download: boolean('download', false, 'Options.display'),
                     viewColumns: boolean('viewColumns', true, 'Options.display'),
                     fixedHeader: boolean('fixedHeader', true, 'Options.display')
                 }
             };
 
-            return <MUITable {...propsKnob} data={EXAMPLE_DATA} />;
+            return (
+                <div>
+                    <Typography variant={'h6'} gutterBottom style={{ paddingBottom: 20 }}>
+                        Use the KNOBS tab below to change options!
+                    </Typography>
+                    <MUITable {...propsKnob} data={EXAMPLE_DATA} />
+                </div>
+            );
         },
         { info: { inline: false } }
     )

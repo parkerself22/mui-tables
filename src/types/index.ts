@@ -69,18 +69,18 @@ export interface FilterOpts {
 
 type RequiredColProps = 'name' | 'calculateCellDefinition';
 
-export interface PropColumn<R extends MUIDataObj>
+export interface ColumnProp<R extends MUIDataObj>
     extends OptionalExceptFor<StateColumn<R>, RequiredColProps> {}
 
 type ColTypes = 'dimension' | 'metric';
 
 export interface StateColumn<R extends MUIDataObj> {
     name: string;
+    calculateCellDefinition: CalculateCell<R>;
     title?: string;
     type: ColTypes;
-    display: 'true' | 'false' | 'excluded';
 
-    calculateCellDefinition: CalculateCell<R>;
+    display: 'true' | 'false' | 'excluded';
 
     // Use cell value for this column to create a unique rowId
     // defaults to true if dimension, false if metric
@@ -102,15 +102,15 @@ export interface StateColumn<R extends MUIDataObj> {
 }
 
 type GenerateRelated<R extends MUIDataObj> = (
-    col: PropColumn<R>,
+    col: ColumnProp<R>,
     entry: R
-) => PropColumn<R>[] | null;
+) => ColumnProp<R>[] | null;
 
 export interface GeneratedColumn<R extends MUIDataObj> {
     path: string[];
     nameProp: keyof R;
     type: ColTypes;
-    options: Optional<PropColumn<R>>;
+    options: Optional<ColumnProp<R>>;
     modifyProps?: (col: StateColumn<R>, entry: R) => StateColumn<R>;
     generateRelatedColumns?: GenerateRelated<R>;
 }
@@ -123,9 +123,9 @@ interface RowOptions<R extends MUIDataObj> {
     summaryTop: boolean;
     setRowProps?: (row: Row<R>, rowIndex: number) => { [k: string]: any };
 
-    customToolbarSelect?: (selectedRows: Row<R>[]) => ReactNode;
+    customToolbarSelect?: (selectedRows: Row<R>[], context: MUITableContext<any>) => ReactNode;
     selectBarTop?: boolean;
-    selectBarActions?: ReactNode;
+    selectBarActions?: (selectedRows: Row<R>[], context: MUITableContext<any>) => ReactNode;
     hideSelectDelete?: boolean;
 
     /**
@@ -158,7 +158,7 @@ interface RowOptions<R extends MUIDataObj> {
     mergeDuplicates: boolean;
 
     /**
-     * Used for both mergeDuplicates and hiddenColumnsMergeDuplicates
+     * Used for both mergeDuplicates and hiddenColumnMerge
      * If not provided, each cell in a metric column is summed.
      * @param cells {Row[]}
      */
@@ -175,13 +175,13 @@ interface RowOptions<R extends MUIDataObj> {
      *  rows = [ [parker, 11/1, 5], [parker, 11/3, 5]
      *  displayRows = [parker, null, 10]
      */
-    hiddenColumnsMergeDuplicates: boolean;
+    hiddenColumnMerge: boolean;
 }
 
 type SortColumns<R extends MUIDataObj> = (cols: StateColumn<R>[]) => StateColumn<R>[];
 
 interface ColumnOptions<R extends MUIDataObj> {
-    static: PropColumn<R>[];
+    static: ColumnProp<R>[];
     generated?: GeneratedColumn<R>[];
     sortColumns?: SortColumns<R>;
 }
@@ -190,9 +190,9 @@ export interface ToolbarOptions<R extends MUIDataObj> {
     showDates: boolean;
     startDate?: Date;
     endDate?: Date;
+    handleDateChange?: (isStart: boolean) => (value: any) => void;
     startLabel?: string;
     endLabel?: string;
-    handleDateChange?: (isStart: boolean) => (value: any) => void;
     customToolbarRight?: (context: MUITableContext) => ReactNode;
     customToolbarLeft?: (context: MUITableContext) => ReactNode;
     customToolbarBottom?: (context: MUITableContext) => ReactNode;
@@ -266,7 +266,6 @@ interface DisplayOptions {
     filter: boolean;
     fixedSearch: boolean;
     search: boolean;
-    print: boolean;
     download: boolean;
     fixedHeader: boolean;
     viewColumns: boolean;
@@ -276,8 +275,8 @@ interface DisplayOptions {
 }
 
 export interface UserOptions<R extends MUIDataObj> {
-    title: string;
-    loading: boolean;
+    title: ReactNode;
+    loading?: boolean;
 
     columns: ColumnOptions<R>;
 

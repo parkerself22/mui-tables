@@ -300,7 +300,7 @@ export class MUIChildTable extends React.Component<Props<any>, State<any>> {
         return (
             <MUITABLE_DEF_CONTEXT.Provider value={context}>
                 <CssBaseline />
-                <MUITableWrapper loading={loading} />
+                <MUITableWrapper loading={!!loading} />
             </MUITABLE_DEF_CONTEXT.Provider>
         );
     };

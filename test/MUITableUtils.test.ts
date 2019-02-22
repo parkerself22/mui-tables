@@ -755,7 +755,7 @@ describe('MUITableUtils', () => {
         });
     });
     describe(`MUITableUtils.mergeForHiddenColumns`, () => {
-        test('returns rows if !hiddenColumnsMergeDuplicates', () => {
+        test('returns rows if !hiddenColumnMerge', () => {
             const col = {
                 ...DEFAULT_COL,
                 name: 'test',
@@ -779,7 +779,7 @@ describe('MUITableUtils', () => {
             const data = [{ value: 1 }, { value: 1 }];
             const opts = {
                 ...DEFAULT_OPTS,
-                rows: { ...DEFAULT_OPTS.rows, hiddenColumnsMergeDuplicates: true }
+                rows: { ...DEFAULT_OPTS.rows, hiddenColumnMerge: true }
             };
             const rows = MUITableUtils.buildRows(data, [col, DEFAULT_COL], opts);
             const result = MUITableUtils.mergeForHiddenColumns(rows, opts, [true, true]);
@@ -798,7 +798,7 @@ describe('MUITableUtils', () => {
                 ...DEFAULT_OPTS,
                 rows: {
                     ...DEFAULT_OPTS.rows,
-                    hiddenColumnsMergeDuplicates: true,
+                    hiddenColumnMerge: true,
                     skipDuplicates: false
                 }
             };

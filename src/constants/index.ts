@@ -36,11 +36,11 @@ export const DEFAULT_OPTS: Options<any> = {
         selectable: false,
         skipDuplicates: false,
         mergeDuplicates: false,
-        hiddenColumnsMergeDuplicates: false
+        hiddenColumnMerge: false
     },
     pagination: {
         rowsPerPage: 5,
-        rowsPerPageOptions: [10, 25, 50]
+        rowsPerPageOptions: [5, 25, 50]
     },
     translations: {
         body: {
@@ -84,7 +84,6 @@ export const DEFAULT_OPTS: Options<any> = {
         filter: true,
         fixedSearch: false,
         search: true,
-        print: false,
         download: false,
         viewColumns: true,
         fixedHeader: true,

@@ -66,7 +66,8 @@ const defaultToolbarSelectStyles = (theme: Theme) => ({
 
 const TableToolbarSelect = (props: Props) => {
     const { classes } = props;
-    const { selectedRows, options, onRowsDelete, rows } = useMUITableContext();
+    const context = useMUITableContext();
+    const { selectedRows, options, onRowsDelete, rows } = context;
     const textLabels = options.translations.selectedRows;
     const selectedRowData = rows.filter(r => {
         return selectedRows.indexOf(MUITableUtils.rowId(r)) >= 0;
@@ -80,7 +81,7 @@ const TableToolbarSelect = (props: Props) => {
             aria-label={'Selected Toolbar'}
         >
             {options.rows.customToolbarSelect && selectedRows.length > 0 ? (
-                options.rows.customToolbarSelect(selectedRowData)
+                options.rows.customToolbarSelect(selectedRowData, context)
             ) : selectedRows.length <= 0 ? null : (
                 <React.Fragment>
                     <Grid item xs={4} className={classes.titleGrid}>
@@ -89,6 +90,9 @@ const TableToolbarSelect = (props: Props) => {
                         </Typography>
                     </Grid>
                     <Grid item xs={8} className={classes.actionsGrid}>
+                        {options.rows.selectBarActions
+                            ? options.rows.selectBarActions(selectedRowData, context)
+                            : null}
                         {options.rows.hideSelectDelete ? null : (
                             <Tooltip title={textLabels.delete}>
                                 <IconButton

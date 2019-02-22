@@ -99,6 +99,17 @@ describe('MUITableChild', () => {
             expect(instance.state.pagination.rowsPerPage).toBe(5);
             expect(instance.state.pagination.rowsPerPageOptions).toEqual([5, 10, 15]);
         });
+        test('adds the initial rowsPerPage to rowsPerPageOptions if not found', () => {
+            const instance = tableInstance({
+                pagination: {
+                    ...DEFAULT_OPTS.pagination,
+                    rowsPerPage: 69,
+                    rowsPerPageOptions: [5, 10, 15]
+                }
+            });
+            expect(instance.state.pagination.rowsPerPage).toBe(69);
+            expect(instance.state.pagination.rowsPerPageOptions).toEqual([5, 10, 15, 69]);
+        });
     });
     test('sortedFilteredRows', () => {
         const instance = tableInstance();

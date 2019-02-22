@@ -57,6 +57,27 @@ describe('MUITableToolbarSelect', () => {
         );
         expect(customToolbarSelect.called).toBe(true);
     });
+    test('renders selectBarActions if provided', () => {
+        const selectBarActions = sandbox.spy();
+        render(
+            <MUITableTestContext
+                override={{
+                    selectedRows: ["1"],
+                    options: {
+                        ...DEFAULT_CONTEXT.options,
+                        rows: {
+                            ...DEFAULT_CONTEXT.options.rows,
+                            selectBarActions,
+                            selectBarTop: false
+                        }
+                    }
+                }}
+            >
+                <MUITableToolbarSelect />
+            </MUITableTestContext>
+        );
+        expect(selectBarActions.called).toBe(true);
+    });
     test('does not render delete button if hideSelectDelete', () => {
         const { getByTitle, getByRole } = render(
             <MUITableTestContext

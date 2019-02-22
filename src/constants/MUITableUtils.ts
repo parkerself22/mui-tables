@@ -6,7 +6,7 @@ import {
     MUIDataObj,
     Options,
     ParentProps,
-    PropColumn,
+    ColumnProp,
     Row,
     State,
     StateColumn,
@@ -300,8 +300,30 @@ export default class MUITableUtils {
                 ...props.pagination
             },
             translations: {
-                ...defaultOpts.translations,
-                ...props.translations
+                body: {
+                    ...defaultOpts.translations.body,
+                    ...(props.translations ? props.translations.body : {})
+                },
+                pagination: {
+                    ...defaultOpts.translations.pagination,
+                    ...(props.translations ? props.translations.pagination : {})
+                },
+                toolbar: {
+                    ...defaultOpts.translations.toolbar,
+                    ...(props.translations ? props.translations.toolbar : {})
+                },
+                filter: {
+                    ...defaultOpts.translations.filter,
+                    ...(props.translations ? props.translations.filter : {})
+                },
+                viewColumns: {
+                    ...defaultOpts.translations.viewColumns,
+                    ...(props.translations ? props.translations.viewColumns : {})
+                },
+                selectedRows: {
+                    ...defaultOpts.translations.selectedRows,
+                    ...(props.translations ? props.translations.selectedRows : {})
+                }
             },
             hooks: {
                 ...props.hooks
@@ -312,7 +334,7 @@ export default class MUITableUtils {
 
     static buildStaticColumns = (
         data: MUIDataObj[],
-        staticCols: PropColumn<any>[],
+        staticCols: ColumnProp<any>[],
         generatedColumns?: GeneratedColumn<any>[]
     ) => {
         const defaultCol = DEFAULT_COL;
@@ -446,7 +468,7 @@ export default class MUITableUtils {
         viewColumns: boolean[]
     ) => {
         // If no columns are hidden or the option = false just return rows
-        if (!options.rows.hiddenColumnsMergeDuplicates || viewColumns.indexOf(false) < 0) {
+        if (!options.rows.hiddenColumnMerge || viewColumns.indexOf(false) < 0) {
             return rows;
         }
         /**
