@@ -82,6 +82,7 @@ export const DEFAULT_OPTS: Options<any> = {
         sort: true,
         paginate: true,
         filter: true,
+        fixedSearch: false,
         search: true,
         print: false,
         download: false,

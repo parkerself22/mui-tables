@@ -122,7 +122,11 @@ interface RowOptions<R extends MUIDataObj> {
     selectable: boolean;
     summaryTop: boolean;
     setRowProps?: (row: Row<R>, rowIndex: number) => { [k: string]: any };
+
     customToolbarSelect?: (selectedRows: Row<R>[]) => ReactNode;
+    selectBarTop?: boolean;
+    selectBarActions?: ReactNode;
+    hideSelectDelete?: boolean;
 
     /**
      * @property {boolean = false} skipDuplicates
@@ -189,7 +193,10 @@ export interface ToolbarOptions<R extends MUIDataObj> {
     startLabel?: string;
     endLabel?: string;
     handleDateChange?: (isStart: boolean) => (value: any) => void;
-    customToolbar?: () => ReactNode;
+    customToolbarRight?: (context: MUITableContext) => ReactNode;
+    customToolbarLeft?: (context: MUITableContext) => ReactNode;
+    customToolbarBottom?: (context: MUITableContext) => ReactNode;
+    customToolbarFull?: (context: MUITableContext) => ReactNode;
 }
 
 export interface HookOptions<R extends MUIDataObj> {
@@ -203,7 +210,7 @@ export interface HookOptions<R extends MUIDataObj> {
     onFilterChange?: (change: string | string[], filterList: string[][]) => void;
     onRowClick?: (row: Row<R>, rowIndex: number) => void;
     onCellClick?: (cell: Cell<any>, row: Row<any>, rowIndex: number) => void;
-    onColumnSortChange?: (changedColumn: StateColumn<any>, direction: string|null) => void;
+    onColumnSortChange?: (changedColumn: StateColumn<any>, direction: string | null) => void;
     onColumnViewChange?: (changedColumn: StateColumn<any>, visible: boolean) => void;
     onChangePage?: (currentPage: number) => void;
     onChangeRowsPerPage?: (numberOfRows: number) => void;
@@ -257,6 +264,7 @@ interface DisplayOptions {
     sort: boolean;
     paginate: boolean;
     filter: boolean;
+    fixedSearch: boolean;
     search: boolean;
     print: boolean;
     download: boolean;

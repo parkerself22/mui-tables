@@ -21,11 +21,12 @@ describe('MUITableToolbarSelect', () => {
         render(
             <MUITableTestContext
                 override={{
+                    selectedRows: ["1"],
                     options: {
                         ...DEFAULT_CONTEXT.options,
                         rows: {
                             ...DEFAULT_CONTEXT.options.rows,
-                            customToolbarSelect
+                            customToolbarSelect,
                         }
                     }
                 }}
@@ -34,6 +35,74 @@ describe('MUITableToolbarSelect', () => {
             </MUITableTestContext>
         );
         expect(customToolbarSelect.called).toBe(true);
+    });
+    test('renders customToolbarSelect if !selectBarTop', () => {
+        const customToolbarSelect = sandbox.spy();
+        render(
+            <MUITableTestContext
+                override={{
+                    selectedRows: ["1"],
+                    options: {
+                        ...DEFAULT_CONTEXT.options,
+                        rows: {
+                            ...DEFAULT_CONTEXT.options.rows,
+                            customToolbarSelect,
+                            selectBarTop: false
+                        }
+                    }
+                }}
+            >
+                <MUITableToolbarSelect />
+            </MUITableTestContext>
+        );
+        expect(customToolbarSelect.called).toBe(true);
+    });
+    test('does not render delete button if hideSelectDelete', () => {
+        const { getByTitle, getByRole } = render(
+            <MUITableTestContext
+                override={{
+                    selectedRows: ["1"],
+                    options: {
+                        ...DEFAULT_CONTEXT.options,
+                        rows: {
+                            ...DEFAULT_CONTEXT.options.rows,
+                            selectBarTop: false,
+                            hideSelectDelete: true
+                        }
+                    }
+                }}
+            >
+                <MUITableToolbarSelect />
+            </MUITableTestContext>
+        );
+        const test = () => getByTitle("Delete");
+        const test2 = () => getByRole("select-toolbar");
+        expect(test).toThrow();
+        expect(test2).not.toThrow();
+    });
+    test('renders delete button if !hideSelectDelete', () => {
+        const customToolbarSelect = sandbox.spy();
+        const { getByTitle, getByRole } = render(
+            <MUITableTestContext
+                override={{
+                    selectedRows: ["1"],
+                    options: {
+                        ...DEFAULT_CONTEXT.options,
+                        rows: {
+                            ...DEFAULT_CONTEXT.options.rows,
+                            selectBarTop: false,
+                            hideSelectDelete: false
+                        }
+                    }
+                }}
+            >
+                <MUITableToolbarSelect />
+            </MUITableTestContext>
+        );
+        const test = () => getByTitle("Delete");
+        const test2 = () => getByRole("select-toolbar");
+        expect(test).not.toThrow();
+        expect(test2).not.toThrow();
     });
     test('filters for selectedRows on customToolbarSelect', () => {
         const customToolbarSelect = sandbox.spy();

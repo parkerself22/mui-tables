@@ -9,6 +9,7 @@ import { HooksExample } from './hooks-actions';
 import { IntroExample } from './intro';
 
 storiesOf('MUITable', module)
+    .addDecorator(story => <div style={{ padding: 40 }}>{story()}</div>)
     .add(
         'Configurable Example',
         () => {
@@ -264,14 +265,15 @@ storiesOf('MUITable', module)
                     showDates: boolean('showDates', false, 'Options.toolbar'),
                     startDate: new Date(text('startDate', '2/1/18', 'Options.toolbar')),
                     endDate: new Date(text('endDate', '2/1/18', 'Options.toolbar')),
-                    customToolbar: () =>
-                        text('customToolbar (return value)', '', 'Options.toolbar'),
+                    customToolbarRight: () =>
+                        text('customToolbarRight (return value)', '', 'Options.toolbar'),
                     handleDateChange: isStart => value => console.log(isStart, value)
                 },
                 rows: {
                     rowHover: boolean('rowHover', false, 'Options.rows'),
                     showSummaryRow: boolean('showSummaryRow', false, 'Options.rows'),
                     summaryTop: boolean('summaryTop', false, 'Options.rows'),
+                    selectBarTop: boolean('selectBarTop', true, 'Options.rows'),
                     selectable: boolean('selectableRows', false, 'Options.rows'),
                     skipDuplicates: boolean('skipDuplicates', true, 'Options.rows'),
                     mergeDuplicates: boolean('mergeDuplicates', false, 'Options.rows'),
@@ -364,6 +366,7 @@ storiesOf('MUITable', module)
                     sort: boolean('sort', true, 'Options.display'),
                     filter: boolean('filter', true, 'Options.display'),
                     search: boolean('search', true, 'Options.display'),
+                    fixedSearch: boolean('fixedSearch', true, 'Options.display'),
                     print: boolean('print', false, 'Options.display'),
                     download: boolean('download', false, 'Options.display'),
                     viewColumns: boolean('viewColumns', true, 'Options.display'),

@@ -65,16 +65,16 @@ class MUITablePopover extends React.Component<MUITablePopoverProps, MUITablePopo
     };
 
     render() {
-        const { trigger, content, open } = this.props;
+        const { trigger, content, open, className } = this.props;
 
         const transformOriginSpecs: PopoverOrigin = {
-            vertical: 'top',
+            vertical: 'bottom',
             horizontal: 'center'
         };
 
         const anchorOriginSpecs: PopoverOrigin = {
-            vertical: 'bottom' as 'bottom',
-            horizontal: 'center' as 'center'
+            vertical: 'bottom',
+            horizontal: 'center'
         };
 
         const triggerEl = React.cloneElement(trigger, {
@@ -91,6 +91,7 @@ class MUITablePopover extends React.Component<MUITablePopoverProps, MUITablePopo
         return (
             <React.Fragment>
                 <MuiPopover
+                    className={className}
                     action={actions => (this.popoverActions = actions)}
                     elevation={2}
                     open={open && this.state.open}

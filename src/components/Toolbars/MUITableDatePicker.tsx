@@ -18,14 +18,15 @@ const styles = (theme: Theme) =>
 
 const MUITableDatePicker = (props: WithStyles<typeof styles>) => {
     const { classes } = props;
-    const { options } = useMUITableContext();
+    const context = useMUITableContext();
+    const { options } = context;
     const {
         toolbar: {
             startDate,
             endDate,
             showDates,
             handleDateChange,
-            customToolbar,
+            customToolbarRight,
             startLabel,
             endLabel
         }
@@ -35,7 +36,7 @@ const MUITableDatePicker = (props: WithStyles<typeof styles>) => {
     if (showDates && !handleDateChange) {
         throw new Error('showDates=true provided to MUITableDatePicker but no handler provided');
     }
-    if (!showDates && !customToolbar) {
+    if (!showDates && !customToolbarRight) {
         return null;
     }
 
@@ -45,7 +46,7 @@ const MUITableDatePicker = (props: WithStyles<typeof styles>) => {
     return (
         <MuiPickersUtilsProvider utils={MomentUtils}>
             <div className={classes.datePickerWrapper}>
-                {customToolbar ? customToolbar() : null}
+                {customToolbarRight ? customToolbarRight(context) : null}
                 {showDates && startDate && handleDateChange ? (
                     <InlineDatePicker
                         className={classnames(

@@ -1,9 +1,9 @@
-import React from "react";
-import { cleanup, fireEvent, render, wait } from "react-testing-library";
-import sinon from "sinon";
-import MUITableDatePicker from "../../../src/components/Toolbars/MUITableDatePicker";
-import { DEFAULT_CONTEXT } from "../../../src/constants";
-import { MUITableTestContext } from "../../utils";
+import React from 'react';
+import { cleanup, fireEvent, render, wait } from 'react-testing-library';
+import sinon from 'sinon';
+import MUITableDatePicker from '../../../src/components/Toolbars/MUITableDatePicker';
+import { DEFAULT_CONTEXT } from '../../../src/constants';
+import { MUITableTestContext } from '../../utils';
 
 const sandbox = sinon.createSandbox();
 
@@ -11,7 +11,7 @@ afterEach(cleanup);
 afterAll(sandbox.restore);
 
 describe("MUITableDatePicker", () => {
-    test("returns null when !displayDates && !customToolbar", () => {
+    test("returns null when !displayDates && !customToolbarRight", () => {
         const { getByText } = render(
             <MUITableTestContext
                 override={{
@@ -50,7 +50,7 @@ describe("MUITableDatePicker", () => {
             );
         expect(test).toThrow();
     });
-    test("calls and renders customToolbar()", () => {
+    test("calls and renders customToolbarRight()", () => {
         const spy = sandbox.spy(() => "TEST");
         const { getByText } = render(
             <MUITableTestContext
@@ -60,7 +60,7 @@ describe("MUITableDatePicker", () => {
                         toolbar: {
                             ...DEFAULT_CONTEXT.options.toolbar,
                             showDates: false,
-                            customToolbar: spy
+                            customToolbarRight: spy
                         }
                     }
                 }}

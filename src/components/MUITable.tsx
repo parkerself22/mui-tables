@@ -1,3 +1,4 @@
+import CssBaseline from '@material-ui/core/CssBaseline';
 import React, { useContext } from 'react';
 import { MUITABLE_DEF_CONTEXT } from '../constants';
 import MUITableUtils from '../constants/MUITableUtils';
@@ -38,7 +39,7 @@ export class MUIChildTable extends React.Component<Props<any>, State<any>> {
             columnFilters: props.columns.map(() => []),
             selectedRows: [],
             search: {
-                open: false,
+                open: options.display.fixedSearch,
                 text: null
             },
             viewColumns: props.columns.map(c => c.display === 'true'),
@@ -298,6 +299,7 @@ export class MUIChildTable extends React.Component<Props<any>, State<any>> {
 
         return (
             <MUITABLE_DEF_CONTEXT.Provider value={context}>
+                <CssBaseline />
                 <MUITableWrapper loading={loading} />
             </MUITABLE_DEF_CONTEXT.Provider>
         );

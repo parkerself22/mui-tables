@@ -21,7 +21,7 @@ const PaginationActions = (props: TablePaginationActionsProps & WithStyles<typeo
     const { displayRows, options } = useMUITableContext();
     const textLabels = options.translations.pagination;
     const { classes, onChangePage, page, rowsPerPage } = props;
-    const lastPage = (displayRows.length / rowsPerPage) - 1;
+    const lastPage = displayRows.length / rowsPerPage - 1;
 
     const handleFirstPageButtonClick = (e: any) => {
         onChangePage(e, 0);

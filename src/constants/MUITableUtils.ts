@@ -249,7 +249,7 @@ export default class MUITableUtils {
             [] as string[]
         );
         if (idVals.length <= 0) {
-            return "-";
+            return '-';
         }
         return idVals.join('-');
     };
@@ -278,7 +278,7 @@ export default class MUITableUtils {
         const defaultOpts = DEFAULT_OPTS;
         const options: Options<any> = {
             title: props.title,
-            loading:  props.loading,
+            loading: props.loading,
             display: {
                 ...defaultOpts.display,
                 ...props.display
@@ -318,7 +318,7 @@ export default class MUITableUtils {
         const defaultCol = DEFAULT_COL;
         const columns: StateColumn<any>[] = staticCols.map(s => ({
             ...defaultCol,
-            isRowId: s.type === "dimension",
+            isRowId: s.type === 'dimension',
             ...s
         }));
         return generatedColumns

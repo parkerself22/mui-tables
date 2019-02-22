@@ -136,7 +136,7 @@ const SummaryRow = (props: WithStyles<typeof styles>) => {
             {summaryRow.map((cell, index) => {
                 if (cell.visible.column.display === 'true' && viewColumns[index] !== false) {
                     if (index === 0 && !options.rows.selectable && cell.visible.value === null) {
-                        return <MUISummaryTitle classes={classes} key={"0"}/>;
+                        return <MUISummaryTitle classes={classes} key={'0'} />;
                     }
                     return (
                         <MUISummaryCell

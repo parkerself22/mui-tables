@@ -1,3 +1,4 @@
+import { Grid } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import React from 'react';
@@ -39,6 +40,9 @@ const classes = {
     },
     paper: {
         position: 'relative' as 'relative'
+    },
+    toolbarGrid: {
+        position: 'relative' as 'relative'
     }
 };
 
@@ -52,16 +56,12 @@ const MUITableWrapper = (props: Props) => {
     const { options, selectedRows } = context;
     const { title } = options;
     return (
-        <Paper
-            elevation={options.display.elevation}
-            style={classes.paper}
-        >
+        <Paper elevation={options.display.elevation} style={classes.paper}>
             <MUITableLoader loading={loading} />
-            {selectedRows.length > 0 ? (
-                <MUITableToolbarSelect />
-            ) : (
+            <Grid container spacing={0} style={classes.toolbarGrid}>
                 <MUITableToolbar context={context} />
-            )}
+                {options.rows.selectBarTop && <MUITableToolbarSelect />}
+            </Grid>
             <MUITableFilterList />
             <div
                 data-testid="responsive-style-div"

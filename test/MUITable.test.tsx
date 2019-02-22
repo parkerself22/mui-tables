@@ -476,11 +476,33 @@ describe('MUITableChild', () => {
     });
 });
 describe('MUITableWrapper', () => {
-    test('renders MUITableToolbarSelect', () => {
+    test('renders MUITableToolbarSelect when !selectBarTop', () => {
         const { getByTitle, getByText } = render(
             <MUITableTestContext
                 override={{
                     selectedRows: ["test"]
+                }}
+            >
+                <MUITableWrapper loading={false} />
+            </MUITableTestContext>
+        );
+        const testDelButton = () => getByTitle("Delete");
+        const testText = () => getByText("1 row(s) selected");
+        expect(testDelButton).not.toThrow();
+        expect(testText).not.toThrow();
+    });
+    test('renders MUITableToolbarSelect when selectBarTop', () => {
+        const { getByTitle, getByText } = render(
+            <MUITableTestContext
+                override={{
+                    selectedRows: ["test"],
+                    options: {
+                        ...DEFAULT_OPTS,
+                        rows: {
+                            ...DEFAULT_OPTS.rows,
+                            selectBarTop: true
+                        }
+                    }
                 }}
             >
                 <MUITableWrapper loading={false} />

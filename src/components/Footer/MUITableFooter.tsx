@@ -1,6 +1,7 @@
 import Table from '@material-ui/core/Table';
 import React from 'react';
 import { useMUITableContext } from '../MUITable';
+import MUITableToolbarSelect from '../Toolbars/MUITableToolbarSelect';
 import MUITablePagination from './MUITablePagination';
 
 const MUITableFooter = () => {
@@ -13,9 +14,12 @@ const MUITableFooter = () => {
         return null;
     }
     return (
-        <Table>
-            <MUITablePagination />
-        </Table>
+        <div style={{ position: "relative" }}>
+            {!options.rows.selectBarTop && <MUITableToolbarSelect />}
+            <Table>
+                <MUITablePagination />
+            </Table>
+        </div>
     );
 };
 export default MUITableFooter;
