@@ -1,6 +1,6 @@
 # Overview \| MUI Tables
 
-![Travis \(.org\)](https://img.shields.io/travis/parkerself22/mui-tables.svg?logo=travis) ![npm](https://img.shields.io/npm/v/mui-tables.svg?color=F94048&label=mui-tables&logo=npm)  [![codecov](https://codecov.io/gh/parkerself22/mui-table/branch/master/graph/badge.svg)](https://codecov.io/gh/parkerself22/mui-table)![npm](https://img.shields.io/npm/dw/mui-tables.svg?logo=npm)
+[![Travis \(.org\)](https://img.shields.io/travis/parkerself22/mui-tables.svg?logo=travis)](https://travis-ci.org/parkerself22/mui-tables) [![npm](https://img.shields.io/npm/v/mui-tables.svg?color=F94048&label=mui-tables&logo=npm) ](https://www.npmjs.com/package/mui-tables) [![codecov](https://codecov.io/gh/parkerself22/mui-table/branch/master/graph/badge.svg)](https://codecov.io/gh/parkerself22/mui-table)[![npm](https://img.shields.io/npm/dw/mui-tables.svg?logo=npm)](https://www.npmjs.com/package/mui-tables)
 
 ### [DOCUMENTATION SITE](https://parkerself.gitbook.io/mui-table/)
 
