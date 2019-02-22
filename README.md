@@ -1,6 +1,6 @@
 # Overview \| MUI Tables
 
-[![Build Status](https://travis-ci.org/parkerself22/mui-table.svg?branch=master)](https://travis-ci.org/parkerself22/mui-table) [![npm-version](https://img.shields.io/npm/v/mui-tables.svg?style=flat)](https://www.npmjs.com/package/mui-tables) [![codecov](https://codecov.io/gh/parkerself22/mui-table/branch/master/graph/badge.svg)](https://codecov.io/gh/parkerself22/mui-table)
+[![Build Status](https://travis-ci.org/parkerself22/mui-tables.svg?branch=master)](https://travis-ci.org/parkerself22/mui-tables) [![npm-version](https://img.shields.io/npm/v/mui-tables.svg?style=flat)](https://www.npmjs.com/package/mui-tables) [![codecov](https://codecov.io/gh/parkerself22/mui-table/branch/master/graph/badge.svg)](https://codecov.io/gh/parkerself22/mui-table)
 
 MUI Tables is a highly-pluggable table library built on top of the fantastic [Material-UI component library](https://github.com/mui-org/material-ui). 
 
@@ -84,7 +84,7 @@ prop?: ~type~ = value
 interface Props {
     title: string;
     loading: boolean;
-    data: Object[];
+    data: Object<any>[];
     columns: {
         static: Column[];
         // Dynamic column definitions (columns generated from dataset, see Examples @todo)
@@ -106,7 +106,7 @@ interface Props {
         responsive?: 'stacked' | 'scroll' = 'scroll'; // Enable horizontal scrolling for overflow
         filterValues?: boolean = true; // Show current active filters at Chip elements at top of table
     };
-    // Toolbar options
+    
     toolbar?: {
         showDates: boolean; // Show date pickers
         startDate?: Date; // Required if showDates: true
@@ -118,7 +118,7 @@ interface Props {
         // Custom toolbar element to render
         customToolbar?: () => ReactNode;
     }
-    // Row options
+
     rows?: {
         rowHover?: boolean = false; // Enable hover styles for rows
         showSummaryRow?: boolean = false; // Show the summary row
@@ -128,23 +128,117 @@ interface Props {
         setRowProps?: (row: Row, rowIndex: number) => { [k: string]: any };
         // Custom element to render when rows selected
         customToolbarSelect?: (selectedRows: Row[]) => ReactNode;
-        joinProps?: string[]; // Column names that are ok to merge rows with when columns hidden
+        /**
+         * @property {boolean = true} skipDuplicates
+         *
+         * If this is true, rows with all cell values matching will be only displayed once.
+         *
+         * IMPORTANT: Takes precedence over mergeDuplicates, so make sure skipDuplicates = false if
+         * mergeDuplicates is the desired behavior
+         *
+         * Example if true:
+         * rows = [ [parker, 11/1, 5], [parker, 11/1, 5] ]
+         * displayRows = [ [parker, 11/1, 5] ]
+         */
+        skipDuplicates: boolean;
+        
+        /**
+         * @property {boolean = false} mergeDuplicates
+         *
+         * If this is true, rows with duplicate dimensions will have their metric columns summed
+         * instead of displaying twice.
+         *
+         * IMPORTANT: skipDuplicates takes precedence over mergeDuplicates, so make sure
+         * skipDuplicates = false if mergeDuplicates is the desired behavior
+         *
+         * Example if true:
+         * rows = [ [parker, 11/1, 5], [parker, 11/1, 5] ]
+         * displayRows = [ [parker, 11/1, 10] ]
+         */
+        mergeDuplicates: boolean;
+    
+        /**
+         * Used for both mergeDuplicates and hiddenColumnsMergeDuplicates
+         * If not provided, each cell in a metric column is summed.
+         * @param cells {Row[]}
+         */
+        mergeFunction?: (rows: Row<any>[]) => Row<any>;
+    
+        /**
+         * @property {boolean = false} mergeHidden
+         *
+         * If this is true, rows with duplicate dimensions when columns are hidden
+         * will have their metric columns summed instead of displaying twice.
+         *
+         * Example if true:
+         *  columnsVisible = [true, false, true]
+         *  rows = [ [parker, 11/1, 5], [parker, 11/3, 5]
+         *  displayRows = [parker, null, 10]
+         */
+        hiddenColumnsMergeDuplicates: boolean;
     }
     // Pagination options
     pagination?: {
         page?: number = 0; // Initial page.
         rowsPerPage?: number; // Initial rows per page
-        rowsPerPageOptions?: number[]; // Options for rows per page
+        rowsPerPageOptions?: number[]; // Choices for rows per page
         // Render custom footer elements
         customFooter?: (context: MUITableContext) => ReactNode;
-        // Event handlers
+    };
+    // Text label overrides. Defaults:
+    translations?: {
+         body: {
+            noMatch: 'Sorry, no matching records found',
+            toolTip: 'Sort',
+            summary: 'SUMMARY'
+        },
+        pagination: {
+            next: 'Next Page',
+            previous: 'Previous Page',
+            first: 'First Page',
+            last: 'Last Page',
+            rowsPerPage: 'Rows per page:',
+            displayRows: 'of'
+        },
+        toolbar: {
+            search: 'Search',
+            downloadCsv: 'Download CSV',
+            print: 'Print',
+            viewColumns: 'View Columns',
+            filterTable: 'Filter Table'
+        },
+        filter: {
+            all: 'All',
+            title: 'FILTERS',
+            reset: 'RESET'
+        },
+        viewColumns: {
+            title: 'Show Columns',
+            titleAria: 'Show/Hide Table Columns'
+        },
+        selectedRows: {
+            text: 'row(s) selected',
+            delete: 'Delete',
+            deleteAria: 'Delete Selected Rows'
+        }
+    }
+    
+    hooks?: {
+        onSearchChange?: (searchText: string) => void;
+        onRowsSelect?: (
+            newSelections: Row[],
+            removedSelections: Row[],
+            currentSelections: Row[]
+        ) => void;
+        onRowsDelete?: (rowsDeleted: Row[]) => void;
+        onFilterChange?: (change: string | string[], filterList: string[][]) => void;
+        onRowClick?: (row: Row, rowIndex: number) => void;
+        onCellClick?: (cell: Cell<any>, row: Row<any>, rowIndex: number) => void;
+        onColumnSortChange?: (changedColumn: StateColumn<any>, direction: string|null) => void;
+        onColumnViewChange?: (changedColumn: StateColumn<any>, visible: boolean) => void;
         onChangePage?: (currentPage: number) => void;
         onChangeRowsPerPage?: (numberOfRows: number) => void;
     };
-
-    translations?: TranslationOptions; // See below
-    
-    hooks?: HookOptions;
 }
 ```
 
