@@ -1,5 +1,5 @@
 import spec from "../package.json";
-import MUITable, { MUITableUtils, MUITableDefaults } from 'mui-tables';
+import MUITable, { MUITableUtils, MUITableDefaults } from '../dist';
 
 test("package exports", () => {
     const path = spec.main.replace("dist", "src").replace("js", "ts");
