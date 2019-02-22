@@ -24,8 +24,7 @@ export const defaultToolbarStyles = (theme: Theme) => ({
     selectActive: {
         visibility: 'hidden' as 'hidden'
     },
-    leftBar: {
-    },
+    leftBar: {},
     actions: {
         textAlign: 'right' as 'right'
     },
@@ -119,17 +118,15 @@ export class MUITableToolbar extends React.Component<Props, State> {
         const { translations, display, title, toolbar } = options;
         const { viewColumns, filterTable } = translations.toolbar;
         const hidden = options.rows.selectBarTop && selectedRows.length > 0;
-        return toolbar.customToolbarFull ? ( /* Fragment  prevents errors if fn doesn't return*/
-            <React.Fragment >
-                { toolbar.customToolbarFull(context) }
-            </React.Fragment>
+        return toolbar.customToolbarFull /* Fragment  prevents errors if fn doesn't return*/ ? (
+            <React.Fragment>{toolbar.customToolbarFull(context)}</React.Fragment>
         ) : (
             <Toolbar
                 className={classNames(classes.root, hidden && classes.selectActive)}
                 role={'toolbar'}
                 aria-label={'Table Toolbar'}
             >
-                <Grid container spacing={0} alignItems={"center"}>
+                <Grid container spacing={0} alignItems={'center'}>
                     <Grid item xs={6} className={classes.leftBar}>
                         {display.fixedSearch ? (
                             <MUITableFixedSearch />
@@ -214,7 +211,7 @@ export class MUITableToolbar extends React.Component<Props, State> {
                     </Grid>
                 </Grid>
                 {toolbar.customToolbarBottom ? (
-                    <Grid container spacing={0} alignItems={"center"}>
+                    <Grid container spacing={0} alignItems={'center'}>
                         {toolbar.customToolbarBottom(context)}
                     </Grid>
                 ) : null}

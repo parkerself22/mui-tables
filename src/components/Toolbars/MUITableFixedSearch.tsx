@@ -42,7 +42,7 @@ export const FixedSearchPopover = (props: WithStyles<typeof popStyles>) => {
             className={classes.pop}
             trigger={
                 <IconButton
-                    data-testid={"fixed-search-filter"}
+                    data-testid={'fixed-search-filter'}
                     aria-label={options.translations.filter.title}
                     className={classes.iconButton}
                     classes={{ root: active ? classes.iconActive : classes.icon }}
@@ -163,7 +163,7 @@ const MUITableFixedSearch = (props: WithStyles<typeof searchStyles>) => {
                     fullWidth
                     InputProps={{
                         inputProps: {
-                            "data-testid": "fixed-search-input"
+                            'data-testid': 'fixed-search-input'
                         },
                         classes: {
                             root: classes.inputRoot,
@@ -181,8 +181,8 @@ const MUITableFixedSearch = (props: WithStyles<typeof searchStyles>) => {
                                 {search.text && search.text.length > 0 ? (
                                     <InputAdornment position="end" className={classes.adornment}>
                                         <IconButton
-                                            data-testid={"clear-fixed-search"}
-                                            id={"clear-fixed-search"}
+                                            data-testid={'clear-fixed-search'}
+                                            id={'clear-fixed-search'}
                                             className={classes.iconButton}
                                             onClick={() => changeText()}
                                         >

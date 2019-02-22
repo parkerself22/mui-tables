@@ -14,7 +14,7 @@ const MUITableFooter = () => {
         return null;
     }
     return (
-        <div style={{ position: "relative" }}>
+        <div style={{ position: 'relative' }}>
             {!options.rows.selectBarTop && <MUITableToolbarSelect />}
             <Table>
                 <MUITablePagination />

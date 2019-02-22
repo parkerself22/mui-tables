@@ -19,7 +19,7 @@ const defaultToolbarSelectStyles = (theme: Theme) => ({
         flex: '1 1 100%',
         display: 'none',
         height: 56,
-        minHeight: "unset",
+        minHeight: 'unset',
         zIndex: 120,
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -34,16 +34,16 @@ const defaultToolbarSelectStyles = (theme: Theme) => ({
     },
     top: {
         top: 0,
-        height: "100%",
+        height: '100%',
         '&$active': {
             borderBottom: `1px solid ${theme.palette.divider}`,
-            borderRadius: "4px 4px 0"
+            borderRadius: '4px 4px 0'
         }
     },
     bottom: {
         bottom: 0,
         '&$active': {
-            borderRadius: "0 0 4px 4px"
+            borderRadius: '0 0 4px 4px'
         }
     },
     title: {
@@ -55,12 +55,12 @@ const defaultToolbarSelectStyles = (theme: Theme) => ({
     },
     deleteIcon: {},
     titleGrid: {
-        display: "flex" as "flex",
-        justifyContent: "flex-start"
+        display: 'flex' as 'flex',
+        justifyContent: 'flex-start'
     },
     actionsGrid: {
-        display: "flex" as "flex",
-        justifyContent: "flex-end"
+        display: 'flex' as 'flex',
+        justifyContent: 'flex-end'
     }
 });
 
@@ -88,7 +88,7 @@ const TableToolbarSelect = (props: Props) => {
                             {selectedRows.length} {textLabels.text}
                         </Typography>
                     </Grid>
-                    <Grid item xs={8} className={classes.actionsGrid} >
+                    <Grid item xs={8} className={classes.actionsGrid}>
                         {options.rows.hideSelectDelete ? null : (
                             <Tooltip title={textLabels.delete}>
                                 <IconButton

@@ -20,7 +20,9 @@
         "prettier:write": "npm run prettier:base -- --write \"src/**/*.{ts,tsx}\"",
         "storybook": "start-storybook -p 9009 -s public",
         "build-storybook": "build-storybook -s public -o .storybook/public",
-        "deploy-storybook": "storybook-to-aws-s3 --bucket-path=mui-table --aws-profile=default --out=.storybook/public"
+        "deploy-storybook": "storybook-to-aws-s3 --bucket-path=mui-table --aws-profile=default --out=.storybook/public",
+        "git:pre-commit": "git add .",
+        "commit": "git add . && git-cz"
     },
     "devDependencies": {
         "@babel/core": "7.1.6",
@@ -68,6 +70,8 @@
         "babel-preset-react-app": "^7.0.1",
         "classnames": "^2.2.6",
         "codecov": "^3.1.0",
+        "commitizen": "^3.0.7",
+        "cz-conventional-changelog": "^2.1.0",
         "depcheck": "^0.7.1",
         "dotenv": "6.0.0",
         "dotenv-expand": "4.2.0",
@@ -135,7 +139,8 @@
     "pre-commit": [
         "prettier:write",
         "lint",
-        "test:push"
+        "test:push",
+        "git:pre-commit"
     ],
     "pre-push": [
         "test:push"
@@ -190,5 +195,8 @@
             "@babel/preset-react",
             "babel-preset-react-app"
         ]
+    },
+    "czConfig": {
+        "path": "node_modules/cz-conventional-changelog"
     }
 }
