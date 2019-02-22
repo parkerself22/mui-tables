@@ -5,8 +5,8 @@ cache: npm
 before_script:
   - npm prune
 script:
-  - npm run test:coverage
   - npm run build
+  - npm run test:coverage
 after_success:
   - npm run release
   - codecov

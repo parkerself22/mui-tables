@@ -18,7 +18,7 @@
         "prettier:check": "npm run prettier:base -- --list-different \"src/**/*.{ts,tsx}\"",
         "prettier:write": "npm run prettier:base -- --write \"src/**/*.{ts,tsx}\"",
         "storybook": "start-storybook -p 9009 -s public",
-        "build-storybook": "build-storybook -s public -o .storybook/public",
+        "build-storybook": "build-storybook -c .storybook -s public -o .storybook/public",
         "deploy-storybook": "storybook-to-aws-s3 --bucket-path=mui-table --aws-profile=default --out=.storybook/public",
         "git:pre-commit": "git add .",
         "commit": "git add . && git-cz"

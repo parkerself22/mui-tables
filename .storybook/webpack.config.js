@@ -1,8 +1,8 @@
 const path = require("path");
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+
 module.exports = (baseConfig, env, config) => {
     config.module.rules.push({
-        test: /\.tsx?$/,
+        test: /\.(ts|tsx)$/,
         include: [
             path.resolve(__dirname, "../src"),
             path.resolve(__dirname, "../test"),
@@ -15,7 +15,9 @@ module.exports = (baseConfig, env, config) => {
                     presets: [require.resolve('babel-preset-react-app')]
                 }
             },
-            require.resolve("react-docgen-typescript-loader")
+            {
+                loader: require.resolve("react-docgen-typescript-loader")
+            }
         ],
         resolve: {
             alias: {
@@ -23,7 +25,6 @@ module.exports = (baseConfig, env, config) => {
             }
         }
     });
-    //defaultConfig.plugins.push(new TSDocgenPlugin());
-    config.resolve.extensions.push(".ts", ".tsx", ".js");
+    config.resolve.extensions.push(".ts", ".tsx");
     return config;
 };
