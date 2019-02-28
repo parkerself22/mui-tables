@@ -6,7 +6,7 @@ import MUITableFilter, {
     MUITableSelectFilter
 } from '../../../../src/components/Toolbars/Filters/MUITableFilter';
 import MUITableFilterList from '../../../../src/components/Toolbars/Filters/MUITableFilterList';
-import { DEFAULT_OPTS } from '../../../../src/constants';
+import { DEFAULT_COL, DEFAULT_OPTS } from '../../../../src/constants';
 import MUITableUtils from '../../../../src/constants/MUITableUtils';
 import { EXAMPLE_COLUMNS, EXAMPLE_INPUT_DATA, MUITableTestContext } from '../../../utils';
 
@@ -19,6 +19,22 @@ describe('Filter Components', () => {
         test('renders with title', () => {
             const { getByText } = render(
                 <MUITableTestContext>
+                    <MUITableFilter />
+                </MUITableTestContext>
+            );
+            const test = () => getByText('FILTERS');
+            expect(test).not.toThrow();
+        });
+        test('handles columns with filter = false', () => {
+            const { getByText } = render(
+                <MUITableTestContext override={{columns: [{
+                        ...DEFAULT_COL,
+                        filter: false
+                    }, {
+                        ...DEFAULT_COL,
+                        filter: true,
+                        filterOptions: undefined
+                    }]}}>
                     <MUITableFilter />
                 </MUITableTestContext>
             );

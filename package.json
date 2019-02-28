@@ -145,9 +145,7 @@
         "test:push",
         "git:pre-commit"
     ],
-    "pre-push": [
-        "test:push"
-    ],
+    "pre-push": [],
     "jest": {
         "collectCoverageFrom": [
             "src/**/*.{js,jsx,ts,tsx}",

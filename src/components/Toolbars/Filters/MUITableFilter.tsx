@@ -300,34 +300,33 @@ const MUITableFilter = (props: Props) => {
                 </div>
                 <div className={classes.filtersSelected} />
             </div>
-            {columns
-                .filter<WithFilterOpts>(
-                    (c): c is WithFilterOpts => !!c.filterOptions && c.filter !== false
-                )
-                .map((col, index) => {
-                    return col.filterOptions.type === 'checkbox' ? (
-                        <MUITableCheckBoxFilter
-                            classes={classes}
-                            column={col}
-                            index={index}
-                            currentValues={columnFilters[index]}
-                        />
-                    ) : col.filterOptions.type === 'multiselect' ? (
-                        <MUITableMultiSelectFilter
-                            classes={classes}
-                            column={col}
-                            index={index}
-                            currentValues={columnFilters[index]}
-                        />
-                    ) : (
-                        <MUITableSelectFilter
-                            classes={classes}
-                            column={col}
-                            index={index}
-                            currentValues={columnFilters[index]}
-                        />
-                    );
-                })}
+            {columns.map((col, index) => {
+                if (!col.filter || !col.filterOptions) {
+                    return null;
+                }
+                return col.filterOptions.type === 'checkbox' ? (
+                    <MUITableCheckBoxFilter
+                        classes={classes}
+                        column={col}
+                        index={index}
+                        currentValues={columnFilters[index]}
+                    />
+                ) : col.filterOptions.type === 'multiselect' ? (
+                    <MUITableMultiSelectFilter
+                        classes={classes}
+                        column={col}
+                        index={index}
+                        currentValues={columnFilters[index]}
+                    />
+                ) : (
+                    <MUITableSelectFilter
+                        classes={classes}
+                        column={col}
+                        index={index}
+                        currentValues={columnFilters[index]}
+                    />
+                );
+            })}
         </div>
     );
 };
