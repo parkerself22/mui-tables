@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/parkerself22/mui-table/compare/v2.0.0...v2.0.1) (2019-02-28)
+
+
+### Bug Fixes
+
+* **Fixed header and column options:** The fixed header was only rendering at 25% of toolbar when sho ([bdab0a9](https://github.com/parkerself22/mui-table/commit/bdab0a9))
+
 # [2.0.0](https://github.com/parkerself22/mui-table/compare/v1.1.0...v2.0.0) (2019-02-22)
 
 
