@@ -301,7 +301,9 @@ const MUITableFilter = (props: Props) => {
                 <div className={classes.filtersSelected} />
             </div>
             {columns
-                .filter<WithFilterOpts>((c): c is WithFilterOpts => !!c.filterOptions)
+                .filter<WithFilterOpts>(
+                    (c): c is WithFilterOpts => !!c.filterOptions && c.filter !== false
+                )
                 .map((col, index) => {
                     return col.filterOptions.type === 'checkbox' ? (
                         <MUITableCheckBoxFilter

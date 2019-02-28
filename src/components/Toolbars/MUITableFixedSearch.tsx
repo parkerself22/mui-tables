@@ -150,7 +150,7 @@ const MUITableFixedSearch = (props: WithStyles<typeof searchStyles>) => {
             alignItems={'center'}
             data-testid={'FixedSearch'}
         >
-            <Grid item xs={6}>
+            <Grid item xs={12}>
                 <Typography variant={'h5'} gutterBottom>
                     {title}
                 </Typography>
