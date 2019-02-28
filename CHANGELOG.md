@@ -1,3 +1,16 @@
+# [2.0.0](https://github.com/parkerself22/mui-table/compare/v1.1.0...v2.0.0) (2019-02-22)
+
+
+### Bug Fixes
+
+* **MUITableToolbarSelect && Options:** Renamed a few of the options for clarity. Fixed the fact that ([5a4681f](https://github.com/parkerself22/mui-table/commit/5a4681f))
+
+
+### BREAKING CHANGES
+
+* **MUITableToolbarSelect && Options:** Renamed hiddenColumnsMergeDuplicates row option to hiddenColumnMerge. Added context
+as an argument to customToolbarSelect function.
+
 # [1.1.0](https://github.com/parkerself22/mui-table/compare/v1.0.12...v1.1.0) (2019-02-22)
 
 
