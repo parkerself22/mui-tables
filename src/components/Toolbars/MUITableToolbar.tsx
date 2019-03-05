@@ -19,7 +19,8 @@ import MUITableViewCols from './MUITableViewCols';
 
 export const defaultToolbarStyles = (theme: Theme) => ({
     root: {
-        width: '100%'
+        width: '100%',
+        flexWrap: 'wrap' as 'wrap'
     },
     selectActive: {
         visibility: 'hidden' as 'hidden'
