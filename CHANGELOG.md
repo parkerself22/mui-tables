@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/parkerself22/mui-table/compare/v2.0.1...v2.0.2) (2019-02-28)
+
+
+### Bug Fixes
+
+* **ColumnFilters:** The removal of filter: false columns threw off column filter indexes ([3909773](https://github.com/parkerself22/mui-table/commit/3909773))
+
 ## [2.0.1](https://github.com/parkerself22/mui-table/compare/v2.0.0...v2.0.1) (2019-02-28)
 
 
