@@ -1,3 +1,10 @@
+## [2.0.3](https://github.com/parkerself22/mui-table/compare/v2.0.2...v2.0.3) (2019-03-05)
+
+
+### Bug Fixes
+
+* **customToolbarBottom option:** Fix an issue with styling ([e4e7074](https://github.com/parkerself22/mui-table/commit/e4e7074))
+
 ## [2.0.2](https://github.com/parkerself22/mui-table/compare/v2.0.1...v2.0.2) (2019-02-28)
 
 
