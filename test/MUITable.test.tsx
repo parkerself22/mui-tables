@@ -541,8 +541,7 @@ describe('MUITableWrapper', () => {
             </MUITableTestContext>
         );
         const styleDiv = getByTestId('responsive-style-div');
-        expect(styleDiv.style.position).toBe("relative");
-        expect(styleDiv.style.overflowX).toBe("");
+        expect(styleDiv.className.includes("responsiveStack")).toBe(true);
     });
     test('uses options.display.elevation', () => {
         const { container } = render(

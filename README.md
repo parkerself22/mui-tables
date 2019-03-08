@@ -1,6 +1,6 @@
 # Overview \| MUI Tables
 
-[![Travis \(.org\)](https://img.shields.io/travis/parkerself22/mui-tables.svg?logo=travis)](https://travis-ci.org/parkerself22/mui-tables) [![npm](https://img.shields.io/npm/v/mui-tables.svg?color=F94048&label=mui-tables&logo=npm) ](https://www.npmjs.com/package/mui-tables) [![codecov](https://codecov.io/gh/parkerself22/mui-table/branch/master/graph/badge.svg)](https://codecov.io/gh/parkerself22/mui-table)[![npm](https://img.shields.io/npm/dw/mui-tables.svg?logo=npm)](https://www.npmjs.com/package/mui-tables)
+[![Travis \(.org\)](https://img.shields.io/travis/parkerself22/mui-tables.svg?logo=travis)](https://travis-ci.org/parkerself22/mui-tables) [![npm](https://img.shields.io/npm/v/mui-tables.svg?color=F94048&label=mui-tables&logo=npm) ](https://www.npmjs.com/package/mui-tables) [![codecov](https://codecov.io/gh/parkerself22/mui-table/branch/master/graph/badge.svg)](https://codecov.io/gh/parkerself22/mui-table) [![npm](https://img.shields.io/npm/dw/mui-tables.svg?logo=npm)](https://www.npmjs.com/package/mui-tables)
 
 ### [DOCUMENTATION SITE](https://parkerself.gitbook.io/mui-table/)
 
@@ -8,7 +8,7 @@ MUI Tables is a highly-pluggable table library built on top of the fantastic [Ma
 
 While multiple libraries already provide many of the features included, few \(in my opinion\) provide as much abstraction on top of the data management aspect of building and using tables. The goal for MUI Tables is to make data management as painless as possible while providing as many customization options as possible.
 
-### \*\*\*\*[**Play with the Configurable Demo here**](https://s3.amazonaws.com/mui-table/index.html)**!**
+### [**Play with the Configurable Demo here!**](https://s3.amazonaws.com/mui-table/index.html)
 
 ![Example with Summary, Date Toolbar, Filters, ](docs/.gitbook/assets/image%20%2810%29.png)
 
@@ -100,7 +100,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* \*\*\*\*[**Parker Self**](https://github.com/parkerself22) - _Initial work_ 
+* [**Parker Self**](https://github.com/parkerself22) - _Initial work_ 
 
 ## License
 

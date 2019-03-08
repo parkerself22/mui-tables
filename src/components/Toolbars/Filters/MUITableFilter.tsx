@@ -306,6 +306,7 @@ const MUITableFilter = (props: Props) => {
                 }
                 return col.filterOptions.type === 'checkbox' ? (
                     <MUITableCheckBoxFilter
+                        key={index}
                         classes={classes}
                         column={col}
                         index={index}
@@ -313,6 +314,7 @@ const MUITableFilter = (props: Props) => {
                     />
                 ) : col.filterOptions.type === 'multiselect' ? (
                     <MUITableMultiSelectFilter
+                        key={index}
                         classes={classes}
                         column={col}
                         index={index}
@@ -320,6 +322,7 @@ const MUITableFilter = (props: Props) => {
                     />
                 ) : (
                     <MUITableSelectFilter
+                        key={index}
                         classes={classes}
                         column={col}
                         index={index}

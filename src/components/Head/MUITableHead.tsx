@@ -49,6 +49,4 @@ export const MUITableHead = (props: Props) => {
     );
 };
 
-export default withStyles(defaultHeadStyles, { name: 'MUITableHead' })(
-    MUITableHead
-) as React.FunctionComponent<MUITableHeadProps>;
+export default withStyles(defaultHeadStyles, { name: 'MUITableHead' })(MUITableHead);

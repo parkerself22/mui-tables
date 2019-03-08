@@ -1,3 +1,5 @@
+import { createStyles, StyleRulesCallback, WithStyles } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
 import MuiTableBody from '@material-ui/core/TableBody';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
@@ -9,14 +11,17 @@ import MUITableBodyCell from './MUITableBodyCell';
 import MUITableBodyRow from './MUITableBodyRow';
 import MUITableSelectCell from './MUITableSelectCell';
 
-const classes = {
-    root: {},
-    emptyTitle: {
-        textAlign: 'center' as 'center'
-    }
-};
+const styles: StyleRulesCallback<any> = theme =>
+    createStyles({
+        root: {},
+        bodyRow: {},
+        emptyTitle: {
+            textAlign: 'center' as 'center'
+        }
+    });
 
-const MUITableBody = () => {
+const MUITableBody = (props: WithStyles<typeof styles>) => {
+    const { classes } = props;
     const {
         displayRows,
         columns,
@@ -35,24 +40,27 @@ const MUITableBody = () => {
 
     if (tableRows.length <= 0) {
         return (
-            <MUITableBodyRow index={0}>
-                <MUITableBodyCell
-                    key={'0'}
-                    colSpan={options.rows.selectable ? columns.length + 1 : columns.length}
-                    rowIndex={0}
-                >
-                    <Typography variant="subtitle1" style={classes.emptyTitle}>
-                        {options.translations.body.noMatch}
-                    </Typography>
-                </MUITableBodyCell>
-            </MUITableBodyRow>
+            <MuiTableBody className={classes.root}>
+                <MUITableBodyRow index={0} className={classes.bodyRow}>
+                    <MUITableBodyCell
+                        key={'0'}
+                        colSpan={options.rows.selectable ? columns.length + 1 : columns.length}
+                        rowIndex={0}
+                    >
+                        <Typography variant="subtitle1" className={classes.emptyTitle}>
+                            {options.translations.body.noMatch}
+                        </Typography>
+                    </MUITableBodyCell>
+                </MUITableBodyRow>
+            </MuiTableBody>
         );
     }
     const setRowProps = options.rows.setRowProps;
     return (
-        <MuiTableBody>
+        <MuiTableBody className={classes.root}>
             {tableRows.map((row, rowIndex) => (
                 <MUITableBodyRow
+                    className={classes.bodyRow}
                     index={rowIndex}
                     key={rowIndex}
                     {...(setRowProps ? setRowProps(row, rowIndex) : {})}
@@ -95,4 +103,4 @@ const MUITableBody = () => {
     );
 };
 
-export default MUITableBody;
+export default withStyles(styles, { withTheme: true, name: 'MUITableBody' })(MUITableBody);

@@ -47,6 +47,6 @@ const MUITableFilterList = (props: Props) => {
     );
 };
 
-export default withStyles(defaultFilterListStyles)(MUITableFilterList) as React.FunctionComponent<
-    MUITableFilterListProps
->;
+export default withStyles(defaultFilterListStyles, { name: 'MUITableFilterList' })(
+    MUITableFilterList
+);

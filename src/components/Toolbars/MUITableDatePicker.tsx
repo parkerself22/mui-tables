@@ -74,6 +74,6 @@ const MUITableDatePicker = (props: WithStyles<typeof styles>) => {
         </MuiPickersUtilsProvider>
     );
 };
-export default withStyles(styles, { withTheme: true })(
+export default withStyles(styles, { withTheme: true, name: 'MUITableDatePicker' })(
     MUITableDatePicker
-) as React.FunctionComponent<{}>;
+);

@@ -74,7 +74,8 @@ const PaginationActions = (props: TablePaginationActionsProps & WithStyles<typeo
     );
 };
 
-export const MUITablePaginationActions = withStyles(styles, { withTheme: true })(
-    PaginationActions
-) as React.FunctionComponent<TablePaginationActionsProps>;
+export const MUITablePaginationActions = withStyles(styles, {
+    withTheme: true,
+    name: 'MUITablePaginationActions'
+})(PaginationActions);
 export default MUITablePaginationActions;

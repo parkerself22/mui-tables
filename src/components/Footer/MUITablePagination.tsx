@@ -92,4 +92,4 @@ const MUITablePagination = (props: Props & any) => {
 
 export default withStyles(defaultPaginationStyles, { name: 'MUITablePagination' })(
     MUITablePagination
-) as React.FunctionComponent<MUITablePaginationProps & any>;
+);

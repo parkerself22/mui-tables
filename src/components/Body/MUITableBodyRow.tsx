@@ -37,6 +37,4 @@ const MUITableBodyRow = (props: Props) => {
     );
 };
 
-export default withStyles(styles, { name: 'MUITableBodyRow' })(
-    MUITableBodyRow
-) as React.FunctionComponent<MUITableBodyRowProps>;
+export default withStyles(styles, { name: 'MUITableBodyRow' })(MUITableBodyRow);

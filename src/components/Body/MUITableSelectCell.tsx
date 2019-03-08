@@ -95,4 +95,4 @@ const TableSelectCell = (props: Props) => {
 
 export default withStyles(defaultSelectCellStyles, { name: 'MUIDataTableSelectCell' })(
     TableSelectCell
-) as React.ComponentType<MUITableSelectCellProps>;
+);
