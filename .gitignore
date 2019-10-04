@@ -25,4 +25,4 @@ jspm_packages/
 .idea/
 .env
 dist/
-
+.storybook/public

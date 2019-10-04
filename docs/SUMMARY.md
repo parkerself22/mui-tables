@@ -1,7 +1,7 @@
 # Table of contents
 
 * [Overview \| MUI Tables](../README.md)
-* [Playground](https://s3.amazonaws.com/mui-table/index.html)
+* [Playground](https://parkerself22.github.io/mui-tables/)
 
 ## Options & Types
 

@@ -2,7 +2,7 @@
 
 ## MUITable Props
 
-The ****[**configurable example**](https://s3.amazonaws.com/mui-table)  is a great way to see all of the options in action.
+The ****[**configurable example**](https://parkerself22.github.io/mui-tables/)  is a great way to see all of the options in action.
 
 ```jsx
 <MUITable 

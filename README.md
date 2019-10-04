@@ -8,7 +8,7 @@ MUI Tables is a highly-pluggable table library built on top of the fantastic [Ma
 
 While multiple libraries already provide many of the features included, few \(in my opinion\) provide as much abstraction on top of the data management aspect of building and using tables. The goal for MUI Tables is to make data management as painless as possible while providing as many customization options as possible.
 
-### [**Play with the Configurable Demo here!**](https://s3.amazonaws.com/mui-table/index.html)
+### [**Play with the Configurable Demo here!**](https://parkerself22.github.io/mui-tables/)
 
 ![Example with Summary, Date Toolbar, Filters, ](docs/.gitbook/assets/image%20%2810%29.png)
 
