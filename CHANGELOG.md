@@ -1,3 +1,10 @@
+## [2.0.4](https://github.com/parkerself22/mui-table/compare/v2.0.3...v2.0.4) (2019-03-08)
+
+
+### Bug Fixes
+
+* **Styles:** Fixed an issue with the no data row and made sure all components have style keys for ov ([9567f3c](https://github.com/parkerself22/mui-table/commit/9567f3c))
+
 ## [2.0.3](https://github.com/parkerself22/mui-table/compare/v2.0.2...v2.0.3) (2019-03-05)
 
 
